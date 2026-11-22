@@ -1,0 +1,2874 @@
+<!DOCTYPE html>
+<html lang="ms" class="font-normal">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDAWT | Arkib Digital Warisan Tempatan Malaysia (Mesra OKU)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bronze: {
+                            600: '#8B5E34',
+                            700: '#6F4926',
+                            800: '#53351A',
+                            900: '#38220F',
+                        },
+                        gold: {
+                            300: '#F0D38E',
+                            400: '#DFB65B',
+                            500: '#C89B3C',
+                            600: '#A67C24',
+                            700: '#825F16',
+                        },
+                        archive: {
+                            50: '#FAF7F2',
+                            100: '#F3ECE0',
+                            200: '#E5D8C1',
+                            300: '#D2BE9B',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Cinzel', 'Georgia', 'serif'],
+                        display: ['Cinzel', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        html.font-small { font-size: 14px; }
+        html.font-normal { font-size: 16px; }
+        html.font-large { font-size: 19px; }
+
+        body.high-contrast {
+            background-color: #000000 !important;
+            color: #ffff00 !important;
+        }
+        body.high-contrast .bg-archive-50,
+        body.high-contrast .bg-archive-100,
+        body.high-contrast .bg-white,
+        body.high-contrast .bg-amber-50,
+        body.high-contrast .bg-emerald-50,
+        body.high-contrast .bg-blue-50 {
+            background-color: #0a0a0a !important;
+            color: #ffffff !important;
+            border-color: #ffff00 !important;
+        }
+        body.high-contrast .text-bronze-900,
+        body.high-contrast .text-bronze-800,
+        body.high-contrast .text-slate-800,
+        body.high-contrast .text-slate-700,
+        body.high-contrast .text-slate-600,
+        body.high-contrast .text-blue-900,
+        body.high-contrast .text-emerald-900 {
+            color: #ffff00 !important;
+        }
+        body.high-contrast .bg-bronze-900,
+        body.high-contrast .bg-bronze-800 {
+            background-color: #000000 !important;
+            border-bottom: 2px solid #ffff00 !important;
+        }
+
+        .hero-archive-bg {
+            background-image: radial-gradient(rgba(200, 155, 60, 0.16) 1px, transparent 1px),
+                              linear-gradient(135deg, #2D1B0E 0%, #4A2E16 55%, #6F4926 100%);
+            background-size: 26px 26px, 100% 100%;
+        }
+
+        .card-hover {
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px -8px rgba(56, 34, 15, 0.2), 0 4px 12px -2px rgba(200, 155, 60, 0.28);
+        }
+
+        .card-img {
+            transition: transform 0.55s ease;
+        }
+        .card-hover:hover .card-img {
+            transform: scale(1.07);
+        }
+
+        .zoom-img {
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+        .zoom-img.zoomed {
+            transform: scale(1.55);
+            cursor: zoom-out;
+        }
+
+        .speaking-highlight {
+            outline: 2px solid #C89B3C;
+            background-color: #FFFBEB !important;
+        }
+    </style>
+</head>
+<body class="bg-archive-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- 1. BAR AKSES INKLUSIF OKU -->
+    <div class="bg-bronze-900 text-archive-100 border-b border-gold-500/40 text-xs py-2 px-4 sticky top-0 z-40 shadow">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span id="txt-gov-tag" class="font-semibold tracking-wider text-gold-300 uppercase">
+                    PORTAL ARKIB DIGITAL WARISAN SEJARAH TEMPATAN MALAYSIA (IDAWT • MESRA OKU)
+                </span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+                <label for="lang-select" class="sr-only">Pilihan Bahasa</label>
+                <select id="lang-select" onchange="setLanguage(this.value)"
+                    class="px-2.5 py-1 rounded-lg bg-bronze-800 text-gold-300 border border-gold-500/40 font-semibold text-xs cursor-pointer">
+                    <option value="ms">🇲🇾 Bahasa Melayu</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="zh">🇨🇳 中文 (Chinese)</option>
+                    <option value="ta">🇮🇳 தமிழ் (Tamil / India)</option>
+                    <option value="ar">🇸🇦 العربية (Arabic)</option>
+                    <option value="ja">🇯🇵 日本語 (Japanese)</option>
+                    <option value="ko">🇰🇷 한국어 (Korean)</option>
+                </select>
+
+                <div class="flex items-center bg-bronze-800 rounded-lg p-0.5 border border-gold-500/40" role="group" aria-label="Saiz Tulisan">
+                    <span id="txt-font-label" class="px-2 text-archive-200 hidden sm:inline">Saiz Tulisan:</span>
+                    <button type="button" id="btn-font-small" onclick="setFontSize('small')" class="px-2 py-1 rounded hover:bg-bronze-700 font-semibold cursor-pointer">A-</button>
+                    <button type="button" id="btn-font-normal" onclick="setFontSize('normal')" class="px-2 py-1 rounded bg-gold-500/30 text-gold-300 font-bold cursor-pointer">A</button>
+                    <button type="button" id="btn-font-large" onclick="setFontSize('large')" class="px-2 py-1 rounded hover:bg-bronze-700 font-semibold cursor-pointer">A+</button>
+                </div>
+
+                <button type="button" id="btn-contrast" onclick="toggleHighContrast()" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-bronze-800 hover:bg-bronze-700 border border-gold-500/40 text-gold-300 font-medium transition cursor-pointer">
+                    <span>👁️</span>
+                    <span id="txt-contrast-btn">Kontras Tinggi</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. PENGEPALA UTAMA & NAVIGASI -->
+    <header class="bg-white border-b-2 border-archive-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:py-5 flex flex-col lg:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5 text-center sm:text-left">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-gold-400 via-gold-500 to-bronze-700 p-0.5 shadow-md shrink-0 flex items-center justify-center">
+                    <div class="w-full h-full bg-bronze-900 rounded-[14px] flex items-center justify-center text-gold-400 font-display text-2xl font-bold">
+                        🏛️
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center justify-center sm:justify-start gap-2">
+                        <span id="txt-badge-top" class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-archive-100 text-bronze-700 border border-archive-300 rounded">
+                            ARKIB DIGITAL INKLUSIF OKU
+                        </span>
+                        <span id="txt-auth-tag" class="text-xs text-emerald-700 font-semibold hidden sm:inline">✓ Teks Sejarah &amp; Panduan Audio</span>
+                    </div>
+                    <h1 id="txt-main-title" class="font-display text-lg sm:text-2xl font-bold text-bronze-900 tracking-wide mt-0.5">
+                        ARKIB WARISAN TEMPATAN MALAYSIA
+                    </h1>
+                    <p id="txt-main-subtitle" class="text-xs sm:text-sm text-slate-600">
+                        Naratif Sejarah Terperinci (Ayat &amp; Audio Mesra OKU) Serta Pin Peta QR Seluruh Negeri
+                    </p>
+                </div>
+            </div>
+
+            <nav class="flex flex-wrap justify-center gap-1.5 bg-archive-100 p-1.5 rounded-xl border border-archive-300">
+                <button type="button" onclick="switchTab('arkib')" id="tab-arkib" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold bg-bronze-700 text-white shadow transition flex items-center gap-1.5 cursor-pointer">
+                    <span>🖼️</span> <span id="nav-txt-arkib">Koleksi Arkib</span>
+                </button>
+                <button type="button" onclick="switchTab('sumbangan')" id="tab-sumbangan" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-bronze-900 hover:bg-archive-200 transition flex items-center gap-1.5 cursor-pointer">
+                    <span>📤</span> <span id="nav-txt-sumbangan">Sumbangan &amp; Pengesahan</span>
+                </button>
+                <button type="button" onclick="switchTab('kpi')" id="tab-kpi" class="nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-bronze-900 hover:bg-archive-200 transition flex items-center gap-1.5 cursor-pointer">
+                    <span>♿</span> <span id="nav-txt-kpi">Panduan Akses OKU &amp; Pelan</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 3. HERO & KPI -->
+    <section class="hero-archive-bg text-white py-8 sm:py-10 px-4 border-b-4 border-gold-500">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div class="lg:col-span-7 space-y-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/20 border border-gold-400/50 text-gold-300 text-xs font-semibold">
+                        <span>♿</span>
+                        <span id="txt-hero-badge">Mesra OKU: Kisah Sejarah Penuh Dalam Teks Berstruktur &amp; Audio Suara</span>
+                    </div>
+                    <h2 id="txt-hero-heading" class="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
+                        Khazanah Sejarah Negara Dalam Teks Lengkap &amp; Panduan Audio
+                    </h2>
+                    <p id="txt-hero-desc" class="text-sm sm:text-base text-archive-100 leading-relaxed max-w-2xl">
+                        Setiap tapak bersejarah dilengkapi kisah bagaimana ia terbina, keunikan sejarahnya dalam bentuk ayat bacaan jelas serta pemain audio kawalan kelajuan untuk kemudahan golongan OKU.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+                    <div class="bg-bronze-900/80 border border-gold-500/40 rounded-2xl p-4">
+                        <div class="text-gold-300 text-xs font-semibold uppercase tracking-wider" id="stat-lbl-1">Lokasi Warisan</div>
+                        <div id="stat-val-items" class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">38</div>
+                        <div class="text-[11px] text-emerald-300 mt-1" id="stat-sub-1">✓ 15 Negeri &amp; WP</div>
+                    </div>
+                    <div class="bg-bronze-900/80 border border-gold-500/40 rounded-2xl p-4">
+                        <div class="text-gold-300 text-xs font-semibold uppercase tracking-wider" id="stat-lbl-2">Mod Penyampaian</div>
+                        <div class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">2 Mod</div>
+                        <div class="text-[11px] text-archive-200 mt-1" id="stat-sub-2">Teks Ayat + Audio Suara</div>
+                    </div>
+                    <div class="bg-bronze-900/80 border border-gold-500/40 rounded-2xl p-4">
+                        <div class="text-gold-300 text-xs font-semibold uppercase tracking-wider" id="stat-lbl-3">Bahasa Sokongan</div>
+                        <div class="font-display text-2xl sm:text-3xl font-bold text-emerald-400 mt-1">7</div>
+                        <div class="text-[11px] text-archive-200 mt-1" id="stat-sub-3">BM, EN, ZH, TA, AR, JA, KO</div>
+                    </div>
+                    <div class="bg-bronze-900/80 border border-gold-500/40 rounded-2xl p-4">
+                        <div class="text-gold-300 text-xs font-semibold uppercase tracking-wider" id="stat-lbl-4">Pin Peta QR</div>
+                        <div id="stat-val-qr" class="font-display text-2xl sm:text-3xl font-bold text-gold-300 mt-1">38</div>
+                        <div class="text-[11px] text-amber-200 mt-1" id="stat-sub-4">1 QR Bagi Setiap Tempat</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. KANDUNGAN UTAMA -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:py-8">
+
+        <!-- VIEW 1: KOLEKSI ARKIB -->
+        <div id="view-arkib" class="space-y-6">
+            <div class="bg-white border-2 border-archive-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
+                    <div class="md:col-span-4">
+                        <label for="search-input" id="lbl-search" class="block text-xs font-bold uppercase tracking-wider text-bronze-900 mb-1.5">
+                            🔍 Carian Bahan Warisan / Lokasi
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="search-input" oninput="filterArchive()"
+                                placeholder="Cari Kota A Famosa, Lembah Bujang, Kellie's Castle..."
+                                class="w-full pl-3.5 pr-9 py-2.5 bg-archive-50 border border-archive-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-gold-500" />
+                            <button type="button" onclick="clearFilters()" title="Set Semula" class="absolute right-2.5 top-2.5 text-slate-400 hover:text-bronze-900 text-sm font-bold cursor-pointer">✕</button>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-3">
+                        <label for="state-filter" id="lbl-state" class="block text-xs font-bold uppercase tracking-wider text-bronze-900 mb-1.5">
+                            📍 Negeri / Wilayah
+                        </label>
+                        <select id="state-filter" onchange="filterArchive()"
+                            class="w-full px-3 py-2.5 bg-archive-50 border border-archive-300 rounded-xl text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-gold-500">
+                            <option value="ALL">Semua Negeri &amp; WP (38 Lokasi)</option>
+                            <option value="Johor">Johor (2 Tempat)</option>
+                            <option value="Kedah">Kedah (3 Tempat)</option>
+                            <option value="Kelantan">Kelantan (3 Tempat)</option>
+                            <option value="Melaka">Melaka (3 Tempat)</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan (3 Tempat)</option>
+                            <option value="Pahang">Pahang (2 Tempat)</option>
+                            <option value="Pulau Pinang">Pulau Pinang (3 Tempat)</option>
+                            <option value="Perak">Perak (4 Tempat)</option>
+                            <option value="Perlis">Perlis (2 Tempat)</option>
+                            <option value="Sabah">Sabah (3 Tempat)</option>
+                            <option value="Sarawak">Sarawak (3 Tempat)</option>
+                            <option value="Selangor">Selangor (3 Tempat)</option>
+                            <option value="Terengganu">Terengganu (2 Tempat)</option>
+                            <option value="W.P. Kuala Lumpur">W.P. Kuala Lumpur (3 Tempat)</option>
+                            <option value="W.P. Labuan">W.P. Labuan (2 Tempat)</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-3">
+                        <label for="category-filter" id="lbl-category" class="block text-xs font-bold uppercase tracking-wider text-bronze-900 mb-1.5">
+                            🗂️ Kategori Warisan
+                        </label>
+                        <select id="category-filter" onchange="filterArchive()"
+                            class="w-full px-3 py-2.5 bg-archive-50 border border-archive-300 rounded-xl text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-gold-500">
+                            <option value="ALL">Semua Kategori</option>
+                            <option value="Tapak Arkeologi">Tapak Arkeologi</option>
+                            <option value="Bangunan Bersejarah">Bangunan Bersejarah</option>
+                            <option value="Artifak">Artifak</option>
+                            <option value="Manuskrip & Dokumen Lama">Manuskrip &amp; Dokumen Lama</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label for="status-filter" id="lbl-status" class="block text-xs font-bold uppercase tracking-wider text-bronze-900 mb-1.5">
+                            🛡️ Status
+                        </label>
+                        <select id="status-filter" onchange="filterArchive()"
+                            class="w-full px-3 py-2.5 bg-archive-50 border border-archive-300 rounded-xl text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-gold-500">
+                            <option value="ALL">Semua Rekod</option>
+                            <option value="VERIFIED">Disahkan Pakar</option>
+                            <option value="COMMUNITY">Sumbangan Komuniti</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2 mt-4 pt-3 border-t border-archive-200">
+                    <div class="flex flex-wrap gap-1.5" id="quick-pills">
+                        <button type="button" onclick="quickCategory('ALL', this)" class="pill-btn px-3 py-1 rounded-full text-xs font-bold bg-bronze-700 text-white cursor-pointer">Semua Koleksi</button>
+                        <button type="button" onclick="quickCategory('Tapak Arkeologi', this)" class="pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-archive-100 text-bronze-900 hover:bg-archive-200 cursor-pointer">⛏️ Tapak Arkeologi</button>
+                        <button type="button" onclick="quickCategory('Bangunan Bersejarah', this)" class="pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-archive-100 text-bronze-900 hover:bg-archive-200 cursor-pointer">🏰 Bangunan Bersejarah</button>
+                        <button type="button" onclick="quickCategory('Artifak', this)" class="pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-archive-100 text-bronze-900 hover:bg-archive-200 cursor-pointer">🏺 Artifak</button>
+                        <button type="button" onclick="quickCategory('Manuskrip & Dokumen Lama', this)" class="pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-archive-100 text-bronze-900 hover:bg-archive-200 cursor-pointer">📜 Manuskrip &amp; Dokumen</button>
+                    </div>
+                    <div class="text-xs font-semibold text-slate-600">
+                        <span id="txt-showing">Memaparkan</span> <span id="result-count" class="font-bold text-bronze-800">38</span> <span id="txt-records">lokasi warisan (teks &amp; audio)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="archive-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+
+            <div id="empty-state" class="hidden bg-white border-2 border-dashed border-archive-300 rounded-2xl p-10 text-center">
+                <div class="text-4xl mb-2">🔎</div>
+                <h3 class="font-serif text-lg font-bold text-bronze-900">Tiada Lokasi Warisan Sepadan</h3>
+                <p id="empty-filter-detail" class="text-sm text-slate-600 mt-1 mb-4"></p>
+                <button type="button" onclick="clearFilters()" class="px-4 py-2.5 bg-bronze-700 text-white rounded-xl text-xs font-bold hover:bg-bronze-800 cursor-pointer">
+                    Set Semula Penapis
+                </button>
+            </div>
+        </div>
+
+        <!-- VIEW 2: SUMBANGAN & PENGESAHAN -->
+        <div id="view-sumbangan" class="hidden space-y-6">
+            <div class="bg-bronze-900 text-white rounded-2xl p-5 sm:p-6 border-2 border-gold-500/50 shadow-md">
+                <h2 class="font-serif text-xl sm:text-2xl font-bold text-gold-300 mb-2">
+                    🤝 Sumbangan Rekod Sejarah &amp; Transkrip Audio Komuniti
+                </h2>
+                <p class="text-xs sm:text-sm text-archive-100 leading-relaxed">
+                    Setiap sumbangan komuniti akan dijana secara automatik dalam dua format: teks berstruktur dan panduan audio bacaan suara mesra OKU.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-6 bg-white border-2 border-archive-200 rounded-2xl p-5 sm:p-6 shadow-sm">
+                    <h3 class="font-serif text-lg font-bold text-bronze-900 border-b border-archive-200 pb-3 mb-4">
+                        📤 Muat Naik Lokasi &amp; Kisah Sejarah
+                    </h3>
+                    <form id="contribution-form" onsubmit="submitContribution(event)" class="space-y-3.5 text-sm">
+                        <div>
+                            <label class="block text-xs font-bold text-bronze-900 mb-1">Nama Tempat / Tapak Warisan *</label>
+                            <input type="text" id="contrib-title" required placeholder="Contoh: Rumah Kutai Lama Kampung Gajah"
+                                class="w-full px-3.5 py-2 bg-archive-50 border border-archive-300 rounded-xl" />
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-bronze-900 mb-1">Negeri / WP *</label>
+                                <select id="contrib-state" required class="w-full px-3 py-2 bg-archive-50 border border-archive-300 rounded-xl">
+                                    <option value="Johor">Johor</option>
+                                    <option value="Kedah">Kedah</option>
+                                    <option value="Kelantan">Kelantan</option>
+                                    <option value="Melaka">Melaka</option>
+                                    <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                    <option value="Pahang">Pahang</option>
+                                    <option value="Pulau Pinang">Pulau Pinang</option>
+                                    <option value="Perak">Perak</option>
+                                    <option value="Perlis">Perlis</option>
+                                    <option value="Sabah">Sabah</option>
+                                    <option value="Sarawak">Sarawak</option>
+                                    <option value="Selangor">Selangor</option>
+                                    <option value="Terengganu">Terengganu</option>
+                                    <option value="W.P. Kuala Lumpur">W.P. Kuala Lumpur</option>
+                                    <option value="W.P. Labuan">W.P. Labuan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-bronze-900 mb-1">Kategori *</label>
+                                <select id="contrib-cat" required class="w-full px-3 py-2 bg-archive-50 border border-archive-300 rounded-xl">
+                                    <option value="Bangunan Bersejarah">Bangunan Bersejarah</option>
+                                    <option value="Tapak Arkeologi">Tapak Arkeologi</option>
+                                    <option value="Artifak">Artifak</option>
+                                    <option value="Manuskrip & Dokumen Lama">Manuskrip &amp; Dokumen Lama</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="bg-archive-50 border border-archive-300 rounded-xl p-3">
+                            <label class="block text-xs font-bold text-bronze-900 mb-1">📷 Muat Naik Gambar Lokasi (JPG/PNG)</label>
+                            <input type="file" id="contrib-file" accept="image/*" onchange="previewUploadedImage(event)"
+                                class="w-full text-xs text-slate-600 cursor-pointer" />
+                            <div id="upload-preview-box" class="hidden mt-2.5">
+                                <img id="upload-preview-img" src="" alt="Pratonton Gambar" class="w-full h-36 object-cover rounded-lg border border-archive-300" />
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-bronze-900 mb-1">Lokasi Pin Peta *</label>
+                                <input type="text" id="contrib-loc" required placeholder="Contoh: Kampung Gajah, Perak"
+                                    class="w-full px-3.5 py-2 bg-archive-50 border border-archive-300 rounded-xl" />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-bronze-900 mb-1">Tarikh / Era Sejarah *</label>
+                                <input type="text" id="contrib-era" required placeholder="Contoh: Abad ke-19"
+                                    class="w-full px-3.5 py-2 bg-archive-50 border border-archive-300 rounded-xl" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-bronze-900 mb-1">Bagaimana Terbina &amp; Sejarah Awal *</label>
+                            <textarea id="contrib-origin" rows="2" required placeholder="Ceritakan bila dan bagaimana tempat ini dibina atau ditemui..."
+                                class="w-full px-3.5 py-2 bg-archive-50 border border-archive-300 rounded-xl"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-bronze-900 mb-1">Apa yang Menarik &amp; Keunikan Warisan *</label>
+                            <textarea id="contrib-highlight" rows="2" required placeholder="Nyatakan keunikan seni bina, artifak, atau peristiwa penting..."
+                                class="w-full px-3.5 py-2 bg-archive-50 border border-archive-300 rounded-xl"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-bronze-900 mb-1">Nama Penyumbang / Organisasi *</label>
+                            <input type="text" id="contrib-author" required placeholder="Contoh: Persatuan Sejarah Daerah"
+                                class="w-full px-3.5 py-2 bg-archive-50 border border-archive-300 rounded-xl" />
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-bronze-700 hover:bg-bronze-800 text-white font-bold rounded-xl shadow transition cursor-pointer">
+                            Hantar untuk Semakan &amp; Pengesahan Pakar
+                        </button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-6 bg-white border-2 border-archive-200 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col">
+                    <div class="flex items-center justify-between border-b border-archive-200 pb-3 mb-4">
+                        <h3 class="font-serif text-lg font-bold text-bronze-900">
+                            🛡️ Panel Semakan &amp; Pengesahan Pakar
+                        </h3>
+                        <span id="pending-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                            0 Menunggu Semakan
+                        </span>
+                    </div>
+                    <div id="pending-list" class="space-y-3 flex-1">
+                        <p class="text-xs text-slate-500">Tiada rekod komuniti baharu menunggu semakan buat masa ini.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: PANDUAN AKSES OKU & PELAN -->
+        <div id="view-kpi" class="hidden space-y-6">
+            <div class="bg-white border-2 border-archive-200 rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
+                <h2 class="font-serif text-xl font-bold text-bronze-900">♿ Reka Bentuk Inklusif &amp; Aksesibiliti OKU (IDAWT)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+                        <div class="font-bold text-blue-900 mb-1">1. OKU Penglihatan &amp; Disleksia (Mod Audio)</div>
+                        <p class="text-slate-700 text-xs leading-relaxed">Setiap rekod mempunyai pemain audio suara dengan kawalan Main, Jeda, Henti, pilihan kelajuan bacaan (0.8x, 1.0x, 1.2x), serta mod kontras tinggi dan pembesar tulisan (A+).</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                        <div class="font-bold text-emerald-900 mb-1">2. OKU Pendengaran (Mod Teks Ayat &amp; Transkrip)</div>
+                        <p class="text-slate-700 text-xs leading-relaxed">Semua maklumat audio dipaparkan serentak dalam bentuk ayat berstruktur (Bagaimana Terbina &amp; Apa yang Menarik) sebagai transkrip lengkap di skrin.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-200">
+                        <div class="font-bold text-bronze-900 mb-1">3. Navigasi Mudah &amp; Pin Peta QR</div>
+                        <p class="text-slate-700 text-xs leading-relaxed">Setiap lokasi mempunyai kod QR tersendiri yang terus membawa pengguna ke Google Maps tanpa perlu menaip alamat panjang.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL BUTIRAN SEJARAH (MOD AYAT + MOD AUDIO OKU) & KOD QR -->
+    <div id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+        class="fixed inset-0 z-50 hidden bg-black/75 flex items-center justify-center p-3 sm:p-4 overflow-y-auto" onclick="closeModalOnBackdrop(event)">
+        <div class="bg-white border-2 border-gold-500 rounded-2xl max-w-5xl w-full max-h-[92vh] overflow-y-auto shadow-2xl p-4 sm:p-6 space-y-5">
+            <div class="flex items-start justify-between gap-4 border-b border-archive-200 pb-3">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-1">
+                        <span id="modal-state-badge" class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-bronze-700 text-white"></span>
+                        <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">♿ Teks &amp; Audio OKU</span>
+                    </div>
+                    <h3 id="modal-title" class="font-serif text-xl sm:text-2xl font-bold text-bronze-900"></h3>
+                    <p id="modal-subtitle" class="text-xs text-slate-600"></p>
+                </div>
+                <button type="button" onclick="closeModal()" aria-label="Tutup" class="px-3 py-1.5 rounded-lg bg-archive-100 hover:bg-archive-200 text-bronze-900 font-bold text-sm cursor-pointer">✕</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                <!-- KOLUM KIRI: GAMBAR + MOD 1 (TEKS SEJARAH DALAM AYAT) -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="overflow-hidden rounded-xl border border-archive-300 bg-archive-100">
+                        <img id="modal-img" src="" alt="" onclick="this.classList.toggle('zoomed')" class="zoom-img w-full h-56 sm:h-64 object-cover" />
+                    </div>
+
+                    <!-- MOD 1: NARATIF SEJARAH DALAM BENTUK AYAT -->
+                    <div id="text-story-box" class="rounded-2xl bg-archive-50 border-2 border-archive-200 p-4 space-y-3 transition">
+                        <div class="flex items-center justify-between border-b border-archive-200 pb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-bronze-900" id="lbl-mode-text">
+                                📖 MOD 1: KISAH SEJARAH DALAM AYAT (TRANSKRIP OKU)
+                            </span>
+                            <span class="text-[11px] font-semibold text-slate-500" id="modal-era-badge"></span>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="text-xs font-bold uppercase tracking-wide text-bronze-800" id="lbl-how-built">
+                                🏗️ Bagaimana Terbina &amp; Sejarah Awal
+                            </h4>
+                            <p id="modal-origin" class="text-sm text-slate-800 leading-relaxed"></p>
+                        </div>
+
+                        <div class="space-y-1 pt-2 border-t border-archive-200">
+                            <h4 class="text-xs font-bold uppercase tracking-wide text-bronze-800" id="lbl-highlights">
+                                ✨ Apa yang Menarik &amp; Nilai Warisan
+                            </h4>
+                            <p id="modal-highlight" class="text-sm text-slate-800 leading-relaxed"></p>
+                        </div>
+
+                        <div class="pt-2 border-t border-archive-200 text-xs text-slate-600 space-y-1">
+                            <div><strong class="text-bronze-900">📍 Pin Lokasi:</strong> <span id="modal-loc"></span></div>
+                            <div><strong class="text-bronze-900">🗂️ Kategori:</strong> <span id="modal-cat"></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KOLUM KANAN: MOD 2 (PEMAIN AUDIO SEJARAH OKU) + KOD QR -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- MOD 2: KAWALAN AUDIO MESRA OKU -->
+                    <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-blue-900" id="lbl-mode-audio">
+                                🎧 MOD 2: PANDUAN AUDIO SEJARAH (OKU)
+                            </span>
+                            <span id="audio-status-pill" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-white text-blue-900 border border-blue-200">
+                                Sedia Dibaca
+                            </span>
+                        </div>
+
+                        <p id="audio-guide-note" class="text-xs text-slate-700 leading-relaxed">
+                            Tekan butang di bawah untuk mendengar penerangan penuh mengenai sejarah pembinaan dan keunikan tempat ini.
+                        </p>
+
+                        <div class="grid grid-cols-3 gap-2">
+                            <button type="button" onclick="playModalAudio()" id="btn-audio-play"
+                                class="py-2.5 px-2 rounded-xl bg-bronze-700 hover:bg-bronze-800 text-white text-xs font-bold shadow cursor-pointer">
+                                🔊 Main
+                            </button>
+                            <button type="button" onclick="pauseResumeAudio()" id="btn-audio-pause"
+                                class="py-2.5 px-2 rounded-xl bg-white hover:bg-archive-100 border border-archive-300 text-bronze-900 text-xs font-bold cursor-pointer">
+                                ⏸️ Jeda
+                            </button>
+                            <button type="button" onclick="stopModalAudio()" id="btn-audio-stop"
+                                class="py-2.5 px-2 rounded-xl bg-white hover:bg-red-50 border border-red-200 text-red-700 text-xs font-bold cursor-pointer">
+                                ⏹️ Henti
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-2 pt-1">
+                            <label for="audio-rate" class="text-xs font-bold text-blue-900" id="lbl-audio-speed">Kelajuan Suara:</label>
+                            <select id="audio-rate" class="px-2.5 py-1 rounded-lg bg-white border border-blue-200 text-xs font-semibold text-slate-800 cursor-pointer">
+                                <option value="0.8">0.8x (Perlahan - Jelas)</option>
+                                <option value="1" selected>1.0x (Normal)</option>
+                                <option value="1.2">1.2x (Laju)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- KOD QR PIN LOKASI -->
+                    <div class="bg-archive-50 border-2 border-archive-200 rounded-2xl p-4 text-center space-y-2.5">
+                        <div class="text-xs font-bold uppercase tracking-wider text-bronze-900" id="modal-qr-heading">
+                            Kod QR Pin Lokasi Tempat
+                        </div>
+                        <p class="text-xs text-slate-600" id="modal-qr-sub">
+                            Imbas kod QR ini untuk membuka pin lokasi tepat tempat ini di Google Maps.
+                        </p>
+                        <div id="modal-qrcode" class="flex justify-center py-1"></div>
+                        <div id="modal-pin-label" class="text-[11px] font-semibold text-bronze-800"></div>
+                        <a id="modal-map-link" href="#" target="_blank" rel="noopener noreferrer"
+                            class="inline-block w-full py-2.5 px-4 rounded-xl bg-bronze-700 hover:bg-bronze-800 text-white text-xs font-bold transition">
+                            🗺️ Buka Pin Tempat di Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fallbackImage(titleText) {
+            const clean = String(titleText || "Warisan Malaysia").replace(/[<>&"]/g, "");
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+                <rect width="800" height="500" fill="#38220F"/>
+                <rect x="24" y="24" width="752" height="452" rx="18" fill="none" stroke="#C89B3C" stroke-width="3"/>
+                <text x="400" y="230" text-anchor="middle" fill="#F0D38E" font-family="Georgia, serif" font-size="28" font-weight="bold">ARKIB WARISAN MALAYSIA</text>
+                <text x="400" y="278" text-anchor="middle" fill="#FAF7F2" font-family="Arial, sans-serif" font-size="19">${clean.slice(0, 48)}</text>
+            </svg>`;
+            return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+        }
+
+        const UI_TEXT = {
+            ms: {
+                govTag: `PORTAL ARKIB DIGITAL WARISAN SEJARAH TEMPATAN MALAYSIA (IDAWT • MESRA OKU)`,
+                fontLabel: `Saiz Tulisan:`,
+                contrastBtn: `Kontras Tinggi`,
+                badgeTop: `ARKIB DIGITAL INKLUSIF OKU`,
+                authTag: `✓ Teks Sejarah & Panduan Audio`,
+                mainTitle: `ARKIB WARISAN TEMPATAN MALAYSIA`,
+                mainSubtitle: `Naratif Sejarah Terperinci (Ayat & Audio Mesra OKU) Serta Pin Peta QR Seluruh Negeri`,
+                navArkib: `Koleksi Arkib`,
+                navSumbangan: `Sumbangan & Pengesahan`,
+                navKpi: `Panduan Akses OKU & Pelan`,
+                heroBadge: `Mesra OKU: Kisah Sejarah Penuh Dalam Teks Berstruktur & Audio Suara`,
+                heroHeading: `Khazanah Sejarah Negara Dalam Teks Lengkap & Panduan Audio`,
+                heroDesc: `Setiap tapak bersejarah dilengkapi kisah bagaimana ia terbina, keunikan sejarahnya dalam bentuk ayat bacaan jelas serta pemain audio kawalan kelajuan untuk kemudahan golongan OKU.`,
+                stat1: `Lokasi Warisan`,
+                statSub1: `✓ 15 Negeri & WP`,
+                stat2: `Mod Penyampaian`,
+                statSub2: `Teks Ayat + Audio Suara`,
+                stat3: `Bahasa Sokongan`,
+                statSub3: `BM, EN, ZH, TA, AR, JA, KO`,
+                stat4: `Pin Peta QR`,
+                statSub4: `1 QR Bagi Setiap Tempat`,
+                lblSearch: `🔍 Carian Bahan Warisan / Lokasi`,
+                searchPlaceholder: `Cari Kota A Famosa, Lembah Bujang, Kellie's Castle...`,
+                lblState: `📍 Negeri / Wilayah`,
+                lblCategory: `🗂️ Kategori Warisan`,
+                lblStatus: `🛡️ Status`,
+                showing: `Memaparkan`,
+                records: `lokasi warisan (teks & audio)`,
+                verified: `✓ Disahkan Pakar`,
+                seeQr: `Baca Sejarah & Audio →`,
+                modeText: `📖 MOD 1: KISAH SEJARAH DALAM AYAT (TRANSKRIP OKU)`,
+                howBuilt: `🏗️ Bagaimana Terbina & Sejarah Awal`,
+                highlights: `✨ Apa yang Menarik & Nilai Warisan`,
+                modeAudio: `🎧 MOD 2: PANDUAN AUDIO SEJARAH (OKU)`,
+                audioNote: `Tekan butang di bawah untuk mendengar penerangan penuh mengenai sejarah pembinaan dan keunikan tempat ini.`,
+                playBtn: `🔊 Main`,
+                pauseBtn: `⏸️ Jeda`,
+                stopBtn: `⏹️ Henti`,
+                speedLbl: `Kelajuan Suara:`,
+                openMap: `🗺️ Buka Pin Tempat di Google Maps`,
+                qrHeading: `Kod QR Pin Lokasi Tempat`,
+                qrSub: `Imbas kod QR ini untuk membuka pin lokasi tepat tempat ini di Google Maps.`
+            },
+            en: {
+                govTag: `MALAYSIA LOCAL HERITAGE DIGITAL ARCHIVE (IDAWT • ACCESSIBLE)`,
+                fontLabel: `Font Size:`,
+                contrastBtn: `High Contrast`,
+                badgeTop: `INCLUSIVE ACCESSIBLE ARCHIVE`,
+                authTag: `✓ Full Historical Text & Audio Guide`,
+                mainTitle: `MALAYSIA LOCAL HERITAGE ARCHIVE`,
+                mainSubtitle: `Detailed Historical Narratives (Text & Audio for Persons with Disabilities) and Location QR Pins`,
+                navArkib: `Archive Collection`,
+                navSumbangan: `Community & Verification`,
+                navKpi: `Accessibility Guide & Plan`,
+                heroBadge: `Accessible Design: Full Historical Stories in Structured Text & Voice Audio`,
+                heroHeading: `National Historical Treasures in Complete Text & Audio Guide`,
+                heroDesc: `Every heritage site includes how it was built and what makes it historically remarkable, presented in both structured reading paragraphs and speed-controlled audio.`,
+                stat1: `Heritage Sites`,
+                statSub1: `✓ 15 States & FTs`,
+                stat2: `Delivery Modes`,
+                statSub2: `Text Sentences + Voice Audio`,
+                stat3: `Supported Languages`,
+                statSub3: `BM, EN, ZH, TA, AR, JA, KO`,
+                stat4: `Map Pin QRs`,
+                statSub4: `1 QR Per Location`,
+                lblSearch: `🔍 Search Heritage / Location`,
+                searchPlaceholder: `Search A Famosa, Bujang Valley, Kellie's Castle...`,
+                lblState: `📍 State / Territory`,
+                lblCategory: `🗂️ Heritage Category`,
+                lblStatus: `🛡️ Status`,
+                showing: `Showing`,
+                records: `heritage sites (text & audio)`,
+                verified: `✓ Expert Verified`,
+                seeQr: `Read History & Audio →`,
+                modeText: `📖 MODE 1: HISTORICAL STORY IN TEXT (ACCESSIBLE TRANSCRIPT)`,
+                howBuilt: `🏗️ How It Was Built & Early Origins`,
+                highlights: `✨ What Makes It Remarkable & Heritage Value`,
+                modeAudio: `🎧 MODE 2: HISTORICAL AUDIO GUIDE (ACCESSIBLE)`,
+                audioNote: `Press Play below to listen to the full story of how this site was built and its key historical highlights.`,
+                playBtn: `🔊 Play`,
+                pauseBtn: `⏸️ Pause`,
+                stopBtn: `⏹️ Stop`,
+                speedLbl: `Voice Speed:`,
+                openMap: `🗺️ Open Site Pin in Google Maps`,
+                qrHeading: `Site Pin Location QR Code`,
+                qrSub: `Scan this QR code to open this exact site pin on Google Maps.`
+            },
+            zh: {
+                govTag: `马来西亚本土历史文化遗产数字档案馆 (IDAWT • 无障碍友好)`,
+                fontLabel: `字体大小：`,
+                contrastBtn: `高对比度`,
+                badgeTop: `无障碍包容性数字档案馆`,
+                authTag: `✓ 完整历史文字与语音导览`,
+                mainTitle: `马来西亚本土历史文化遗产档案馆`,
+                mainSubtitle: `提供详细历史背景（文字段落与残障人士语音导览）及地点二维码`,
+                navArkib: `馆藏目录`,
+                navSumbangan: `社区贡献与审核`,
+                navKpi: `无障碍指南与规划`,
+                heroBadge: `无障碍设计：结构化历史文字与语音朗读双模式`,
+                heroHeading: `文字与语音双模式呈现的国家历史瑰宝`,
+                heroDesc: `每处历史地点均详细介绍其建造由来与历史亮点，同时提供清晰文本与可调速语音朗读，方便视障、听障及阅读障碍人士使用。`,
+                stat1: `历史地点`,
+                statSub1: `✓ 15个州与直辖区`,
+                stat2: `呈现模式`,
+                statSub2: `完整文字 + 语音导览`,
+                stat3: `支持语言`,
+                statSub3: `BM, EN, ZH, TA, AR, JA, KO`,
+                stat4: `地图定位二维码`,
+                statSub4: `每处地点独立二维码`,
+                lblSearch: `🔍 搜索文化遗产 / 地点`,
+                searchPlaceholder: `搜索法摩沙堡、布央谷、凯利古堡...`,
+                lblState: `📍 州属 / 直辖区`,
+                lblCategory: `🗂️ 文化遗产类别`,
+                lblStatus: `🛡️ 状态`,
+                showing: `正在显示`,
+                records: `个历史地点（含文字与语音）`,
+                verified: `✓ 专家已核实`,
+                seeQr: `阅读历史与语音 →`,
+                modeText: `📖 模式一：历史故事文字版（无障碍字幕）`,
+                howBuilt: `🏗️ 建造由来与早期历史`,
+                highlights: `✨ 历史亮点与文化价值`,
+                modeAudio: `🎧 模式二：历史语音导览（无障碍）`,
+                audioNote: `点击下方播放按钮，收听该遗址建造过程与历史亮点的完整语音介绍。`,
+                playBtn: `🔊 播放`,
+                pauseBtn: `⏸️ 暂停`,
+                stopBtn: `⏹️ 停止`,
+                speedLbl: `语音语速：`,
+                openMap: `🗺️ 在 Google 地图打开定位`,
+                qrHeading: `地点定位二维码`,
+                qrSub: `扫描此二维码即可在 Google 地图打开该地点定位。`
+            },
+            ta: {
+                govTag: `மலேசிய உள்ளூர் வரலாற்று பாரம்பரிய டிஜிட்டல் காப்பகம் (IDAWT • மாற்றுத்திறனாளி நட்பு)`,
+                fontLabel: `எழுத்து அளவு:`,
+                contrastBtn: `உயர் மாறுபாடு`,
+                badgeTop: `அனைவரையும் உள்ளடக்கிய டிஜிட்டல் காப்பகம்`,
+                authTag: `✓ முழு வரலாற்று உரை & ஒலி வழிகாட்டி`,
+                mainTitle: `மலேசிய உள்ளூர் வரலாற்று பாரம்பரிய காப்பகம்`,
+                mainSubtitle: `விரிவான வரலாற்றுத் தகவல்கள் (எழுத்து மற்றும் ஒலி வடிவில்) மற்றும் QR குறியீடுகள்`,
+                navArkib: `காப்பக சேகரிப்பு`,
+                navSumbangan: `சமூக பங்களிப்பு & சரிபார்ப்பு`,
+                navKpi: `அணுகல்தன்மை வழிகாட்டி`,
+                heroBadge: `மாற்றுத்திறனாளி நட்பு: தெளிவான எழுத்து மற்றும் குரல் ஒலி வடிவம்`,
+                heroHeading: `முழுமையான உரை மற்றும் ஒலி வழிகாட்டியில் தேசிய வரலாற்று பொக்கிஷங்கள்`,
+                heroDesc: `ஒவ்வொரு வரலாற்றுத் தளமும் எவ்வாறு கட்டப்பட்டது மற்றும் அதன் சிறப்பம்சங்கள் எழுத்து வடிவிலும் வேகக் கட்டுப்பாட்டு ஒலி வடிவிலும் வழங்கப்படுகின்றன.`,
+                stat1: `வரலாற்று இடங்கள்`,
+                statSub1: `✓ 15 மாநிலங்கள் & பிரதேசம்`,
+                stat2: `வழங்கும் முறை`,
+                statSub2: `எழுத்து + குரல் ஒலி`,
+                stat3: `மொழி ஆதரவு`,
+                statSub3: `BM, EN, ZH, TA, AR, JA, KO`,
+                stat4: `வரைபட QR குறியீடு`,
+                statSub4: `ஒவ்வொரு இடத்திற்கும் QR`,
+                lblSearch: `🔍 பாரம்பரியம் / இடம் தேடுக`,
+                searchPlaceholder: `அஃபாமோசா, புஜாங் பள்ளத்தாக்கு, கெல்லிஸ் கோட்டை...`,
+                lblState: `📍 மாநிலம் / பிரதேசம்`,
+                lblCategory: `🗂️ பாரம்பரிய வகை`,
+                lblStatus: `🛡️ நிலை`,
+                showing: `காட்டப்படுவது`,
+                records: `வரலாற்று இடங்கள் (உரை & ஒலி)`,
+                verified: `✓ நிபுணர் உறுதி செய்தது`,
+                seeQr: `வரலாறு & ஒலி கேட்க →`,
+                modeText: `📖 முறை 1: எழுத்து வடிவில் வரலாற்றுக் கதை`,
+                howBuilt: `🏗️ எவ்வாறு கட்டப்பட்டது & ஆரம்பகால வரலாறு`,
+                highlights: `✨ சிறப்பம்சங்கள் & பாரம்பரிய மதிப்பு`,
+                modeAudio: `🎧 முறை 2: வரலாற்று ஒலி வழிகாட்டி`,
+                audioNote: `இந்த இடத்தின் உருவாக்கம் மற்றும் சிறப்பம்சங்களை ஒலியாகக் கேட்க கீழே உள்ள பொத்தானை அழுத்தவும்.`,
+                playBtn: `🔊 இயக்கு`,
+                pauseBtn: `⏸️ இடைநிறுத்து`,
+                stopBtn: `⏹️ நிறுத்து`,
+                speedLbl: `குரல் வேகம்:`,
+                openMap: `🗺️ Google Maps-இல் இடத்தைத் திற`,
+                qrHeading: `இட இருப்பிட வரைபட QR குறியீடு`,
+                qrSub: `Google Maps-இல் இந்த இடத்தின் இருப்பிடத்தைக் காண QR குறியீட்டை ஸ்கேன் செய்யவும்.`
+            },
+            ar: {
+                govTag: `بوابة الأرشيف الرقمي للتراث الماليزي (IDAWT • مهيأ لذوي الإعاقة)`,
+                fontLabel: `حجم الخط:`,
+                contrastBtn: `تباين عالٍ`,
+                badgeTop: `أرشيف رقمي شامل للجميع`,
+                authTag: `✓ نص تاريخي مفصل ودليل صوتي`,
+                mainTitle: `أرشيف التراث المحلي الماليزي`,
+                mainSubtitle: `سرد تاريخي مفصل بالنص والصوت لذوي الإعاقة مع رموز QR للمواقع`,
+                navArkib: `مجموعة الأرشيف`,
+                navSumbangan: `المساهمات والتحقق`,
+                navKpi: `دليل الوصول لذوي الإعاقة`,
+                heroBadge: `مهيأ لذوي الإعاقة: القصة التاريخية الكاملة بالنص والصوت`,
+                heroHeading: `كنوز التاريخ الوطني بنص كامل ودليل صوتي تفاعلي`,
+                heroDesc: `يحتوي كل موقع تاريخي على شرح لكيفية بنائه وأبرز مميزاته التاريخية بصيغة نصية واضحة وصوت مسموع قابل للتحكم في السرعة.`,
+                stat1: `المواقع التاريخية`,
+                statSub1: `✓ 15 ولاية وإقليم`,
+                stat2: `أوضاع العرض`,
+                statSub2: `نص مكتوب + دليل صوتي`,
+                stat3: `اللغات المدعومة`,
+                statSub3: `BM, EN, ZH, TA, AR, JA, KO`,
+                stat4: `رموز QR للخرائط`,
+                statSub4: `رمز QR لكل موقع`,
+                lblSearch: `🔍 بحث عن تراث أو موقع`,
+                searchPlaceholder: `ابحث عن أفاموسا، وادي بوجانغ، قلعة كيلي...`,
+                lblState: `📍 الولاية / الإقليم`,
+                lblCategory: `🗂️ فئة التراث`,
+                lblStatus: `🛡️ الحالة`,
+                showing: `عرض`,
+                records: `موقع تراثي (نص وصوت)`,
+                verified: `✓ معتمد من الخبراء`,
+                seeQr: `اقرأ التاريخ واستمع ←`,
+                modeText: `📖 الوضع 1: القصة التاريخية مكتوبة (نص لذوي الإعاقة)`,
+                howBuilt: `🏗️ كيف بُني ونشأته التاريخية`,
+                highlights: `✨ أبرز المميزات والقيمة التراثية`,
+                modeAudio: `🎧 الوضع 2: الدليل الصوتي التاريخي`,
+                audioNote: `اضغط على تشغيل للاستماع إلى القصة الكاملة حول بناء هذا الموقع وأهميته التاريخية.`,
+                playBtn: `🔊 تشغيل`,
+                pauseBtn: `⏸️ إيقاف مؤقت`,
+                stopBtn: `⏹️ إيقاف`,
+                speedLbl: `سرعة الصوت:`,
+                openMap: `🗺️ فتح موقع المكان في خرائط Google`,
+                qrHeading: `رمز QR لموقع المكان على الخريطة`,
+                qrSub: `امسح رمز QR لفتح موقع هذا المكان في خرائط Google.`
+            },
+            ja: {
+                govTag: `マレーシア地域歴史遺産デジタルアーカイブ (IDAWT • バリアフリー対応)`,
+                fontLabel: `文字サイズ:`,
+                contrastBtn: `ハイコントラスト`,
+                badgeTop: `アクセシブル・デジタルアーカイブ`,
+                authTag: `✓ 詳しい歴史解説テキスト＆音声ガイド`,
+                mainTitle: `マレーシア地域歴史遺産アーカイブ`,
+                mainSubtitle: `障がいのある方にも利用しやすい文章解説・音声ガイドと地図QRコード`,
+                navArkib: `アーカイブ一覧`,
+                navSumbangan: `寄贈・専門家認証`,
+                navKpi: `アクセシビリティ案内`,
+                heroBadge: `バリアフリー対応：歴史の成り立ちと見どころを文章と音声で提供`,
+                heroHeading: `国の歴史的遺産を詳しい解説文と音声ガイドで体験`,
+                heroDesc: `すべての史跡に「どのように建てられたか」と「見どころ・歴史的価値」を収録し、読みやすい文章と速度調整可能な音声ガイドの両方で利用できます。`,
+                stat1: `登録史跡数`,
+                statSub1: `✓ 15州・直轄領`,
+                stat2: `提供モード`,
+                statSub2: `解説文 ＋ 音声ガイド`,
+                stat3: `対応言語`,
+                statSub3: `BM, EN, ZH, TA, AR, JA, KO`,
+                stat4: `マップQRコード`,
+                statSub4: `各場所に1つのQR`,
+                lblSearch: `🔍 遺産・場所を検索`,
+                searchPlaceholder: `ア・ファモーサ、ブジャン渓谷、ケリーズ・キャッスル...`,
+                lblState: `📍 州・直轄領`,
+                lblCategory: `🗂️ 遺産カテゴリー`,
+                lblStatus: `🛡️ ステータス`,
+                showing: `表示中`,
+                records: `件の史跡（解説文・音声付）`,
+                verified: `✓ 専門家認証済`,
+                seeQr: `歴史解説と音声を見る →`,
+                modeText: `📖 モード1：文章による歴史解説（字幕・テキスト）`,
+                howBuilt: `🏗️ どのように建てられたか・歴史的起源`,
+                highlights: `✨ 見どころと歴史的価値`,
+                modeAudio: `🎧 モード2：歴史音声ガイド（バリアフリー）`,
+                audioNote: `再生ボタンを押すと、この史跡の成り立ちと見どころを音声で読み上げます。`,
+                playBtn: `🔊 再生`,
+                pauseBtn: `⏸️ 一時停止`,
+                stopBtn: `⏹️ 停止`,
+                speedLbl: `音声速度:`,
+                openMap: `🗺️ Googleマップで場所を開く`,
+                qrHeading: `場所ピン用QRコード`,
+                qrSub: `QRコードをスキャンしてGoogleマップでこの場所を開きます。`
+            },
+            ko: {
+                govTag: `말레이시아 지역 역사유산 디지털 아카이브 (IDAWT • 장애인 접근성 지원)`,
+                fontLabel: `글자 크기:`,
+                contrastBtn: `고대비 모드`,
+                badgeTop: `포용적 접근성 디지털 아카이브`,
+                authTag: `✓ 상세 역사 텍스트 및 음성 오디오 가이드`,
+                mainTitle: `말레이시아 지역 역사유산 아카이브`,
+                mainSubtitle: `장애인 접근성을 고려한 역사 스토리(글·오디오) 및 위치 지도 QR 제공`,
+                navArkib: `아카이브 컬렉션`,
+                navSumbangan: `기여 및 전문가 검증`,
+                navKpi: `장애인 접근성 안내`,
+                heroBadge: `장애인 친화형: 건립 과정과 핵심 가치를 글과 음성 오디오로 동시 제공`,
+                heroHeading: `상세한 역사 스토리와 음성 오디오로 만나는 국가 유산`,
+                heroDesc: `모든 유적지에 건립 배경과 흥미로운 역사적 가치를 수록했으며, 읽기 쉬운 문장과 속도 조절이 가능한 음성 오디오로 함께 제공합니다.`,
+                stat1: `등록 유적지`,
+                statSub1: `✓ 15개 주·직할구`,
+                stat2: `제공 방식`,
+                statSub2: `문장 해설 + 음성 오디오`,
+                stat3: `지원 언어`,
+                statSub3: `BM, EN, ZH, TA, AR, JA, KO`,
+                stat4: `지도 핀 QR`,
+                statSub4: `장소별 전용 QR`,
+                lblSearch: `🔍 유산 / 지역 검색`,
+                searchPlaceholder: `아 파모사, 부짱 계곡, 켈리스 캐슬...`,
+                lblState: `📍 주 / 직할구`,
+                lblCategory: `🗂️ 유산 분류`,
+                lblStatus: `🛡️ 상태`,
+                showing: `표시 중`,
+                records: `개 유적 (문장·오디오 지원)`,
+                verified: `✓ 전문가 검증됨`,
+                seeQr: `역사 해설 및 오디오 →`,
+                modeText: `📖 모드 1: 문장으로 읽는 역사 스토리 (자막·텍스트)`,
+                howBuilt: `🏗️ 건립 배경 및 초기 역사`,
+                highlights: `✨ 흥미로운 점과 역사적 가치`,
+                modeAudio: `🎧 모드 2: 역사 음성 오디오 가이드 (접근성 지원)`,
+                audioNote: `재생 버튼을 누르면 이 유적의 건립 과정과 주요 특징을 음성으로 들려줍니다.`,
+                playBtn: `🔊 재생`,
+                pauseBtn: `⏸️ 일시정지`,
+                stopBtn: `⏹️ 정지`,
+                speedLbl: `음성 속도:`,
+                openMap: `🗺️ Google 지도에서 핀 열기`,
+                qrHeading: `장소 위치 핀 QR코드`,
+                qrSub: `QR코드를 스캔하면 Google 지도에서 해당 장소 핀을 엽니다.`
+            }
+        };
+
+        const ARCHIVE_ITEMS = [
+            // JOHOR
+            {
+                id: "jhr-muzium-abu-bakar",
+                state: "Johor",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1866 Masihi",
+                title: {
+                    ms: `Muzium Diraja Abu Bakar (Bekas Istana Besar, 1866)`,
+                    en: `Royal Abu Bakar Museum (Former Grand Palace, 1866)`,
+                    zh: `阿布巴卡王室博物馆（1866年旧大王宫）`,
+                    ta: `அபு பக்கர் அரச அருங்காட்சியகம் (1866)`,
+                    ar: `متحف السلطان أبو بكر الملكي (1866)`,
+                    ja: `アブ・バカール王立博物館（1866年）`,
+                    ko: `아부 바카르 왕립박물관 (1866년)`
+                },
+                locationLabel: "Muzium Diraja Abu Bakar, Johor Bahru, Johor",
+                mapQuery: "Muzium Diraja Abu Bakar Johor Bahru",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Royal_Abu_Bakar_Museum_Johor.jpg?width=900",
+                origin: {
+                    ms: `Bangunan ini mula dibina pada tahun 1866 atas titah Sultan Abu Bakar sebagai Istana Besar Johor yang menghadap Selat Tebrau. Reka bentuknya menggabungkan pengaruh seni bina Inggeris-Victoria dengan susun atur tempatan bagi dijadikan pusat pentadbiran rasmi dan istiadat diraja.`,
+                    en: `Construction began in 1866 under Sultan Abu Bakar as the Grand Palace of Johor overlooking the Tebrau Strait, blending Anglo-Victorian architecture with local royal palace layouts.`,
+                    zh: `该建筑于1866年奉苏丹阿布巴卡之命兴建，原为面向柔佛海峡的大王宫，融合英式维多利亚建筑与马来王宫格局。`,
+                    ta: `1866-இல் சுல்தான் அபு பக்கர் ஆணையின் கீழ் தெப்ராவ் நீரிணையை நோக்கிய பெரிய அரண்மனையாக இது கட்டப்பட்டது.`,
+                    ar: `بدأ بناؤه عام 1866 بأمر من السلطان أبو بكر ليكون القصر الكبير المطل على مضيق تيبراو.`,
+                    ja: `1866年にスルタン・アブ・バカールの命によりテブラウ海峡を望む大王宮として建設されました。`,
+                    ko: `1866년 술탄 아부 바카르의 명으로 테브라우 해협을 내려다보는 대왕궁으로 건립되었습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, bangunan ini kemudiannya dijadikan Muzium Diraja Abu Bakar yang menghimpunkan koleksi alat kebesaran diraja, perabot antik, serta bukti pemodenan pentadbiran negeri Johor pada abad ke-19.`,
+                    en: `Today it houses the Royal Abu Bakar Museum, showcasing royal regalia, period furnishings, and rare records of Johor's 19th-century administrative modernization.`,
+                    zh: `其亮点在于馆内珍藏柔佛王室御用器物、古董家具及19世纪柔佛现代化的珍贵历史文物。`,
+                    ta: `இங்கு அரச சின்னங்கள், பழங்காலப் பொருட்கள் மற்றும் 19-ஆம் நூற்றாண்டு ஜோஹோர் நிர்வாக ஆவணங்கள் காட்சிப்படுத்தப்பட்டுள்ளன.`,
+                    ar: `يضم المتحف اليوم مقتنيات ملكية نادرة وأثاثاً تاريخياً يوثق نهضة جوهر في القرن التاسع عشر.`,
+                    ja: `王室の宝物やアンティーク家具、19世紀ジョホール近代化の歴史資料が見どころです。`,
+                    ko: `왕실 의장품과 고가구, 19세기 조호르 근대화 역사를 보여주는 귀중한 소장품이 매력입니다.`
+                }
+            },
+            {
+                id: "jhr-kota-johor-lama",
+                state: "Johor",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Abad ke-16 Masihi",
+                title: {
+                    ms: `Kota Johor Lama`,
+                    en: `Kota Johor Lama`,
+                    zh: `旧柔佛古城（Kota Johor Lama）`,
+                    ta: `கோட்டா ஜோஹோர் லாமா`,
+                    ar: `كوتا جوهور لاما`,
+                    ja: `コタ・ジョホール・ラマ`,
+                    ko: `코타 조호르 라마`
+                },
+                locationLabel: "Kota Johor Lama, Kota Tinggi, Johor",
+                mapQuery: "Kota Johor Lama Kota Tinggi Johor",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kota_Johor_Lama_Museum.JPG?width=900",
+                origin: {
+                    ms: `Kota Johor Lama dibina sekitar pertengahan abad ke-16 oleh Sultan Alauddin Riayat Shah II sebagai pusat pemerintahan dan kubu pertahanan Kesultanan Johor selepas kejatuhan Melaka. Kedudukannya di atas tanjung tinggi di tebing Sungai Johor dipilih kerana mudah mengawal laluan kapal.`,
+                    en: `Built in the mid-16th century by Sultan Alauddin Riayat Shah II on a strategic headland along the Johor River as a fortified capital of the Johor Sultanate.`,
+                    zh: `建于16世纪中叶，由苏丹阿拉乌丁·利亚沙二世在柔佛河畔高地修筑，作为早期柔佛苏丹王朝的都城与要塞。`,
+                    ta: `16-ஆம் நூற்றாண்டின் நடுப்பகுதியில் சுல்தான் அலாவுதீன் ரியாயத் ஷா II அவர்களால் ஜோஹோர் ஆற்றங்கரையில் கட்டப்பட்ட கோட்டை நகரம்.`,
+                    ar: `بُنيت في منتصف القرن السادس عشر على رأس مرتفع مطل على نهر جوهر لتكون عاصمة محصنة لسلطنة جوهر.`,
+                    ja: `16世紀半ばにジョホール川沿いの高台に築かれ、初期ジョホール王国の都城・要塞として機能しました。`,
+                    ko: `16세기 중엽 조호르강 언덕 위에 축조되어 초기 조호르 술탄국의 수도이자 방어 요새 역할을 했습니다.`
+                },
+                highlight: {
+                    ms: `Tapak ini menarik kerana masih memperlihatkan benteng tanah kubu purba, makam lama, serta penemuan seramik perdagangan dari China dan Asia Tenggara yang membuktikan peranan Johor sebagai kuasa maritim.`,
+                    en: `Visitors can see ancient earthen ramparts, historic tombs, and excavated Chinese and Southeast Asian trade ceramics proving Johor's maritime prominence.`,
+                    zh: `遗址保留了古代土筑城墙、古墓及出土的中国与东南亚贸易瓷器，印证柔佛作为海上贸易枢纽的地位。`,
+                    ta: `பழமையான மண் கோட்டைச் சுவர்கள், கல்லறைகள் மற்றும் சீன-தென்கிழக்கு ஆசிய வணிக மட்பாண்டங்கள் இங்கு கண்டெடுக்கப்பட்டுள்ளன.`,
+                    ar: `يتميز الموقع بأسواره الترابية القديمة واللقى الخزفية التي تثبت مكانة جوهر البحرية والتجارية.`,
+                    ja: `土塁跡や古墓に加え、中国や東南アジアの交易陶磁器が出土し、海洋交易の繁栄を伝えます。`,
+                    ko: `옛 토성 성벽과 고분, 중국·동남아 교역 도자기 유물이 출토되어 해상 교역의 중심지였음을 보여줍니다.`
+                }
+            },
+
+            // KEDAH
+            {
+                id: "kdh-lembah-bujang",
+                state: "Kedah",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Abad ke-5 hingga ke-14 Masihi",
+                title: {
+                    ms: `Tapak Arkeologi Lembah Bujang`,
+                    en: `Bujang Valley Archaeological Site`,
+                    zh: `布央谷考古遗址`,
+                    ta: `புஜாங் பள்ளத்தாக்கு தொல்லியல் தளம்`,
+                    ar: `موقع وادي بوجانغ الأثري`,
+                    ja: `ブジャン渓谷考古学遺跡`,
+                    ko: `부짱 계곡 고고학 유적`
+                },
+                locationLabel: "Tapak Arkeologi Lembah Bujang, Merbok, Kedah",
+                mapQuery: "Muzium Arkeologi Lembah Bujang Kedah",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Candi_Bukit_Batu_Pahat.jpg?width=900",
+                origin: {
+                    ms: `Lembah Bujang berkembang sebagai pusat pelabuhan entrepot dan petempatan tamadun Kedah Tua sejak abad ke-5 Masihi di kaki Gunung Jerai. Para pedagang dari India, China, dan Timur Tengah singgah di sini sementara menunggu pertukaran angin monsun.`,
+                    en: `Bujang Valley emerged from the 5th century CE at the foot of Mount Jerai as an entrepot port of Ancient Kedah where merchants from India, China, and the Middle East waited for monsoon winds.`,
+                    zh: `布央谷自公元5世纪起在日莱峰山脚兴起，成为古吉打的转口贸易港，吸引印度、中国及中东商船停泊候风。`,
+                    ta: `கி.பி. 5-ஆம் நூற்றாண்டு முதல் ஜெராய் மலையடிவாரத்தில் பண்டைய கெடாவின் முக்கிய துறைமுக நகரமாக புஜாங் பள்ளத்தாக்கு உருவானது.`,
+                    ar: `نشأ وادي بوجانغ منذ القرن الخامس الميلادي كميناء تجاري رئيسي لمملكة قدح القديمة عند سفح جبل جيراي.`,
+                    ja: `紀元5世紀頃からジェライ山麓に栄えた古代ケダの交易港で、季節風を待つ各地の商人が集まりました。`,
+                    ko: `서기 5세기경 제라이 산기슭에 형성된 고대 크다 왕국의 중계 무역항으로 각국 상선이 기항했습니다.`
+                },
+                highlight: {
+                    ms: `Keunikan utamanya ialah penemuan puluhan tapak candi batu laterit dan granit seperti Candi Bukit Batu Pahat, selain manik kaca, arca, dan seramik purba yang membuktikan keterbukaan perdagangan awal di Tanah Melayu.`,
+                    en: `Its highlight is the discovery of dozens of laterite and granite candi ruins such as Candi Bukit Batu Pahat, along with ancient glass beads and trade ceramics.`,
+                    zh: `其亮点在于出土了数十座红土与花岗岩古庙遗迹（如武吉峇都巴辖古庙）及古代玻璃珠与外销瓷器。`,
+                    ta: `புக்கிட் பத்து பஹாட் கோயில் எச்சங்கள், பழங்கால கண்ணாடி மணிகள் மற்றும் வணிக மட்பாண்டங்கள் இதன் சிறப்பம்சங்களாகும்.`,
+                    ar: `يتميز باكتشاف عشرات المعابد الحجرية القديمة مثل معبد بوكيت باتو باهات والخرز الزجاجي والخزف التجاري.`,
+                    ja: `ブキット・バトゥ・パハト寺院跡をはじめとする数十の遺跡や古代ガラス玉・交易陶磁器が見どころです。`,
+                    ko: `부킷 바투 파핫 사원 유구를 비롯한 수십 기의 유적과 고대 유리구슬·교역 도자기 출토가 돋보입니다.`
+                }
+            },
+            {
+                id: "kdh-sungai-batu",
+                state: "Kedah",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tamadun Awal Sungai Batu",
+                title: {
+                    ms: `Tapak Arkeologi Sungai Batu`,
+                    en: `Sungai Batu Archaeological Site`,
+                    zh: `双溪峇都考古遗址`,
+                    ta: `சுங்கை பத்து தொல்லியல் தளம்`,
+                    ar: `موقع سونغاي باتو الأثري`,
+                    ja: `スンガイ・バトゥ考古学遺跡`,
+                    ko: `순가이 바투 고고학 유적`
+                },
+                locationLabel: "Tapak Arkeologi Sungai Batu, Bujang, Kedah",
+                mapQuery: "Sungai Batu Archaeological Complex Kedah",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sungai_Batu_Archaeological_Site_4.jpg?width=900",
+                origin: {
+                    ms: `Tapak Sungai Batu ditemui melalui ekskavasi arkeologi sistematik yang mendedahkan deretan struktur binaan bata purba di sepanjang alur sungai kuno yang dahulunya bersambung terus ke laut.`,
+                    en: `Uncovered through systematic archaeological excavations revealing brick structures aligned along an ancient river channel that once opened directly to the sea.`,
+                    zh: `通过系统考古发掘重见天日，揭示了沿古河道排列的古代砖砌建筑遗迹，该河道昔日直通大海。`,
+                    ta: `முறையான தொல்லியல் அகழ்வாராய்ச்சிகள் மூலம் பண்டைய ஆற்றுப்பாதையில் அமைந்த செங்கல் கட்டுமானங்கள் இங்கு கண்டறியப்பட்டன.`,
+                    ar: `كُشف عنه عبر تنقيبات أثرية أظهرت مباني من الطوب القديم على طول مجرى نهري كان يتصل بالبحر.`,
+                    ja: `体系的な発掘調査により、かつて海へつながっていた古代水路沿いの煉瓦造り遺構が発見されました。`,
+                    ko: `체계적인 고고학 발굴을 통해 과거 바다와 연결되었던 고대 수로변 벽돌 유구들이 확인되었습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, Sungai Batu memaparkan struktur jeti pelabuhan purba, bangunan pentadbiran perdagangan, monumen ritual, serta bukti relau peleburan besi yang menunjukkan kepakaran teknologi awal masyarakat tempatan.`,
+                    en: `Remarkably, Sungai Batu preserves ancient harbor jetties, trade administration buildings, ritual monuments, and early iron-smelting furnaces.`,
+                    zh: `最引人注目的是这里保存了古代码头栈桥、贸易管理建筑、祭祀遗迹及早期炼铁炉，展现古代冶金与港口技术。`,
+                    ta: `பண்டைய துறைமுகத் தளங்கள், வணிக நிர்வாகக் கட்டடங்கள் மற்றும் ஆரம்பகால இரும்பு உருக்கு உலைகள் இங்குள்ள சிறப்பாகும்.`,
+                    ar: `يضم الموقع أرصفة موانئ قديمة ومباني تجارية وأفران صهر الحديد المبكرة التي تعكس براعة تقنية قديمة.`,
+                    ja: `古代の港湾桟橋や交易施設、製鉄炉跡が残り、当時の高度な技術力を物語ります。`,
+                    ko: `고대 항구 부두와 교역 관리 유구, 초기 제철용 용광로 흔적이 남아 뛰어난 기술력을 보여줍니다.`
+                }
+            },
+            {
+                id: "kdh-rumah-merdeka",
+                state: "Kedah",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Era Perjuangan Kemerdekaan",
+                title: {
+                    ms: `Rumah Merdeka / Memorial Tunku Abdul Rahman (Alor Setar)`,
+                    en: `Rumah Merdeka / Tunku Abdul Rahman Memorial (Alor Setar)`,
+                    zh: `亚罗士打独立屋 / 东姑阿都拉曼纪念馆`,
+                    ta: `ரூமா மெர்டேகா / துங்கு அப்துல் ரகுமான் நினைவு இல்லம்`,
+                    ar: `بيت الاستقلال / نصب تونكو عبد الرحمن التذكاري`,
+                    ja: `ルマ・ムルデカ / トゥンク・アブドゥル・ラーマン記念館`,
+                    ko: `르마 므르데카 / 퉁쿠 압둘 라만 기념관`
+                },
+                locationLabel: "Rumah Merdeka, Jalan Putera, Alor Setar, Kedah",
+                mapQuery: "Rumah Merdeka Alor Setar Kedah",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Rumah_Merdeka_Alor_Setar.jpg?width=900",
+                origin: {
+                    ms: `Kediaman ini asalnya merupakan rumah kayu sederhana milik Tunku Abdul Rahman Putra Al-Haj di Alor Setar sebelum diubah suai dan dinamakan Rumah Merdeka sebagai tanda kenangan perjuangan menuntut kemerdekaan Tanah Melayu.`,
+                    en: `Originally a modest timber residence belonging to Tunku Abdul Rahman Putra Al-Haj in Alor Setar, it was later renovated and named Rumah Merdeka to commemorate Malaya's independence movement.`,
+                    zh: `此处原为国父东姑阿都拉曼在亚罗士打的简朴木屋居所，后经修缮并命名为“独立屋”，以纪念争取独立的历程。`,
+                    ta: `அலோர் ஸ்டாரில் துங்கு அப்துல் ரகுமானுக்குச் சொந்தமான எளிய மர இல்லமாக இருந்து, பின்னர் சுதந்திர நினைவு இல்லமாகப் பெயரிடப்பட்டது.`,
+                    ar: `كان منزلاً خشبياً بسيطاً لتونكو عبد الرحمن في ألور ستار قبل ترميمه وتسميته بيت الاستقلال.`,
+                    ja: `アロースターにあったトゥンク・アブドゥル・ラーマンの木造邸宅で、独立運動を記念しルマ・ムルデカと名付けられました。`,
+                    ko: `알로르스타르에 있던 퉁쿠 압둘 라만의 목조 자택으로, 독립 운동을 기려 르마 므르데카로 명명되었습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, rumah ini pernah menjadi tempat perbincangan penting pemimpin kemerdekaan dan kini mempamerkan barangan peribadi, gambar bersejarah, serta suasana kediaman Bapa Kemerdekaan Malaysia.`,
+                    en: `It served as a gathering place for independence leaders and today exhibits personal memorabilia, historic photographs, and the living quarters of Malaysia's Father of Independence.`,
+                    zh: `这里曾是独立运动领袖商议国事的重要场所，如今展出国父私人物品、历史照片及生活起居原貌。`,
+                    ta: `சுதந்திரத் தலைவர்கள் கூடி ஆலோசித்த இடமாகவும், இன்று அவரது தனிப்பட்ட நினைவுப் பொருட்களைக் கொண்ட அருங்காட்சியகமாகவும் திகழ்கிறது.`,
+                    ar: `شهد المنزل اجتماعات قادة الاستقلال ويعرض اليوم مقتنيات وصوراً تاريخية لأب الاستقلال الماليزي.`,
+                    ja: `独立指導者たちの会合の場となり、現在は建国の父の愛用品や歴史写真を展示しています。`,
+                    ko: `독립 지도자들의 주요 논의 장소였으며, 현재 국부의 유품과 역사 사진이 전시되어 있습니다.`
+                }
+            },
+
+            // KELANTAN
+            {
+                id: "ktn-istana-jahar",
+                state: "Kelantan",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1887 Masihi",
+                title: {
+                    ms: `Istana Jahar, Kota Bharu`,
+                    en: `Istana Jahar, Kota Bharu`,
+                    zh: `哥打峇鲁查哈皇宫`,
+                    ta: `இஸ்தானா ஜஹார், கோத்தா பாரு`,
+                    ar: `قصر جاهار، كوتا بارو`,
+                    ja: `イスタナ・ジャハール（コタバル）`,
+                    ko: `이스타나 자하르 (코타바루)`
+                },
+                locationLabel: "Istana Jahar, Kota Bharu, Kelantan",
+                mapQuery: "Istana Jahar Kota Bharu Kelantan",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Istana_Jahar_Kota_Bharu.jpg?width=900",
+                origin: {
+                    ms: `Istana Jahar dibina pada tahun 1887 oleh Sultan Muhammad II sebagai hadiah perkahwinan untuk cucunda baginda, Long Kundur. Nama istana ini diambil sempena sebatang pokok jahar yang tumbuh di perkarangan istana tersebut.`,
+                    en: `Built in 1887 by Sultan Muhammad II as a wedding gift for his grandson Long Kundur, the palace takes its name from a jahar tree growing in its courtyard.`,
+                    zh: `由苏丹莫哈末二世于1887年兴建，作为赐予孙儿隆昆杜的婚礼礼物，因庭院内一棵查哈树而得名。`,
+                    ta: `1887-இல் சுல்தான் முகமது II அவர்களால் தமது பேரனுக்குத் திருமணப் பரிசாகக் கட்டப்பட்ட இவ்வரண்மனை, வளாகத்திலிருந்த ஜஹார் மரத்தின் பெயரைப் பெற்றது.`,
+                    ar: `بُني عام 1887 بأمر السلطان محمد الثاني كهدية زفاف لحفيده، وسُمي تيمناً بشجرة جاهار في فنائه.`,
+                    ja: `1887年にスルタン・ムハマド2世が孫への婚礼の贈り物として建て、中庭のジャハールの木にちなみ名付けられました。`,
+                    ko: `1887년 술탄 무하마드 2세가 손자의 혼례 선물로 건립했으며, 안뜰의 자하르 나무에서 이름이 유래했습니다.`
+                },
+                highlight: {
+                    ms: `Keunikannya terletak pada ukiran kayu tebuk tembus motif awan larat oleh tukang-tukang mahir Kelantan serta peranannya kini sebagai Muzium Adat Istiadat Diraja Kelantan.`,
+                    en: `Its highlight is intricate Kelantanese perforated woodcarving and its present role as the Museum of Royal Traditions and Customs of Kelantan.`,
+                    zh: `其亮点在于吉兰丹匠人精湛的镂空木雕工艺，如今作为吉兰丹王室礼仪博物馆对外开放。`,
+                    ta: `கிளாந்தான் கைவினைஞர்களின் நுணுக்கமான மரச் செதுக்கு வேலைப்பாடுகளும், இன்று அரச பாரம்பரிய அருங்காட்சியகமாக விளங்குவதும் இதன் சிறப்பாகும்.`,
+                    ar: `يتميز بنقوشه الخشبية المتقنة ودوره الحالي كمتحف للتقاليد والعادات الملكية في كلنتن.`,
+                    ja: `熟練職人の透かし彫り木彫装飾と、現在のクランタン王室儀礼博物館としての展示が見どころです。`,
+                    ko: `장인들의 정교한 투각 목조 조각과 현재 클란탄 왕실 의례 박물관으로서의 전시가 매력입니다.`
+                }
+            },
+            {
+                id: "ktn-masjid-kampung-laut",
+                state: "Kelantan",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Seni Bina Kayu Tanpa Paku",
+                title: {
+                    ms: `Masjid Kampung Laut`,
+                    en: `Kampung Laut Mosque`,
+                    zh: `甘榜劳勿清真寺`,
+                    ta: `கம்போங் லாவுட் மசூதி`,
+                    ar: `مسجد كامبونغ لاوت`,
+                    ja: `カンプン・ラウト寺院`,
+                    ko: `캄풍 라우트 모스크`
+                },
+                locationLabel: "Masjid Kampung Laut, Nilam Puri, Kota Bharu, Kelantan",
+                mapQuery: "Kampung Laut Mosque Kelantan",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Masjid_Kampung_Laut,_Nilampuri,_Kelantan,_Malaysia.jpg?width=900",
+                origin: {
+                    ms: `Masjid ini dibina oleh sekumpulan pendakwah dan pelayar dari Champa dan Jawa yang singgah di pesisir Kelantan sekitar abad ke-18. Struktur asalnya didirikan menggunakan kayu cengal berkualiti tinggi dengan teknik tanggam dan pasak kayu tanpa sebatang paku besi.`,
+                    en: `Built in the 18th century by seafaring scholars from Champa and Java using cengal hardwood joined entirely with wooden pegs and mortise-and-tenon joints without iron nails.`,
+                    zh: `建于18世纪，由途经吉兰丹海岸的占婆与爪哇学者和航海者使用优质程伽木建造，全屋采用榫卯木栓结构，不用一根铁钉。`,
+                    ta: `18-ஆம் நூற்றாண்டில் செங்கல் மரங்களைக் கொண்டு இரும்பு ஆணிகள் இன்றி மர ஆப்புகளால் கட்டப்பட்ட வரலாற்று மசூதி.`,
+                    ar: `بُني في القرن الثامن عشر من خشب التشينغال المتين بتقنية التعشيق الخشبي دون استخدام مسامير حديدية.`,
+                    ja: `18世紀にチャンパやジャワの航海者・学者らが鉄釘を一切使わず堅木チェンガル材の木組みだけで建てました。`,
+                    ko: `18세기 참파와 자바의 항해자·학자들이 쇠못 없이 쳉갈 원목 짜맞춤 기법만으로 건립한 사원입니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, masjid ini pernah dipindahkan secara bergotong-royong dari tebing Sungai Kelantan ke Nilam Puri akibat hakisan banjir besar, menjadikannya simbol ketahanan seni bina Melayu tradisional.`,
+                    en: `Remarkably, the entire wooden mosque was relocated piece by piece from the Kelantan riverbank to Nilam Puri to save it from severe river erosion.`,
+                    zh: `令人惊叹的是，整座木构清真寺曾为躲避河岸严重水患而逐件拆迁至尼南布里重建，展现传统木构智慧。`,
+                    ta: `ஆற்றங்கரை அரிப்பிலிருந்து பாதுகாக்க முழு மர மசூதியும் நிலம் பூரிக்கு இடமாற்றம் செய்யப்பட்டதே இதன் தனிச்சிறப்பாகும்.`,
+                    ar: `نُقل المسجد الخشبي بالكامل قطعة تلو الأخرى لحمايته من فيضانات النهر وتآكل الضفاف.`,
+                    ja: `川の氾濫と浸食から守るため木造建築全体が移築・復元された伝統建築技術の結晶です。`,
+                    ko: `강둑 침식을 피하기 위해 목조 건물 전체를 해체 후 이전 복원한 전통 건축 기술의 걸작입니다.`
+                }
+            },
+            {
+                id: "ktn-gua-cha",
+                state: "Kelantan",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Prasejarah Hoabinhian & Neolitik",
+                title: {
+                    ms: `Tapak Arkeologi Gua Cha`,
+                    en: `Gua Cha Archaeological Site`,
+                    zh: `瓜查史前考古遗址`,
+                    ta: `குவா சா தொல்லியல் தளம்`,
+                    ar: `موقع غوا تشا الأثري`,
+                    ja: `グア・チャ考古学遺跡`,
+                    ko: `구아 차 고고학 유적`
+                },
+                locationLabel: "Gua Cha, Gua Musang, Kelantan",
+                mapQuery: "Gua Cha Gua Musang Kelantan",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Gua_Cha_Kelantan.jpg?width=900",
+                origin: {
+                    ms: `Gua Cha ialah gua batu kapur di tebing Sungai Nenggiri, Gua Musang yang mula diekskavasi secara saintifik pada tahun 1954. Lapisan tanahnya menunjukkan gua ini dihuni manusia secara berterusan sejak zaman Mesolitik (Hoabinhian) hingga zaman Neolitik.`,
+                    en: `A limestone rock shelter along the Nenggiri River in Gua Musang first excavated in 1954, revealing continuous human habitation from the Hoabinhian to Neolithic periods.`,
+                    zh: `位于话望生能吉里河畔的石灰岩洞穴，1954年首次开展科学考古发掘，证实从和平文化至新石器时代均有人类居住。`,
+                    ta: `1954-இல் அகழ்வாராய்ச்சி செய்யப்பட்ட நெங்கிரி ஆற்றங்கரையில் உள்ள சுண்ணாம்புக் குகை; வரலாற்றுக்கு முந்தைய மனித வாழ்விடமாக இருந்தது.`,
+                    ar: `كهف جيري على ضفاف نهر نينغيري نُقّب فيه عام 1954 وكشف عن استيطان بشري متواصل منذ العصر الحجري.`,
+                    ja: `グア・ムサンのネンギリ川沿いにある石灰岩洞窟で、1954年の発掘により先史時代からの連続居住が確認されました。`,
+                    ko: `구아무상 넹기리강 변의 석회암 동굴로 1954년 발굴을 통해 선사 시대부터 이어진 인류 거주 흔적이 밝혀졌습니다.`
+                },
+                highlight: {
+                    ms: `Tapak ini menarik kerana menemukan puluhan rangka manusia prasejarah bersama bekalan kubur seperti tembikar berkaki, beliung batu terupam, dan perhiasan cengkerang yang memberi gambaran jelas tentang kehidupan masyarakat awal di pedalaman Semenanjung.`,
+                    en: `Excavations uncovered dozens of prehistoric burials alongside footed pottery, polished stone adzes, and shell ornaments illustrating early inland life.`,
+                    zh: `遗址出土数十具史前人类遗骸及圈足陶器、磨制石锛与贝壳饰品，生动还原半岛内陆先民生活。`,
+                    ta: `பழங்கால மட்பாண்டங்கள், கல் கருவிகள் மற்றும் சிப்பி அணிகலன்களுடன் கூடிய மனித எச்சங்கள் இங்கு கண்டெடுக்கப்பட்டன.`,
+                    ar: `كشفت الحفريات عن عشرات المدافن القديمة والفخار والأدوات الحجرية المصقولة والحلي الصدفية.`,
+                    ja: `脚付き土器や磨製石斧、貝製装飾品とともに多数の先史時代埋葬遺構が発見された点が注目されます。`,
+                    ko: `굽달린 토기와 간석기, 조개 장신구와 함께 다수의 선사 시대 매장 유구가 출토된 점이 특징입니다.`
+                }
+            },
+
+            // MELAKA
+            {
+                id: "mlk-kota-a-famosa",
+                state: "Melaka",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1511 Masihi",
+                title: {
+                    ms: `Kota A Famosa (1511)`,
+                    en: `A Famosa Fortress (1511)`,
+                    zh: `法摩沙堡（1511年）`,
+                    ta: `அஃபாமோசா கோட்டை (1511)`,
+                    ar: `حصن أفاموسا (1511)`,
+                    ja: `ア・ファモーサ要塞（1511年）`,
+                    ko: `아 파모사 요새 (1511년)`
+                },
+                locationLabel: "Kota A Famosa (Porta de Santiago), Jalan Parameswara, Melaka",
+                mapQuery: "A Famosa Porta de Santiago Melaka",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Porta_de_Santiago_Malacca.jpg?width=900",
+                origin: {
+                    ms: `Kota A Famosa mula dibina pada tahun 1511 oleh tentera Portugis di bawah pimpinan Alfonso de Albuquerque sejurus menawan Melaka. Kubu ini dibina menggunakan batu laterit dan bahan runtuhan bangunan lama bagi mengawal muara Sungai Melaka dan laluan perdagangan Selat Melaka.`,
+                    en: `Built in 1511 by Portuguese forces led by Alfonso de Albuquerque immediately after capturing Melaka, using laterite stone to guard the Melaka River estuary and Straits trade.`,
+                    zh: `1511年葡萄牙军队攻占马六甲后由阿方索·德·阿尔布克尔克下令兴建，采用红土石砌筑，以扼守马六甲河口与海峡航道。`,
+                    ta: `1511-இல் போர்த்துகீசியப் படைகளால் மலாக்கா ஆற்றின் முகத்துவாரத்தையும் கடல் வணிகத்தையும் பாதுகாக்கக் கட்டப்பட்ட கோட்டை.`,
+                    ar: `بُني عام 1511 على يد البرتغاليين بقيادة ألفونسو دي ألبوكيرك لحماية مصب نهر ملقا والملاحة في المضيق.`,
+                    ja: `1511年にポルトガル軍がマラッカ占領直後にラテライト石で築き、マラッカ川河口と海峡交易を監視しました。`,
+                    ko: `1511년 포르투갈군이 말라카 점령 직후 라테라이트 석재로 축조하여 말라카강 하구와 해협 교역을 통제했습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, walaupun sebahagian besar tembok kota diruntuhkan pada awal abad ke-19, pintu gerbang Porta de Santiago berjaya diselamatkan dan kini menjadi mercu tanda sejarah tertua seni bina Eropah di Asia Tenggara.`,
+                    en: `Although most of the fortress walls were demolished in the early 19th century, the Porta de Santiago gate survived as one of the oldest European architectural relics in Southeast Asia.`,
+                    zh: `尽管大部分城墙于19世纪初被拆毁，圣地亚哥古城门得以保存至今，成为东南亚现存最古老的欧式历史遗迹之一。`,
+                    ta: `19-ஆம் நூற்றாண்டில் பெரும்பகுதி இடிக்கப்பட்டாலும், போர்டா டி சான்டியாகோ நுழைவாயில் தென்கிழக்கு ஆசியாவின் பழமையான ஐரோப்பிய எச்சமாக நிற்கிறது.`,
+                    ar: `رغم هدم معظم أسوار الحصن في القرن التاسع عشر، نجت بوابة بورتا دي سانتياغو كأقدم أثر أوروبي في جنوب شرق آسيا.`,
+                    ja: `19世紀初頭に城壁の多くが破壊されましたが、サンティアゴ門は現存し東南アジア最古級の欧州建築遺構となっています。`,
+                    ko: `19세기 초 성벽 대부분이 철거되었으나 산티아고 문이 보존되어 동남아 최고(最古)급 유럽 건축 유산으로 남았습니다.`
+                }
+            },
+            {
+                id: "mlk-bangunan-stadthuys",
+                state: "Melaka",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina Sekitar 1650 Masihi",
+                title: {
+                    ms: `Bangunan Stadthuys, Melaka`,
+                    en: `The Stadthuys, Melaka`,
+                    zh: `马六甲荷兰红屋（Stadthuys）`,
+                    ta: `ஸ்டாட்துயிஸ் கட்டடம், மலாக்கா`,
+                    ar: `مبنى ستادهويس، ملقا`,
+                    ja: `スタダイス（マラッカ）`,
+                    ko: `스타다이스 (말라카)`
+                },
+                locationLabel: "Bangunan Stadthuys, Dataran Belanda, Bandar Hilir, Melaka",
+                mapQuery: "The Stadthuys Melaka",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Stadthuys_Melaka.jpg?width=900",
+                origin: {
+                    ms: `Bangunan Stadthuys dibina sekitar tahun 1650 semasa era pentadbiran Belanda di Melaka sebagai kediaman rasmi Gabenor Belanda dan pusat pentadbiran perbandaran (dewan bandar raya). Dindingnya yang tebal, tingkap kayu besar, dan tangga batu mencerminkan seni bina kolonial Belanda abad ke-17.`,
+                    en: `Constructed around 1650 during Dutch rule in Melaka as the official residence of the Dutch Governor and municipal town hall, featuring thick masonry walls and louvered timber windows.`,
+                    zh: `约建于1650年荷兰统治时期，曾作为荷兰总督官邸与市政厅，厚实砖墙与木百叶窗展现17世纪荷兰建筑特色。`,
+                    ta: `சுமார் 1650-இல் டச்சு ஆட்சியின் போது ஆளுநர் இல்லமாகவும் நகர மன்றமாகவும் கட்டப்பட்ட வரலாற்றுக் கட்டடம்.`,
+                    ar: `بُني حوالي عام 1650 خلال الحكم الهولندي ليكون مقراً للحاكم الهولندي ومجلساً بلدياً للمدينة.`,
+                    ja: `1650年頃のオランダ統治時代に総督公邸兼市庁舎として建てられ、厚い壁と木製鎧戸が特徴です。`,
+                    ko: `1650년경 네덜란드 통치 시기에 총독 관저 겸 시청사로 건립되었으며 두꺼운 벽체와 목조 창문이 특징입니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, Stadthuys dipercayai merupakan bangunan kolonial Belanda tertua yang masih kekal di rantau Timur dan kini menempatkan Muzium Sejarah dan Etnografi Melaka dalam zon Tapak Warisan Dunia UNESCO.`,
+                    en: `Believed to be the oldest surviving Dutch building in the East, it now houses the History and Ethnography Museum within Melaka's UNESCO World Heritage zone.`,
+                    zh: `它是东方现存最古老的荷兰时期建筑，现为马六甲历史与民族学博物馆，属于世界文化遗产核心区。`,
+                    ta: `கிழக்காசியாவில் எஞ்சியிருக்கும் மிகப் பழமையான டச்சுக் கட்டடமான இது, இன்று மலாக்கா வரலாற்று அருங்காட்சியகமாக இயங்குகிறது.`,
+                    ar: `يُعد أقدم مبنى هولندي باقٍ في الشرق ويضم اليوم متحف التاريخ والإثنوغرافيا ضمن منطقة اليونسكو.`,
+                    ja: `東洋に現存する最古のオランダ建築とされ、現在は世界遺産エリア内の歴史・民族博物館となっています。`,
+                    ko: `동양에 현존하는 가장 오래된 네덜란드 건축물로 여겨지며 현재 유네스코 세계유산 구역 내 역사민속박물관입니다.`
+                }
+            },
+            {
+                id: "mlk-runtuhan-gereja-st-john",
+                state: "Melaka",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Abad ke-16 hingga ke-18 Masihi",
+                title: {
+                    ms: `Runtuhan Gereja / Kubu St. John, Melaka`,
+                    en: `St. John's Fort / Church Ruins, Melaka`,
+                    zh: `马六甲圣约翰遗迹`,
+                    ta: `செயின்ட் ஜான் இடிபாடுகள், மலாக்கா`,
+                    ar: `أطلال سانت جون، ملقا`,
+                    ja: `セント・ジョン遺跡（マラッカ）`,
+                    ko: `세인트 존 유적 (말라카)`
+                },
+                locationLabel: "Bukit St. John, Jalan Padang Temu, Melaka",
+                mapQuery: "St John Fort Melaka",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/St._John%27s_Fort,_Malacca.jpg?width=900",
+                origin: {
+                    ms: `Tapak di puncak Bukit St. John ini pada asalnya merupakan sebuah gereja kecil Portugis sebelum dibina semula oleh pihak Belanda pada akhir abad ke-18 sebagai kubu pertahanan strategik bagi mengawal serangan dari arah daratan di sebelah timur Melaka.`,
+                    en: `Originally a small Portuguese chapel on St. John's Hill, it was rebuilt by the Dutch in the late 18th century as a strategic hill fort defending Melaka's eastern landward approaches.`,
+                    zh: `圣约翰山顶原为葡萄牙小教堂，18世纪末由荷兰人改建为战略山顶炮台，以防御来自马六甲东面陆路的进攻。`,
+                    ta: `தொடக்கத்தில் போர்த்துகீசியச் சிற்றாலயமாக இருந்து, 18-ஆம் நூற்றாண்டின் பிற்பகுதியில் டச்சுக்காரர்களால் பாதுகாப்புக் கோட்டையாக மாற்றப்பட்டது.`,
+                    ar: `كان في الأصل كنيسة برتغالية صغيرة قبل أن يعيد الهولنديون بناءه في أواخر القرن الثامن عشر كحصن دفاعي.`,
+                    ja: `もともとはポルトガル時代の礼拝堂でしたが、18世紀後半にオランダが陸側からの攻撃に備える要塞へと改築しました。`,
+                    ko: `원래 포르투갈 시대의 작은 예배당이었으나 18세기 후반 네덜란드가 내륙 방어를 위한 언덕 요새로 재건했습니다.`
+                },
+                highlight: {
+                    ms: `Keunikannya ialah kedudukan meriam kubu yang menghadap ke arah daratan (bukan ke laut) kerana ancaman serangan pada ketika itu datang dari pedalaman, selain menawarkan pemandangan panorama Selat Melaka.`,
+                    en: `Uniquely, its cannon embrasures face inland rather than out to sea to counter land-based assaults, while offering panoramic views over the Straits of Malacca.`,
+                    zh: `其独特之处在于炮口朝向内陆而非大海，专门防范陆路奇袭，同时可俯瞰马六甲海峡全景。`,
+                    ta: `கடலை நோக்கி இல்லாமல் நிலப்பகுதியை நோக்கி பீரங்கித் துளைகள் அமைக்கப்பட்டிருப்பது இதன் தனித்துவமாகும்.`,
+                    ar: `يتميز بتوجيه فتحات مدافعه نحو اليابسة بدلاً من البحر لصد الهجمات البرية، مع إطلالة على مضيق ملقا.`,
+                    ja: `海ではなく内陸側に砲眼が向けられている珍しい構造と、マラッカ海峡を一望する眺望が特徴です。`,
+                    ko: `바다가 아닌 내륙을 향한 포문 배치라는 독특한 방어 구조와 말라카 해협 전경이 인상적입니다.`
+                }
+            },
+
+            // NEGERI SEMBILAN
+            {
+                id: "nsn-istana-seri-menanti",
+                state: "Negeri Sembilan",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1902–1908 Masihi",
+                title: {
+                    ms: `Istana Lama Seri Menanti`,
+                    en: `Old Seri Menanti Palace`,
+                    zh: `神安池旧皇宫`,
+                    ta: `பழைய செரி மெனாந்தி அரண்மனை`,
+                    ar: `قصر سري مينانتي القديم`,
+                    ja: `旧スリ・メナンティ宮殿`,
+                    ko: `구 세리 메난티 궁전`
+                },
+                locationLabel: "Istana Lama Seri Menanti, Kuala Pilah, Negeri Sembilan",
+                mapQuery: "Istana Lama Seri Menanti Kuala Pilah",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Istana_Seri_Menanti_Negeri_Sembilan.jpg?width=900",
+                origin: {
+                    ms: `Istana empat tingkat ini dibina antara tahun 1902 hingga 1908 oleh dua orang tukang kayu Melayu tempatan, Kahar dan Taib, bagi menggantikan istana lama yang terbakar. Keseluruhan struktur kayu penak dan cengal disambung menggunakan pasak kayu tanpa sebatang paku.`,
+                    en: `Built between 1902 and 1908 by master carpenters Kahar and Taib using cengal and penak timber joined solely by wooden pegs without a single nail.`,
+                    zh: `建于1902年至1908年间，由本地马来木匠卡哈尔与泰益使用坚硬木材建造，整座四层宫殿全以木榫接合，不用一根铁钉。`,
+                    ta: `1902 முதல் 1908 வரை உள்ளூர் தச்சர்களால் ஒரு ஆணி கூட இல்லாமல் மர ஆப்புகளால் கட்டப்பட்ட நான்கு மாடி மர அரண்மனை.`,
+                    ar: `بُني بين عامي 1902 و1908 على يد حرفيين محليين من الخشب المتين دون استخدام مسمار واحد.`,
+                    ja: `1902〜1908年に地元の名匠によって建てられ、4層木造建築のすべてが釘を使わず木栓のみで組まれています。`,
+                    ko: `1902~1908년 현지 목수 장인들이 못을 단 하나도 쓰지 않고 나무쐐기만으로 지은 4층 목조 궁전입니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, istana ini mempunyai 99 batang tiang yang melambangkan 99 orang hulubalang pelbagai luak di Negeri Sembilan serta bumbung lentik Minangkabau yang kini dipelihara sebagai Muzium Diraja.`,
+                    en: `It features 99 pillars symbolizing 99 warriors from the clans of Negeri Sembilan and curved Minangkabau-style roofs, now preserved as the Royal Museum.`,
+                    zh: `宫殿共有99根立柱，象征森美兰各部落的99位勇士，搭配优雅的米南加保翘角屋顶，现为王室博物馆。`,
+                    ta: `நெகிரி செம்பிலான் குலங்களின் 99 வீரர்களைக் குறிக்கும் 99 தூண்களும் வளைந்த கூரையும் இதன் சிறப்பாகும்.`,
+                    ar: `يضم القصر 99 عموداً ترمز إلى 99 محارباً من عشائر الولاية ويُحفظ اليوم كمتحف ملكي.`,
+                    ja: `99人の戦士を象徴する99本の柱と優美な反り屋根を備え、現在は王室博物館として公開されています。`,
+                    ko: `99명의 용사를 상징하는 99개의 기둥과 유려한 곡선 지붕이 특징이며 현재 왕실박물관으로 보존되고 있습니다.`
+                }
+            },
+            {
+                id: "nsn-pengkalan-kempas",
+                state: "Negeri Sembilan",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tapak Megalit & Batu Bersurat",
+                title: {
+                    ms: `Tapak Megalit Pengkalan Kempas`,
+                    en: `Pengkalan Kempas Megalithic Site`,
+                    zh: `彭加兰肯帕斯巨石遗址`,
+                    ta: `பெங்காலான் கெம்பாஸ் மெகாலிதிக் தளம்`,
+                    ar: `موقع بنغكالان كيمباس الصخري`,
+                    ja: `プンカラン・クンパス巨石遺跡`,
+                    ko: `펭칼란 켐파스 거석 유적`
+                },
+                locationLabel: "Tapak Megalit Pengkalan Kempas, Port Dickson, Negeri Sembilan",
+                mapQuery: "Pengkalan Kempas Megalith Port Dickson",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Pengkalan_Kempas_megalith.jpg?width=900",
+                origin: {
+                    ms: `Kompleks batu megalit ini didirikan oleh masyarakat awal di tebing Sungai Linggi, Pengkalan Kempas dan kemudiannya berkait rapat dengan makam Sheikh Ahmad Majnun bertarikh tahun 1467 Masihi pada zaman Kesultanan Melaka.`,
+                    en: `Erected by early communities along the Linggi River at Pengkalan Kempas and closely linked to the 1467 CE tomb of Sheikh Ahmad Majnun from the Melaka Sultanate era.`,
+                    zh: `由早期居民立于宁宜河畔的巨石群遗址，并与马六甲苏丹王朝时期公元1467年的谢赫·阿末·马吉农古墓紧密相连。`,
+                    ta: `லிங்கி ஆற்றங்கரையில் ஆரம்பகால மக்களால் நிறுவப்பட்ட கற்கள்; 1467-ஆம் ஆண்டைச் சேர்ந்த வரலாற்றுக் கல்லறையுடன் தொடர்புடையவை.`,
+                    ar: `نُصبت هذه الأحجار الضخمة على ضفاف نهر لينغي وترتبط بضريح الشيخ أحمد مجنون المؤرخ عام 1467م.`,
+                    ja: `リンギ川沿いに古代の人々が立てた巨石群で、1467年銘の史跡とも結びついています。`,
+                    ko: `링기강 변에 초기 거주민들이 세운 거석 유적으로 1467년 명문이 새겨진 사적과 연결되어 있습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, terdapat tiga batu tegak utama yang digelar Batu Pedang, Batu Sudu, dan Batu Kemudi kerana bentuk ukirannya, lengkap dengan inskripsi tulisan Jawi dan Kawi yang jarang ditemui.`,
+                    en: `Three iconic upright monoliths—nicknamed the Sword, Spoon, and Rudder stones for their carved shapes—bear rare inscriptions in both Jawi and Kawi scripts.`,
+                    zh: `最独特的是三块分别被称为“剑石”“匙石”与“舵石”的直立巨石，刻有罕见的爪夷文与古卡维文铭文。`,
+                    ta: `வாள் கல், கரண்டி கல், சுக்கான் கல் என அழைக்கப்படும் மூன்று கற்களில் ஜாவி மற்றும் காவி எழுத்துக்கள் பொறிக்கப்பட்டுள்ளன.`,
+                    ar: `تشتهر بثلاثة أحجار قائمة تُعرف بحجر السيف والملعقة والدفة وعليها نقوش بالخط الجاوي والكاوي.`,
+                    ja: `剣石・匙石・舵石と呼ばれる3基の立石に、希少なジャウィ文字とカウィ文字の碑文が刻まれています。`,
+                    ko: `검석·숟가락석·키석으로 불리는 3기의 입석에 희귀한 자위 문자와 카위 문자 명문이 새겨져 있습니다.`
+                }
+            },
+            {
+                id: "nsn-gua-pelangi",
+                state: "Negeri Sembilan",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tapak Arkeologi Jelebu",
+                title: {
+                    ms: `Tapak Arkeologi Gua Pelangi (Jelebu)`,
+                    en: `Gua Pelangi Archaeological Site (Jelebu)`,
+                    zh: `日叻务彩虹洞考古遗址`,
+                    ta: `குவா பெலாங்கி தொல்லியல் தளம் (ஜெலபு)`,
+                    ar: `موقع غوا بيلانغي الأثري (جيلبو)`,
+                    ja: `グア・ペランギ考古学遺跡（ジェレブ）`,
+                    ko: `구아 펠랑기 고고학 유적 (즐르부)`
+                },
+                locationLabel: "Gua Pelangi, Pertang, Jelebu, Negeri Sembilan",
+                mapQuery: "Gua Pelangi Jelebu Negeri Sembilan",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Jelebu_Negeri_Sembilan.jpg?width=900",
+                origin: {
+                    ms: `Gua Pelangi terbentuk secara semula jadi dalam formasi bukit batu kapur di kawasan Pertang, Jelebu dan pernah dijadikan tempat perlindungan serta persinggahan masyarakat awal di pedalaman Negeri Sembilan.`,
+                    en: `Naturally formed within limestone hills in Pertang, Jelebu, Gua Pelangi served as a shelter and habitation site for early inland communities in Negeri Sembilan.`,
+                    zh: `形成于森美兰日叻务石灰岩山体中的天然洞穴，曾作为内陆先民的栖身与活动场所。`,
+                    ta: `ஜெலபு சுண்ணாம்புக் குன்றுகளில் இயற்கையாக உருவான இக்குகை, ஆரம்பகால மக்களின் தங்குமிடமாக இருந்தது.`,
+                    ar: `تشكل كهف غوا بيلانغي طبيعياً في تلال جيلبو الجيرية واستخدم كمأوى للمجتمعات المبكرة.`,
+                    ja: `ジェレブの石灰岩丘陵に自然形成された洞窟で、内陸部の初期住民の避難・生活の場となりました。`,
+                    ko: `즐르부 석회암 구릉에 자연 형성된 동굴로 내륙 초기 거주민들의 피난처이자 생활 공간이었습니다.`
+                },
+                highlight: {
+                    ms: `Tapak ini menarik untuk kajian arkeologi tempatan kerana struktur ruang guanya yang luas serta penemuan alat batu dan serpihan tembikar yang membuktikan penempatan prasejarah di kawasan tengah Semenanjung.`,
+                    en: `Its spacious caverns and recovered stone tools and pottery sherds provide valuable evidence of prehistoric settlement in the central Malay Peninsula.`,
+                    zh: `洞穴空间宽敞，并发现了石器与陶器残片，为研究马来半岛中部史前人类活动提供了宝贵线索。`,
+                    ta: `இங்கு கண்டெடுக்கப்பட்ட கல் கருவிகள் மற்றும் மட்பாண்ட எச்சங்கள் வரலாற்றுக்கு முந்தைய வாழ்க்கைக்குச் சான்றாக உள்ளன.`,
+                    ar: `تكشف الأدوات الحجرية وشظايا الفخار المكتشفة فيه عن الاستيطان القديم في وسط شبه الجزيرة.`,
+                    ja: `広大な洞窟空間から石器や土器片が見つかり、半島内陸部の先史時代研究に役立っています。`,
+                    ko: `넓은 동굴 내부에서 석기와 토기편이 출토되어 반도 중부 내륙의 선사 시대 생활상을 보여줍니다.`
+                }
+            },
+
+            // PAHANG
+            {
+                id: "phg-muzium-sultan-abu-bakar",
+                state: "Pahang",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1929 di Pekan",
+                title: {
+                    ms: `Muzium Sultan Abu Bakar, Pekan`,
+                    en: `Sultan Abu Bakar Museum, Pekan`,
+                    zh: `北根苏丹阿布巴卡博物馆`,
+                    ta: `சுல்தான் அபு பக்கர் அருங்காட்சியகம், பேக்கான்`,
+                    ar: `متحف السلطان أبو بكر، بيكان`,
+                    ja: `スルタン・アブ・バカール博物館（ペカン）`,
+                    ko: `술탄 아부 바카르 박물관 (페칸)`
+                },
+                locationLabel: "Muzium Sultan Abu Bakar, Jalan Sultan Ahmad, Pekan, Pahang",
+                mapQuery: "Sultan Abu Bakar Museum Pekan Pahang",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/YosriMuziumPekan.JPG?width=900",
+                origin: {
+                    ms: `Bangunan batu dua tingkat ini dibina pada tahun 1929 sebagai kediaman rasmi Residen British di bandar diraja Pekan sebelum dijadikan istana sementara dan kemudiannya diwartakan sebagai Muzium Sultan Abu Bakar pada tahun 1976.`,
+                    en: `Constructed in 1929 as the official British Resident's residence in the royal town of Pekan, it later served as a palace before opening as the Sultan Abu Bakar Museum in 1976.`,
+                    zh: `建于1929年的两层砖石建筑，原为北根英国参政司官邸，后曾作临时王宫，并于1976年正式辟为苏丹阿布巴卡博物馆。`,
+                    ta: `1929-இல் கட்டப்பட்ட இவ்விரண்டு மாடிக் கட்டடம், பின்னர் 1976-இல் சுல்தான் அபு பக்கர் அருங்காட்சியகமாக மாற்றப்பட்டது.`,
+                    ar: `بُني هذا المبنى المكون من طابقين عام 1929 في مدينة بيكان الملكية وتحول عام 1976 إلى متحف رسمي.`,
+                    ja: `1929年に王都ペカンに建てられた2階建ての洋風建築で、1976年にスルタン・アブ・バカール博物館となりました。`,
+                    ko: `1929년 왕도 페칸에 건립된 2층 석조 건물로, 이후 1976년 술탄 아부 바카르 박물관으로 개관했습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, muzium ini mempamerkan khazanah diraja Pahang, seramik purba dari kapal karam di perairan Pahang, alat muzik tradisional, dan sejarah kesultanan negeri terbesar di Semenanjung.`,
+                    en: `It showcases Pahang royal regalia, ancient shipwreck ceramics recovered off Pahang's coast, traditional instruments, and state history.`,
+                    zh: `馆内展出彭亨王室珍宝、彭亨海域沉船打捞的古陶瓷、传统乐器及彭亨苏丹王朝历史文献。`,
+                    ta: `பகாங் அரசப் பொருட்கள், கடலில் மூழ்கிய கப்பல்களின் பழங்கால மட்பாண்டங்கள் மற்றும் பாரம்பரிய இசைக்கருவிகள் இங்கு உள்ளன.`,
+                    ar: `يعرض المتحف مقتنيات ملكية وخزف السفن الغارقة قبالة سواحل بهنغ وتاريخ السلطنة.`,
+                    ja: `パハン王室の宝物や沖合の沈没船から引き揚げられた古陶磁器、伝統楽器などが展示されています。`,
+                    ko: `파항 왕실 유물과 파항 해역 침몰선에서 인양된 고도자기, 전통 악기 등을 관람할 수 있습니다.`
+                }
+            },
+            {
+                id: "phg-lembah-tembeling-kota-gelanggi",
+                state: "Pahang",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Prasejarah & Kota Lama",
+                title: {
+                    ms: `Lembah Tembeling & Kota Gelanggi (Pahang)`,
+                    en: `Tembeling Valley & Kota Gelanggi (Pahang)`,
+                    zh: `淡马灵谷与格朗宜古城（彭亨）`,
+                    ta: `டெம்பெலிங் பள்ளத்தாக்கு & கோட்டா கெலாங்கி (பகாங்)`,
+                    ar: `وادي تيمبلينغ وكوتا غيلانغي (بهنغ)`,
+                    ja: `テンブリン渓谷とコタ・ゲランギ（パハン）`,
+                    ko: `템블링 계곡 및 코타 글랑기 (파항)`
+                },
+                locationLabel: "Lembah Tembeling & Kota Gelanggi, Jerantut, Pahang",
+                mapQuery: "Kota Gelanggi Jerantut Pahang",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Jerantut_Pahang.jpg?width=900",
+                origin: {
+                    ms: `Gugusan gua batu kapur Kota Gelanggi dan lembah Sungai Tembeling di Jerantut terbentuk jutaan tahun dahulu dan menjadi laluan perhubungan sungai utama masyarakat prasejarah serta pedagang pedalaman Pahang.`,
+                    en: `The limestone cave complex of Kota Gelanggi and the Tembeling River valley in Jerantut served as vital river corridors for prehistoric communities and inland traders.`,
+                    zh: `位于而连突的格朗宜石洞群与淡马灵河谷是史前人类与彭亨内陆商旅往来的重要河道走廊。`,
+                    ta: `ஜெராண்டுட்டில் உள்ள கோட்டா கெலாங்கி குகைகளும் டெம்பெலிங் பள்ளத்தாக்கும் பழங்கால ஆற்றுப் போக்குவரத்துப் பாதையாக இருந்தன.`,
+                    ar: `شكلت كهوف كوتا غيلانغي ووادي تيمبلينغ في جيرانتوت ممراً نهرياً حيوياً للمجتمعات القديمة والتجار.`,
+                    ja: `ジェラントゥットのコタ・ゲランギ石灰岩洞窟群とテンブリン川流域は古代から内陸交易の要路でした。`,
+                    ko: `제란툿의 코타 글랑기 석회암 동굴군과 템블링강 계곡은 선사 시대부터 내륙 교역의 핵심 수로였습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, kawasan ini terkenal dengan penemuan kapak batu Neolitik, gendang gangsa Dong Son, serta kisah legenda kota purba yang menjadikan Lembah Tembeling antara tapak arkeologi terpenting di Pahang.`,
+                    en: `Famous for Neolithic stone axes, Dong Son bronze drums, and ancient city legends, making it one of Pahang's richest archaeological zones.`,
+                    zh: `这里以出土新石器时代石斧、东山文化铜鼓及古城传说闻名，是彭亨最重要的考古区域之一。`,
+                    ta: `புதிய கற்காலக் கோடரிகள், டோங் சன் வெண்கல முரசுகள் மற்றும் பண்டைய நகரக் கதைகளுக்கு இவ்விடம் புகழ்பெற்றது.`,
+                    ar: `تشتهر باكتشاف الفؤوس الحجرية والطبول البرونزية القديمة وأساطير المدينة الأثرية.`,
+                    ja: `新石器時代の石斧やドンソン文化の銅鼓の出土、古代都市伝説で知られるパハン州屈指の遺跡地帯です。`,
+                    ko: `신석기 석부와 동손 청동북 출토, 고대 도시 전설로 유명한 파항주 대표 고고학 유적지입니다.`
+                }
+            },
+
+            // PULAU PINANG
+            {
+                id: "png-fort-cornwallis",
+                state: "Pulau Pinang",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1786–1810 Masihi",
+                title: {
+                    ms: `Fort Cornwallis, George Town`,
+                    en: `Fort Cornwallis, George Town`,
+                    zh: `乔治市康华丽堡`,
+                    ta: `கார்ன்வாலிஸ் கோட்டை, ஜார்ஜ் டவுன்`,
+                    ar: `حصن كورنواليس، جورج تاون`,
+                    ja: `コーンウォリス要塞（ジョージタウン）`,
+                    ko: `콘월리스 요새 (조지타운)`
+                },
+                locationLabel: "Fort Cornwallis, Jalan Tun Syed Sheh Barakbah, George Town, Pulau Pinang",
+                mapQuery: "Fort Cornwallis George Town Penang",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Fort_Cornwallis,_Penang_(I).jpg?width=900",
+                origin: {
+                    ms: `Fort Cornwallis mula didirikan sebagai kubu kayu bertiang pada tahun 1786 oleh Francis Light sebelum dibina semula menggunakan batu bata dan granit berbentuk bintang antara tahun 1804 hingga 1810.`,
+                    en: `Originally erected as a wooden stockade in 1786 by Francis Light, Fort Cornwallis was rebuilt in brick and stone in a star-shaped layout between 1804 and 1810.`,
+                    zh: `1786年由莱特船长初建为木栅堡垒，后于1804年至1810年间改建为星形砖石要塞。`,
+                    ta: `1786-இல் மரக் கோட்டையாகத் தொடங்கப்பட்டு, 1804–1810 காலகட்டத்தில் நட்சத்திர வடிவக் கற்கோட்டையாக மறுகட்டமைக்கப்பட்டது.`,
+                    ar: `أُنشئ كحصن خشبي عام 1786 قبل إعادة بنائه بالحجر والطوب على شكل نجمة بين عامي 1804 و1810.`,
+                    ja: `1786年に木柵砦として築かれ、1804〜1810年に星形の煉瓦・石造要塞へと改築されました。`,
+                    ko: `1786년 목책 요새로 시작되어 1804~1810년 별 모양의 벽돌·석조 요새로 재건되었습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, kubu ini tidak pernah terlibat dalam pertempuran besar dan masih mengekalkan meriam gangsa lama Seri Rambai, stor peluru, serta gereja kecil kurun ke-18 dalam Tapak Warisan Dunia UNESCO George Town.`,
+                    en: `Remarkably, it never saw direct battle and still preserves the historic Seri Rambai bronze cannon, gunpowder magazine, and 18th-century chapel.`,
+                    zh: `有趣的是这座要塞从未经历实战炮火，至今完好保留古铜炮“斯里兰拜号”、火药库及18世纪小教堂。`,
+                    ta: `நேரடிப் போரைச் சந்திக்காத இக்கோட்டையில் பழமையான செரி ராம்பாய் வெண்கலப் பீரங்கி இன்றும் பாதுகாக்கப்பட்டுள்ளது.`,
+                    ar: `لم يشهد الحصن معارك مباشرة، ولا يزال يحتفظ بمدفع سري رامباي البرونزي التاريخي ومخزن البارود.`,
+                    ja: `実戦を経験していない要塞で、歴史的な青銅砲セリ・ランバイや火薬庫、礼拝堂が良好に残っています。`,
+                    ko: `실전을 겪지 않은 요새로 역사적인 세리 람바이 청동포와 화약고, 18세기 예배당이 잘 보존되어 있습니다.`
+                }
+            },
+            {
+                id: "png-lebuh-armenian",
+                state: "Pulau Pinang",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Tapak Warisan Dunia UNESCO",
+                title: {
+                    ms: `Lebuh Armenian, George Town`,
+                    en: `Armenian Street, George Town`,
+                    zh: `乔治市亚美尼亚街`,
+                    ta: `அர்மேனியன் தெரு, ஜார்ஜ் டவுன்`,
+                    ar: `شارع أرمينيان، جورج تاون`,
+                    ja: `アルメニア通り（ジョージタウン）`,
+                    ko: `아르메니안 거리 (조지타운)`
+                },
+                locationLabel: "Lebuh Armenian, George Town, Pulau Pinang",
+                mapQuery: "Armenian Street George Town Penang",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Armenian_Street,_Penang.jpg?width=900",
+                origin: {
+                    ms: `Lebuh Armenian berkembang pada awal abad ke-19 sebagai penempatan pedagang Armenia sebelum menjadi pusat kediaman, rumah kongsi, dan kegiatan perdagangan komuniti Cina serta Melayu di teras bandar bersejarah George Town.`,
+                    en: `Developed in the early 19th century around Armenian merchants before becoming a vibrant hub of shophouses, clan associations, and diverse communities in historic George Town.`,
+                    zh: `19世纪初因亚美尼亚商人聚居而得名，随后发展为乔治市老城区内多元社群、会馆与传统店屋的核心街区。`,
+                    ta: `19-ஆம் நூற்றாண்டின் தொடக்கத்தில் ஆர்மேனிய வணிகர்களால் உருவாகி, பின்னர் பல சமூகங்களின் பாரம்பரியத் தெருவாக வளர்ந்தது.`,
+                    ar: `تطور الشارع في أوائل القرن التاسع عشر مع التجار الأرمن ليصبح قلباً نابضاً للمباني التراثية في جورج تاون.`,
+                    ja: `19世紀初頭にアルメニア商人が定住したことに由来し、のちに多様な文化とショップハウスが並ぶ中心街となりました。`,
+                    ko: `19세기 초 아르메니아 상인들이 정착한 데서 유래했으며, 이후 다문화 공동체와 전통 상점가의 중심지가 되었습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, deretan rumah kedai bertiang lima kaki, pejabat bersejarah Dr. Sun Yat-sen, dan seni mural jalanan menjadikan Lebuh Armenian contoh hidup pemuliharaan warisan bandar UNESCO.`,
+                    en: `Its covered five-foot walkways, Dr. Sun Yat-sen's historic base, and street murals make it a living showcase of UNESCO urban heritage conservation.`,
+                    zh: `五脚基传统店屋、孙中山先生昔日活动旧址与街头壁画交相辉映，展现世遗老街的活态保护。`,
+                    ta: `ஐந்தடி நடைபாதைக் கடை வீதிகள் மற்றும் வரலாற்று நினைவிடங்கள் யுனெஸ்கோ நகரப் பாரம்பரியத்திற்குச் சான்றாகும்.`,
+                    ar: `تجمع أروقته التراثية ومبانيه التاريخية بين الأصالة المعمارية والحياة الثقافية المعاصرة.`,
+                    ja: `五脚基（ファイブフットウェイ）のショップハウスや歴史的拠点が残り、生きた都市遺産を体験できます。`,
+                    ko: `5피트 보행로(파이브풋웨이) 상점가와 역사적 거점들이 어우러진 살아 있는 유네스코 도시유산 거리입니다.`
+                }
+            },
+            {
+                id: "png-khoo-kongsi",
+                state: "Pulau Pinang",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1894–1906 Masihi",
+                title: {
+                    ms: `Khoo Kongsi, George Town`,
+                    en: `Khoo Kongsi, George Town`,
+                    zh: `乔治市邱公司`,
+                    ta: `கூ கோங்சி, ஜார்ஜ் டவுன்`,
+                    ar: `خو كونغسي، جورج تاون`,
+                    ja: `クー・コンシー（ジョージタウン）`,
+                    ko: `쿠 콩시 (조지타운)`
+                },
+                locationLabel: "Leboh Cannon, George Town, Pulau Pinang",
+                mapQuery: "Leong San Tong Khoo Kongsi Penang",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Khoo_Kongsi_Penang.jpg?width=900",
+                origin: {
+                    ms: `Leong San Tong Khoo Kongsi dibina oleh komuniti klan Khoo dari wilayah Fujian yang berhijrah ke Pulau Pinang. Struktur agam yang ada kini dibina semula antara tahun 1902 hingga 1906 selepas bangunan terdahulu musnah dalam kebakaran pada tahun 1901.`,
+                    en: `Built by the Khoo clan from Fujian in Penang, the present ornate hall was reconstructed between 1902 and 1906 after an earlier structure burned down in 1901.`,
+                    zh: `由福建迁居槟城的邱氏宗族兴建；原建筑于1901年遭火灾烧毁后，于1902年至1906年间按更宏伟的规制重建。`,
+                    ta: `1901 தீ விபத்திற்குப் பிறகு, 1902 முதல் 1906 வரை கூ சமூகத்தினரால் மிக நுணுக்கமாக மறுகட்டமைக்கப்பட்ட பாரம்பரியக் கூடம்.`,
+                    ar: `أُعيد بناء هذا المجمع المزخرف بين عامي 1902 و1906 بعد حريق عام 1901 على يد عشيرة خو في بينانغ.`,
+                    ja: `福建出身の邱（クー）一族によって建てられ、1901年の火災後に1902〜1906年にかけて豪華に再建されました。`,
+                    ko: `푸젠 출신 쿠(Khoo) 씨족이 건립했으며, 1901년 화재 이후 1902~1906년에 더욱 정교하게 재건되었습니다.`
+                },
+                highlight: {
+                    ms: `Keunikannya terletak pada bumbung bertingkat bersadur seramik, tiang batu naga berukir halus, serta seni lukisan dinding tradisional yang dihasilkan oleh tukang seni dari China.`,
+                    en: `Renowned for its multi-tiered ceramic-inlaid roofs, intricately carved stone dragon pillars, and traditional murals crafted by master artisans.`,
+                    zh: `以嵌瓷多层屋脊、精雕石龙柱以及传统彩绘壁画闻名，工艺精湛令人叹为观止。`,
+                    ta: `பீங்கான் வேலைப்பாடு கொண்ட கூரைகள், செதுக்கப்பட்ட கல் தூண்கள் மற்றும் பாரம்பரியச் சுவரோவியங்கள் இதன் சிறப்பாகும்.`,
+                    ar: `يشتهر بأسقفه المزينة بالخزف وأعمدته الحجرية المنحوتة ولوحاته الجدارية التقليدية.`,
+                    ja: `陶磁器装飾の重層屋根や精巧な石彫りの龍柱、伝統壁画など圧倒的な職人技が見どころです。`,
+                    ko: `도자기 장식 다층 지붕과 정교한 석조 용기둥, 전통 벽화 등 뛰어난 장인 정신이 돋보입니다.`
+                }
+            },
+
+            // PERAK
+            {
+                id: "prk-lembah-lenggong",
+                state: "Perak",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tapak Warisan Dunia UNESCO",
+                title: {
+                    ms: `Warisan Arkeologi Lembah Lenggong (Perak Man)`,
+                    en: `Lenggong Valley Archaeological Heritage (Perak Man)`,
+                    zh: `玲珑谷考古遗产（霹雳人）`,
+                    ta: `லெங்கோங் பள்ளத்தாக்கு தொல்லியல் பாரம்பரியம் (பேராக் மேன்)`,
+                    ar: `تراث وادي لينغونغ الأثري (إنسان بيراك)`,
+                    ja: `レンゴン渓谷考古学遺産（ペラクマン）`,
+                    ko: `렝공 계곡 고고학 유산 (페락 맨)`
+                },
+                locationLabel: "Lembah Lenggong, Hulu Perak, Perak",
+                mapQuery: "Lenggong Archaeological Museum Perak",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lenggong_Valley_Perak.jpg?width=900",
+                origin: {
+                    ms: `Lembah Lenggong terbentuk antara banjaran Titiwangsa dan Bintang di Hulu Perak dengan gugusan gua batu kapur serta bekas tasik purba yang dihuni manusia prasejarah sejak lebih sejuta tahun lalu.`,
+                    en: `Nestled between the Titiwangsa and Bintang ranges in Upper Perak, Lenggong Valley's limestone caves and ancient lakebeds preserve prehistoric human habitation spanning over a million years.`,
+                    zh: `位于上霹雳蒂蒂旺沙山脉与宾当山脉之间，古湖盆与石灰岩洞穴保存了跨越百万年的史前人类活动遗迹。`,
+                    ta: `தித்திவாங்சா மலைத்தொடர்களுக்கு இடையே அமைந்துள்ள லெங்கோங் பள்ளத்தாக்கு மில்லியன் ஆண்டுகால மனித வரலாற்றுத் தடயங்களைக் கொண்டுள்ளது.`,
+                    ar: `يقع وادي لينغونغ بين السلاسل الجبلية في بيراك ويضم كهوفاً ومواقع أثرية تعود لأكثر من مليون عام.`,
+                    ja: `ペラ州北部の山脈間に位置し、石灰岩洞窟群と古代湖跡に100万年以上にわたる人類史が刻まれています。`,
+                    ko: `페락주 북부 산맥 사이에 자리하며 석회암 동굴군과 고대 호수 지층에 100만 년 이상의 인류사가 남아 있습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, Gua Gunung Runtuh di sini menemukan Perak Man iaitu rangka manusia prasejarah hampir lengkap berusia sekitar 11,000 tahun, di samping tapak bengkel alat batu Paleolitik Bukit Bunuh.`,
+                    en: `Here, Gua Gunung Runtuh yielded the 11,000-year-old near-complete Perak Man skeleton alongside Paleolithic stone tool workshops at Bukit Bunuh.`,
+                    zh: `其中鲁恩图山洞出土了距今约1.1万年的近完整古人类骨架“霹雳人”，武吉布农则发现旧石器时代石器作坊。`,
+                    ta: `11,000 ஆண்டுகள் பழமையான பேராக் மேன் மனித எலும்புக்கூடு இங்கு கண்டெடுக்கப்பட்டதே உலகப் புகழ்பெற்ற சிறப்பாகும்.`,
+                    ar: `اكتُشف في كهف غونونغ رونتوه هيكل إنسان بيراك البالغ عمره نحو 11,000 عام مع ورش الأدوات الحجرية القديمة.`,
+                    ja: `約1万1000年前のほぼ完全な人骨「ペラクマン」や旧石器時代の石器製作跡が発見された世界遺産です。`,
+                    ko: `약 1만 1천 년 전의 거의 온전한 인골 '페락 맨'과 구석기 석기 제작지가 발견된 유네스코 세계유산입니다.`
+                }
+            },
+            {
+                id: "prk-kellies-castle",
+                state: "Perak",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina Sekitar 1915 Masihi",
+                title: {
+                    ms: `Kellie's Castle, Batu Gajah`,
+                    en: `Kellie's Castle, Batu Gajah`,
+                    zh: `峇都牙也凯利古堡`,
+                    ta: `கெல்லிஸ் கோட்டை, பத்து கஜா`,
+                    ar: `قلعة كيلي، باتو غاجاه`,
+                    ja: `ケリーズ・キャッスル（バトゥ・ガジャ）`,
+                    ko: `켈리스 캐슬 (바투가자)`
+                },
+                locationLabel: "Kellie's Castle, Batu Gajah, Perak",
+                mapQuery: "Kellie's Castle Batu Gajah Perak",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kellie%27s_Castle_in_Perak.jpg?width=900",
+                origin: {
+                    ms: `Pembinaan rumah agam ini dimulakan sekitar tahun 1915 oleh peladang Scotland, William Kellie-Smith, di Batu Gajah dengan membawa masuk tukang batu mahir dari Madras, India. Pembinaannya terhenti apabila beliau meninggal dunia pada tahun 1926.`,
+                    en: `Started around 1915 by Scottish planter William Kellie-Smith in Batu Gajah using skilled artisans from Madras, construction halted abruptly upon his death in 1926.`,
+                    zh: `约1915年由苏格兰种植园主威廉·凯利·史密斯在峇都牙也动工兴建，并从印度马德拉斯聘请工匠，1926年因主人逝世而停工。`,
+                    ta: `1915-இல் வில்லியம் கெல்லி-ஸ்மித் என்பவரால் கட்டத் தொடங்கப்பட்டு, 1926-இல் அவரது மறைவால் முற்றுப்பெறாமல் நின்ற மாளிகை.`,
+                    ar: `بدأ بناء هذا القصر عام 1915 على يد ويليام كيلي سميث وتوقف البناء فجأة بعد وفاته عام 1926.`,
+                    ja: `1915年頃にスコットランド人農園主が建設を始めましたが、1926年の死去により未完のまま残されました。`,
+                    ko: `1915년경 스코틀랜드 농장주 윌리엄 켈리 스미스가 착공했으나 1926년 사망하면서 미완성으로 남았습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, struktur ini menggabungkan seni bina Indo-Saracenic dan Moorish serta dirancang mempunyai aci lif pertama di Tanah Melayu, terowong rahsia, dan ruang gelanggang di bumbung.`,
+                    en: `It blends Indo-Saracenic and Moorish arches and was designed to house Malaya's first elevator shaft, secret tunnels, and a rooftop courtyard.`,
+                    zh: `其独特之处在于融合印度-撒拉逊与摩尔式拱门设计，并规划了马来亚首个电梯井、秘密地道与屋顶庭院。`,
+                    ta: `மலாயாவின் முதல் மின்தூக்கி (லிஃப்ட்) அமைப்பு, ரகசிய சுரங்கப்பாதைகள் மற்றும் மொட்டை மாடி முற்றம் இதன் சிறப்பாகும்.`,
+                    ar: `يتميز بأقواسه المعمارية الفريدة وتصميمه الذي شمل أول بئر مصعد في الملايو وأنفاقاً سرية.`,
+                    ja: `インド・サラセン様式とムーア様式のアーチに加え、マラヤ初のエレベーターシャフト計画や秘密通路が見どころです。`,
+                    ko: `인도-사라센 및 무어 양식 아치와 말라야 최초의 엘리베이터 수직통 설계, 비밀 통로 등이 흥미롭습니다.`
+                }
+            },
+            {
+                id: "prk-masjid-ubudiah",
+                state: "Perak",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1913–1917 Masihi",
+                title: {
+                    ms: `Masjid Ubudiah, Kuala Kangsar`,
+                    en: `Ubudiah Mosque, Kuala Kangsar`,
+                    zh: `江沙乌布迪亚清真寺`,
+                    ta: `உபுடியா மசூதி, கோலா கங்சார்`,
+                    ar: `مسجد العبودية، كوالا كانغسار`,
+                    ja: `ウブディアモスク（クアラ・カンサル）`,
+                    ko: `우부디아 모스크 (쿠알라캉사르)`
+                },
+                locationLabel: "Masjid Ubudiah, Bukit Chandan, Kuala Kangsar, Perak",
+                mapQuery: "Ubudiah Mosque Kuala Kangsar Perak",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ubudiah_Mosque_Kuala_Kangsar.jpg?width=900",
+                origin: {
+                    ms: `Masjid Ubudiah dibina antara tahun 1913 hingga 1917 di Bukit Chandan, Kuala Kangsar bagi menunaikan nazar Sultan Idris Murshidul Azam Shah setelah baginda sembuh daripada gering. Reka bentuknya dihasilkan oleh arkitek Arthur Benison Hubback.`,
+                    en: `Built between 1913 and 1917 on Bukit Chandan in Kuala Kangsar to fulfill a vow by Sultan Idris Murshidul Azam Shah upon recovering from illness, designed by architect A.B. Hubback.`,
+                    zh: `建于1913年至1917年间，是霹雳苏丹依德利斯为还愿而兴建的王室清真寺，由著名建筑师哈巴克设计。`,
+                    ta: `சுல்தான் இட்ரிஸ் அவர்களின் நேர்த்திக்கடனை நிறைவேற்ற 1913–1917 காலகட்டத்தில் கோலா கங்சாரில் கட்டப்பட்ட அரச மசூதி.`,
+                    ar: `بُني بين عامي 1913 و1917 وفاءً لنذر السلطان إدريس بعد شفائه من المرض في كوالا كانغسار.`,
+                    ja: `1913〜1917年にスルタン・イドリスの病気平癒の願掛けとして王都クアラ・カンサルに建設されました。`,
+                    ko: `1913~1917년 술탄 이드리스가 쾌유 서원을 이루기 위해 왕도 쿠알라캉사르에 건립한 왕실 모스크입니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, pembinaannya pernah tertangguh apabila dua ekor gajah milik sultan bergaduh dan merosakkan batu marmar import dari Itali; hasilnya tersergam kubah emas dan menara simetri yang memukau.`,
+                    en: `Construction was famously delayed when two royal elephants fought and damaged imported Italian marble; today its golden domes and symmetrical minarets stand as an architectural icon.`,
+                    zh: `有趣的是施工期间曾因两头王室大象相斗撞坏意大利进口大理石而延误；如今金色穹顶与对称宣礼塔极为壮观。`,
+                    ta: `இத்தாலிய பளிங்குக் கற்களை இரண்டு யானைகள் சேதப்படுத்தியதால் கட்டுமானம் தாமதமான வரலாறு கொண்ட பொற்கூரை மசூதி.`,
+                    ar: `تأخر بناؤه بسبب صراع فيلين ملكيين أتلف الرخام الإيطالي المستورد، ويشتهر اليوم بقبابه الذهبية.`,
+                    ja: `王室の象2頭が争いイタリア産大理石が破損して工期が遅れた逸話とともに、黄金のドームが美しく輝きます。`,
+                    ko: `왕실 코끼리 두 마리가 다투다 이탈리아산 대리석을 파손해 공사가 지연된 일화와 황금 돔이 유명합니다.`
+                }
+            },
+            {
+                id: "prk-kompleks-pasir-salak",
+                state: "Perak",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Peristiwa 1875 Masihi",
+                title: {
+                    ms: `Kompleks Sejarah Pasir Salak`,
+                    en: `Pasir Salak Historical Complex`,
+                    zh: `巴西沙叻历史建筑群`,
+                    ta: `பாசிர் சாலாக் வரலாற்று வளாகம்`,
+                    ar: `مجمع باسير سالاك التاريخي`,
+                    ja: `パシル・サラック史跡群`,
+                    ko: `파시르 살락 역사단지`
+                },
+                locationLabel: "Kompleks Sejarah Pasir Salak, Kampung Gajah, Perak",
+                mapQuery: "Pasir Salak Historical Complex Perak",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Pasir_Salak_Perak.jpg?width=900",
+                origin: {
+                    ms: `Kompleks ini dibangunkan di tapak bersejarah Pasir Salak di tebing Sungai Perak bagi memelihara lokasi peristiwa penentangan penduduk tempatan yang diketuai Dato' Maharaja Lela terhadap campur tangan Residen British pada tahun 1875.`,
+                    en: `Established on the historic riverbank of Pasir Salak along the Perak River to preserve the site of the 1875 local resistance led by Dato' Maharaja Lela.`,
+                    zh: `建于霹雳河畔巴西沙叻历史旧址，纪念1875年拿督马哈拉惹里拉领导当地民众反抗殖民干预的历史事件。`,
+                    ta: `1875-ஆம் ஆண்டு டத்தோ மகாராஜா லேலா தலைமையில் நடைபெற்ற வரலாற்று நிகழ்வைப் பாதுகாக்க பேராக் ஆற்றங்கரையில் அமைக்கப்பட்டது.`,
+                    ar: `أُنشئ على ضفاف نهر بيراك لتخليد أحداث المقاومة المحلية عام 1875 بقيادة داتو مهاراجا ليلا.`,
+                    ja: `1875年にダト・マハラジャ・レラ率いる地元勢力が抵抗運動を起こしたペラク川沿いの史跡に整備されました。`,
+                    ko: `1875년 다토 마하라자 렐라가 이끈 지역 저항 운동의 현장을 보존하기 위해 페락강 변에 조성되었습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, pengunjung dapat melihat tugu peringatan, rumah tradisional Kutai Perak, meriam lama, serta Terowong Sejarah yang menceritakan kronologi perjuangan tokoh-tokoh Perak.`,
+                    en: `Visitors can explore memorial monuments, traditional Perak Kutai houses, historic cannons, and a Time Tunnel chronicling Perak's heroes.`,
+                    zh: `园区内设有纪念碑、霹雳传统库泰高脚屋、古炮及历史时光隧道，生动呈现霹雳先贤事迹。`,
+                    ta: `நினைவுத் தூண்கள், பாரம்பரிய குட்டாய் மர வீடுகள், பழைய பீரங்கிகள் மற்றும் வரலாற்றுச் சுரங்கம் ஆகியவை இங்குள்ளன.`,
+                    ar: `يضم نصباً تذكارية وبيوت كوتاي التقليدية ومدافع قديمة ونفقاً تاريخياً يروي سير الأبطال.`,
+                    ja: `記念碑や伝統的なペラク・クタイ様式家屋、古砲、歴史トンネルなどを通じて地域の歩みを学べます。`,
+                    ko: `기념비와 전통 페락 쿠타이 가옥, 옛 대포, 역사 터널 등을 통해 페락 인물들의 발자취를 볼 수 있습니다.`
+                }
+            },
+
+            // PERLIS
+            {
+                id: "pls-muzium-kota-kayang",
+                state: "Perlis",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Tapak Pemerintahan Awal Perlis",
+                title: {
+                    ms: `Muzium Kota Kayang, Kuala Perlis`,
+                    en: `Kota Kayang Museum, Kuala Perlis`,
+                    zh: `瓜拉玻璃市哥打加央博物馆`,
+                    ta: `கோட்டா காயாங் அருங்காட்சியகம், கோலா பெர்லிஸ்`,
+                    ar: `متحف كوتا كايانغ، كوالا برليس`,
+                    ja: `コタ・カヤン博物館（クアラ・プルリス）`,
+                    ko: `코타 카양 박물관 (쿠알라프를리스)`
+                },
+                locationLabel: "Muzium Kota Kayang, Kuala Perlis, Perlis",
+                mapQuery: "Muzium Kota Kayang Kuala Perlis",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kota_Kayang_Museum.jpg?width=900",
+                origin: {
+                    ms: `Muzium Kota Kayang didirikan di kawasan bekas kota dan pusat pemerintahan awal Kedah-Perlis pada abad ke-17 sebelum bangunan muzium moden dibina bagi menempatkan artifak hasil ekskavasi sekitar kaki Bukit Kayang.`,
+                    en: `Built on the site of a 17th-century royal fortress and early governance center of Kedah-Perlis to house artifacts excavated around Bukit Kayang.`,
+                    zh: `建于17世纪吉打-玻璃市早期王室古城遗址之上，用以珍藏武吉加央周边出土的考古文物与历史档案。`,
+                    ta: `17-ஆம் நூற்றாண்டு அரச கோட்டை இருந்த இடத்தில், புக்கிட் காயாங் அகழ்வாராய்ச்சிப் பொருட்களைக் காட்சிப்படுத்த அமைக்கப்பட்டது.`,
+                    ar: `أُقيم في موقع حصن ومركز حكم مبكر يعود للقرن السابع عشر لعرض اللقى الأثرية حول بوكيت كايانغ.`,
+                    ja: `17世紀の王室城砦跡地に建てられ、ブキット・カヤン周辺で発掘された考古資料や歴史遺産を展示しています。`,
+                    ko: `17세기 왕실 성채 터에 건립되어 부킷 카양 일대에서 출토된 유물과 프를리스 왕실 역사를 전시합니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, muzium ini mempamerkan replika mahkota diraja, senjata tradisional, batu bersurat lama, serta salasilah Kesultanan Perlis berlatarbelakangkan bukit batu kapur yang indah.`,
+                    en: `Set against dramatic limestone cliffs, it displays royal regalia replicas, traditional weaponry, ancient inscriptions, and the genealogy of the Perlis Sultanate.`,
+                    zh: `博物馆背靠秀丽石灰岩山壁，展出王室冠冕复刻品、传统兵器、古碑文及玻璃市苏丹世系。`,
+                    ta: `அழகிய சுண்ணாம்புக் குன்றுகளின் பின்னணியில் அரச கிரீட மாதிரிகள், பாரம்பரிய ஆயுதங்கள் மற்றும் கல்வெட்டுகள் காட்சிப்படுத்தப்பட்டுள்ளன.`,
+                    ar: `يتميز بموقعه عند سفح التلال الجيرية ويعرض تيجاناً ملكية وأسلحة تقليدية وشجرة نسب سلطنة برليس.`,
+                    ja: `美しい石灰岩の岩壁を背に、王冠レプリカや伝統武器、古碑文、プルリス王朝の系譜を展示しています。`,
+                    ko: `웅장한 석회암 절벽을 배경으로 왕관 복제품과 전통 무기, 고비문, 프를리스 왕조 계보를 전시합니다.`
+                }
+            },
+            {
+                id: "pls-bukit-kayang",
+                state: "Perlis",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tapak Bersejarah & Gua Kapur",
+                title: {
+                    ms: `Tapak Bersejarah & Gua Kapur Bukit Kayang`,
+                    en: `Bukit Kayang Historic Site & Limestone Caves`,
+                    zh: `武吉加央历史遗址与石灰岩洞`,
+                    ta: `புக்கிட் காயாங் வரலாற்றுத் தளம் & சுண்ணாம்புக் குகைகள்`,
+                    ar: `موقع بوكيت كايانغ التاريخي والكهوف الجيرية`,
+                    ja: `ブキット・カヤン史跡と石灰岩洞窟`,
+                    ko: `부킷 카양 사적 및 석회암 동굴`
+                },
+                locationLabel: "Bukit Kayang, Kuala Perlis, Perlis",
+                mapQuery: "Bukit Kayang Kuala Perlis",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kuala_Perlis_Perlis.jpg?width=900",
+                origin: {
+                    ms: `Bukit Kayang merupakan bukit batu kapur mogote yang terbentuk sejak ratusan juta tahun dahulu dan berperanan sebagai benteng semula jadi bagi kota diraja lama di Kuala Perlis.`,
+                    en: `A limestone mogote hill formed millions of years ago that acted as a natural defensive barrier for the old royal citadel near Kuala Perlis.`,
+                    zh: `武吉加央是一座古老的石灰岩孤峰，在历史上曾作为瓜拉玻璃市旧王城的天然屏障。`,
+                    ta: `கோலா பெர்லிஸ் பழைய அரச கோட்டைக்கு இயற்கையான பாதுகாப்பு அரணாக விளங்கிய சுண்ணாம்புக் குன்று.`,
+                    ar: `تل جيري قديم شكّل حاجزاً دفاعياً طبيعياً للقلعة الملكية القديمة قرب كوالا برليس.`,
+                    ja: `クアラ・プルリス近郊の旧王城にとって天然の要害となった石灰岩の丘陵地形です。`,
+                    ko: `쿠알라프를리스 인근 옛 왕성의 천연 방어벽 역할을 했던 석회암 구릉 지형입니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, gua-gua di Bukit Kayang menemukan serpihan tembikar prasejarah dan artifak keagamaan awal yang membuktikan kawasan ini sudah dihuni jauh sebelum pembinaan kota diraja.`,
+                    en: `Caves in Bukit Kayang yielded prehistoric pottery sherds and early devotional artifacts proving human presence long before the royal citadel was built.`,
+                    zh: `洞穴内曾发现史前陶器碎片与早期文物，证明早在王城建立之前这里便已有先民栖居。`,
+                    ta: `அரச கோட்டை கட்டப்படுவதற்கு முன்பே மனிதர்கள் வாழ்ந்ததற்கான பழங்கால மட்பாண்ட எச்சங்கள் இங்கு கண்டெடுக்கப்பட்டன.`,
+                    ar: `عُثر في كهوفه على شظايا فخار قديمة تثبت الاستيطان البشري قبل بناء القلعة الملكية بزمن طويل.`,
+                    ja: `洞窟からは王城建設よりはるか以前の人類居住を示す先史時代の土器片などが発見されています。`,
+                    ko: `동굴 내부에서 왕성 축조 훨씬 이전의 인류 거주를 입증하는 선사 시대 토기편이 출토되었습니다.`
+                }
+            },
+
+            // SABAH
+            {
+                id: "sbh-taman-peringatan-sandakan",
+                state: "Sabah",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Peristiwa Perang Dunia II",
+                title: {
+                    ms: `Taman Peringatan Perang Sandakan`,
+                    en: `Sandakan Memorial Park`,
+                    zh: `山打根战争纪念公园`,
+                    ta: `சந்தாகான் போர் நினைவுப் பூங்கா`,
+                    ar: `حديقة ساندكان التذكارية للحرب`,
+                    ja: `サンダカン戦争記念公園`,
+                    ko: `산다칸 전쟁기념공원`
+                },
+                locationLabel: "Taman Peringatan Perang Sandakan, Jalan Labuk, Sandakan, Sabah",
+                mapQuery: "Sandakan Memorial Park Sabah",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sandakan_Sabah_Sandakan-Memorial-Park-01.jpg?width=900",
+                origin: {
+                    ms: `Taman ini dibangunkan di tapak bekas kem tahanan perang Sandakan yang wujud semasa Perang Dunia Kedua antara tahun 1942 hingga 1945, tempat ribuan tawanan perang dan penduduk tempatan menempuh detik sukar.`,
+                    en: `Established on the site of the former World War II Sandakan prisoner-of-war camp (1942–1945) to honor the prisoners and local residents who endured hardship there.`,
+                    zh: `建于二战时期（1942—1945年）山打根战俘营旧址之上，悼念在此经历苦难的战俘与当地民众。`,
+                    ta: `1942–1945 இரண்டாம் உலகப் போர் காலத்தில் இருந்த சந்தாகான் போர்க்கைதிகள் முகாம் இருந்த இடத்தில் அமைக்கப்பட்ட நினைவுப் பூங்கா.`,
+                    ar: `أُنشئت في موقع معسكر أسرى الحرب السابق في ساندكان (1942–1945) لتخليد ذكرى الضحايا والسكان المحليين.`,
+                    ja: `第二次世界大戦中（1942〜1945年）のサンダカン捕虜収容所跡地に整備された追悼記念公園です。`,
+                    ko: `제2차 세계대전 당시(1942~1945년) 산다칸 포로수용소 터에 조성된 추모 기념공원입니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, tapak ini masih mengekalkan peninggalan jentera janakuasa lama, takungan air asal kem, serta pavilion pameran yang menyampaikan mesej keamanan sejagat.`,
+                    en: `It preserves original camp relics including the old boiler, generator, water tank, and an interpretive pavilion dedicated to peace.`,
+                    zh: `园内保留了当年营地的锅炉、发电机、蓄水池原件及和平纪念展馆，发人深省。`,
+                    ta: `பழைய நீராவி இயந்திரம், நீர் தொட்டி மற்றும் அமைதிச் செய்தியைத் தாங்கிய கண்காட்சி மண்டபம் இங்குள்ளன.`,
+                    ar: `تحتفظ ببقايا المعسكر الأصلية مثل المولد وخزان المياه وجناح للعرض يرسخ رسالة السلام.`,
+                    ja: `当時のボイラーや発電機、貯水槽の遺構とともに平和の大切さを伝える展示パビリオンが整備されています。`,
+                    ko: `당시 보일러와 발전기, 저수조 유구와 함께 평화의 메시지를 전하는 전시관이 조성되어 있습니다.`
+                }
+            },
+            {
+                id: "sbh-bukit-tengkorak",
+                state: "Sabah",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tapak Pembuatan Tembikar Purba",
+                title: {
+                    ms: `Tapak Arkeologi Bukit Tengkorak (Semporna)`,
+                    en: `Bukit Tengkorak Archaeological Site (Semporna)`,
+                    zh: `仙本那骷髅山考古遗址`,
+                    ta: `புக்கிட் தெங்கோராக் தொல்லியல் தளம் (செம்போரனா)`,
+                    ar: `موقع بوكيت تينغكوراك الأثري (سيمبورنا)`,
+                    ja: `ブキット・テンゴラック考古学遺跡（センポルナ）`,
+                    ko: `부킷 텡고락 고고학 유적 (셈포르나)`
+                },
+                locationLabel: "Bukit Tengkorak, Semporna, Sabah",
+                mapQuery: "Bukit Tengkorak Semporna Sabah",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Semporna_Sabah.jpg?width=900",
+                origin: {
+                    ms: `Bukit Tengkorak terbentuk daripada sisa kawah gunung berapi purba di Semporna dan menjadi pusat pembuatan tembikar prasejarah utama sekitar 3,000 tahun lalu bagi komuniti pelayar di perairan Borneo dan Sulawesi.`,
+                    en: `Formed from the rim of an ancient volcanic crater in Semporna, Bukit Tengkorak thrived around 3,000 years ago as a major prehistoric pottery-making hub.`,
+                    zh: `位于仙本那古火山口边缘，约3,000年前曾是婆罗洲与苏拉威西海域航海族群的重要史前制陶中心。`,
+                    ta: `பழமையான எரிமலை வாய்ப்பகுதியில் அமைந்துள்ள இத்தளம், சுமார் 3,000 ஆண்டுகளுக்கு முன் முக்கிய மட்பாண்டத் தயாரிப்பு மையமாக இருந்தது.`,
+                    ar: `تشكل على حافة فوهة بركانية قديمة في سيمبورنا وازدهر قبل نحو 3,000 عام كمركز رئيسي لصناعة الفخار.`,
+                    ja: `センポルナの古代火山火口縁に位置し、約3,000年前に大規模な先史土器製作拠点として栄えました。`,
+                    ko: `셈포르나의 고대 화산 분화구 가장자리에 위치하며 약 3,000년 전 대규모 선사 토기 제작 중심지로 번영했습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, ekskavasi di sini menemukan jutaan serpihan tembikar serta batu kaca gunung berapi (obsidian) yang berasal ribuan kilometer jauhnya, membuktikan pelayaran jarak jauh masyarakat purba Asia Tenggara.`,
+                    en: `Excavations uncovered millions of pottery sherds alongside volcanic obsidian traced thousands of kilometers away, proving long-distance prehistoric seafaring.`,
+                    zh: `考古发掘出土数百万件陶片及来自数千公里外的黑曜石，证实东南亚先民远洋航行与跨海贸易网络。`,
+                    ta: `லட்சக்கணக்கான மட்பாண்ட ஓடுகளும் ஆயிரக்கணக்கான கிலோமீட்டர் தொலைவிலிருந்து வந்த எரிமலைக் கற்களும் இங்கு கண்டெடுக்கப்பட்டன.`,
+                    ar: `كشفت الحفريات عن ملايين شظايا الفخار وحجر السبج البركاني القادم من مسافات بعيدة عبر البحر.`,
+                    ja: `数百万点の土器片とともに数千キロ離れた地域由来の黒曜石が見つかり、古代の遠洋航海を証明しています。`,
+                    ko: `수백만 점의 토기편과 수천 킬로미터 떨어진 곳에서 유래한 흑요석이 출토되어 고대 원양 항해를 입증합니다.`
+                }
+            },
+            {
+                id: "sbh-tingkayu-gua-madai",
+                state: "Sabah",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tapak Prasejarah Sabah",
+                title: {
+                    ms: `Tapak Prasejarah Tingkayu & Gua Madai (Sabah)`,
+                    en: `Tingkayu Prehistoric Site & Madai Caves (Sabah)`,
+                    zh: `丁卡尤史前遗址与马代洞（沙巴）`,
+                    ta: `திங்காயு & மடாய் குகைகள் தொல்லியல் தளம் (சபா)`,
+                    ar: `موقع تينكايو وكهوف ماداي الأثرية (صباح)`,
+                    ja: `ティンカユ先史遺跡とマダイ洞窟（サバ）`,
+                    ko: `팅카유 선사 유적 및 마다이 동굴 (사바)`
+                },
+                locationLabel: "Gua Madai & Tingkayu, Kunak, Sabah",
+                mapQuery: "Madai Caves Kunak Sabah",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Madai_Caves_Sabah.jpg?width=900",
+                origin: {
+                    ms: `Tapak Tingkayu terbentuk di tebing tasik purba yang terhasil akibat aliran lava gunung berapi lebih 18,000 tahun lalu, manakala Gua Madai di Kunak menjadi lokasi penempatan susulan komuniti prasejarah selepas tasik tersebut surut.`,
+                    en: `Tingkayu formed along an ancient lava-dammed lake over 18,000 years ago, while nearby Madai Caves served as subsequent habitation shelters after the lake drained.`,
+                    zh: `丁卡尤遗址形成于1.8万年前火山熔岩堰塞湖畔，而邻近的马代洞则在湖水退去后成为先民延续居住的洞穴。`,
+                    ta: `18,000 ஆண்டுகளுக்கு முன் எரிமலைக் குழம்பால் உருவான ஏரிக்கரையில் திங்காயுவும், அதனையடுத்து மடாய் குகைகளும் மனித வாழ்விடங்களாகின.`,
+                    ar: `نشأ موقع تينكايو على ضفاف بحيرة قديمة قبل أكثر من 18,000 عام، ثم استوطن البشر كهوف ماداي المجاورة.`,
+                    ja: `1万8000年以上前の溶岩堰止湖畔にティンカユ遺跡が形成され、湖の消失後は近隣のマダイ洞窟へ居住が移りました。`,
+                    ko: `1만 8천 년 전 용암 언색호 변에 팅카유 유적이 형성되었고, 호수가 마른 뒤 인근 마다이 동굴로 거주가 이어졌습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, Tingkayu terkenal dengan penghasilan alat batu bifas (dwimuka) yang sangat halus buatannya, manakala Gua Madai mempunyai tradisi sejarah penuaian sarang burung yang diwarisi turun-temurun.`,
+                    en: `Tingkayu is famed for finely crafted bifacial stone tools, while Madai Caves also preserves centuries-old heritage of traditional bird's-nest harvesting.`,
+                    zh: `丁卡尤以制作精良的双面石器闻名，而马代洞则同时保留了世代相传的传统燕窝采集文化遗产。`,
+                    ta: `நேர்த்தியான இருபக்கக் கல் கருவிகளுக்கு திங்காயுவும், பாரம்பரியக் கூடு சேகரிப்பு வரலாற்றுக்கு மடாய் குகைகளும் புகழ்பெற்றவை.`,
+                    ar: `يشتهر تينكايو بأدواته الحجرية المتقنة، بينما تحافظ كهوف ماداي على تراث عريق في جمع أعشاش الطيور.`,
+                    ja: `精巧な両面加工石器で知られるティンカユと、伝統的なツバメの巣採取文化が息づくマダイ洞窟が見どころです。`,
+                    ko: `정교한 양면 가공 석기로 유명한 팅카유와 대를 이은 전통 제비집 채취 문화가 남은 마다이 동굴이 특징입니다.`
+                }
+            },
+
+            // SARAWAK
+            {
+                id: "swk-gua-niah",
+                state: "Sarawak",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tapak Warisan Dunia UNESCO",
+                title: {
+                    ms: `Warisan Arkeologi Gua Niah (UNESCO)`,
+                    en: `Niah Caves Archaeological Heritage (UNESCO)`,
+                    zh: `尼亚石洞考古遗产（世界文化遗产）`,
+                    ta: `நியா குகைகள் தொல்லியல் பாரம்பரியம் (யுனெஸ்கோ)`,
+                    ar: `تراث كهوف نيا الأثري (اليونسكو)`,
+                    ja: `ニア洞窟考古学遺産（世界遺産）`,
+                    ko: `니아 동굴 고고학 유산 (세계유산)`
+                },
+                locationLabel: "Taman Negara Gua Niah, Miri, Sarawak",
+                mapQuery: "Niah National Park Miri Sarawak",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Niah_Caves_Sarawak.jpg?width=900",
+                origin: {
+                    ms: `Kompleks gua batu kapur gergasi di Taman Negara Niah, Miri ini mula dihuni manusia moden terawal di Asia Tenggara sejak lebih 40,000 tahun dahulu dan diiktiraf sebagai Tapak Warisan Dunia UNESCO.`,
+                    en: `This colossal limestone cave complex in Niah National Park, Miri preserves continuous human habitation in Southeast Asia spanning over 40,000 years and is a UNESCO World Heritage Site.`,
+                    zh: `位于美里尼亚国家公园的巨型石灰岩洞群，保存了东南亚超过4万年的早期现代人类居住史，获列联合国教科文组织世界文化遗产。`,
+                    ta: `மிரியில் உள்ள இப்பெரிய சுண்ணாம்புக் குகை 40,000 ஆண்டுகளுக்கும் மேலான மனித வாழ்விட வரலாற்றைக் கொண்ட யுனெஸ்கோ தளமாகும்.`,
+                    ar: `يضم هذا المجمع الكهفي الضخم في ميري أدلة على الاستيطان البشري منذ أكثر من 40,000 عام وهو مدرج في قائمة اليونسكو.`,
+                    ja: `ミリにある巨大石灰岩洞窟群で、4万年以上前からの東南アジア最古級の人類居住痕跡を残す世界遺産です。`,
+                    ko: `미리의 거대 석회암 동굴군으로 4만 년 이상 이어진 동남아 초기 현생인류 거주 흔적을 간직한 유네스코 세계유산입니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, di sinilah ditemukannya Tengkorak Dalam (Deep Skull) berusia sekitar 40,000 tahun, ratusan tapak pengebumian Neolitik, serta lukisan dinding gua purba dengan perahu kematian di Gua Kain Hitam.`,
+                    en: `It yielded the ~40,000-year-old Deep Skull, extensive Neolithic burials, and ancient ochre rock paintings with death-ships in the Painted Cave.`,
+                    zh: `这里出土了距今约4万年的“深层头骨”，并保存了新石器时代墓葬群及黑布洞中的史前赭石壁画与葬船。`,
+                    ta: `40,000 ஆண்டுகள் பழமையான மனித மண்டையோடு மற்றும் வண்ணக் குகை ஓவியங்கள் இங்குள்ள உலகப் புகழ்பெற்ற கண்டுபிடிப்புகளாகும்.`,
+                    ar: `اكتُشفت فيه الجمجمة العميقة البالغ عمرها نحو 40,000 عام إلى جانب رسوم كهفية قديمة وقوارب جنائزية.`,
+                    ja: `約4万年前の「ディープ・スカル」人骨や新石器時代の埋葬群、ペインテッド・ケイブの古代壁画が最大の見どころです。`,
+                    ko: `약 4만 년 전의 '딥 스컬' 유골과 신석기 매장 유구, 페인티드 케이브의 고대 암벽화와 장례 배 유물이 핵심입니다.`
+                }
+            },
+            {
+                id: "swk-kubu-margherita",
+                state: "Sarawak",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1879 di Kuching",
+                title: {
+                    ms: `Kubu Margherita, Kuching`,
+                    en: `Fort Margherita, Kuching`,
+                    zh: `古晋玛格丽塔堡`,
+                    ta: `மார்கரிட்டா கோட்டை, கூச்சிங்`,
+                    ar: `حصن مارغريتا، كوتشينغ`,
+                    ja: `マルゲリータ要塞（クチン）`,
+                    ko: `마르가리타 요새 (쿠칭)`
+                },
+                locationLabel: "Kubu Margherita, Petra Jaya, Kuching, Sarawak",
+                mapQuery: "Fort Margherita Kuching Sarawak",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Fort_Margherita_in_Kuching_sarawak.jpg?width=900",
+                origin: {
+                    ms: `Kubu Margherita dibina pada tahun 1879 oleh Rajah Charles Brooke di atas bukit di tebing utara Sungai Sarawak bagi melindungi bandar Kuching daripada serangan lanun dari arah muara sungai. Kubu ini dinamakan sempena nama isteri baginda, Ranee Margaret.`,
+                    en: `Built in 1879 by Rajah Charles Brooke on a hilltop overlooking the Sarawak River to defend Kuching from riverine piracy, named after his wife Ranee Margaret.`,
+                    zh: `1879年由拉惹查尔斯·布洛克兴建于砂拉越河北岸山丘，以守护古晋免受河口海盗侵袭，并以王妃玛格丽特命名。`,
+                    ta: `1879-இல் கூச்சிங் நகரைப் பாதுகாக்க சரவாக் ஆற்றங்கரைக் குன்றில் கட்டப்பட்டு, ராணி மார்கரெட்டின் பெயரால் அழைக்கப்படும் கோட்டை.`,
+                    ar: `بُني عام 1879 على تلة مطلة على نهر ساراواك لحماية كوتشينغ وسُمي تيمناً بالملكة مارغريت.`,
+                    ja: `1879年にサラワク川を見下ろす丘の上にクチン防衛のため築かれ、王妃マーガレットにちなんで名付けられました。`,
+                    ko: `1879년 쿠칭 방어를 위해 사라왁강 언덕 위에 건립되었으며 왕비 마거릿의 이름을 따서 명명되었습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, kubu berwarna putih yang menyerupai istana Inggeris ini mempunyai menara tinjau, laman dalam, serta meriam lama dan kini menempatkan Galeri Brooke yang memaparkan sejarah Sarawak.`,
+                    en: `Resembling an English castle with whitewashed battlements, watchtower, and cannons, it now houses the Brooke Gallery on Sarawak history.`,
+                    zh: `这座白色城堡式要塞设有瞭望塔、内庭与古炮，如今辟为布洛克历史画廊，展出砂拉越珍贵史料。`,
+                    ta: `வெள்ளை நிறக் கோட்டைச் சுவர்கள், கண்காணிப்பு கோபுரம் மற்றும் பீரங்கிகளுடன் இன்று சரவாக் வரலாற்றுக் கூடமாக உள்ளது.`,
+                    ar: `يتميز بجدرانه البيضاء وبرج المراقبة والمدافع ويضم اليوم معرض بروك لتاريخ ساراواك.`,
+                    ja: `白亜の城塞のような外観に望楼や古砲を備え、現在はサラワクの歴史を伝えるブルック・ギャラリーとなっています。`,
+                    ko: `하얀 성채 외관과 망루, 옛 대포를 갖추고 있으며 현재 사라왁 역사를 전시하는 브룩 갤러리로 운영됩니다.`
+                }
+            },
+            {
+                id: "swk-kuala-santubong",
+                state: "Sarawak",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Abad ke-10 hingga ke-14 Masihi",
+                title: {
+                    ms: `Tapak Arkeologi Kuala Santubong (Sarawak)`,
+                    en: `Kuala Santubong Archaeological Site (Sarawak)`,
+                    zh: `山都望河口考古遗址（砂拉越）`,
+                    ta: `கோலா சந்துபோங் தொல்லியல் தளம் (சரவாக்)`,
+                    ar: `موقع كوالا سانتوبونغ الأثري (ساراواك)`,
+                    ja: `クアラ・サントゥボン考古学遺跡（サラワク）`,
+                    ko: `쿠알라 산투봉 고고학 유적 (사라왁)`
+                },
+                locationLabel: "Santubong, Kuching, Sarawak",
+                mapQuery: "Santubong Kuching Sarawak",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Santubong_Sarawak.jpg?width=900",
+                origin: {
+                    ms: `Kawasan muara Sungai Sarawak di kaki Gunung Santubong berkembang pesat antara abad ke-10 hingga ke-14 Masihi sebagai pelabuhan perdagangan entrepot dan pusat industri peleburan bijih besi di pesisir Borneo.`,
+                    en: `Located at the foot of Mount Santubong, this estuary thrived from the 10th to 14th centuries CE as a major entrepot port and iron-smelting center on the Borneo coast.`,
+                    zh: `位于山都望山脚的河口地带，公元10至14世纪曾是婆罗洲海岸重要的转口贸易港与炼铁工业中心。`,
+                    ta: `கி.பி. 10 முதல் 14-ஆம் நூற்றாண்டு வரை போர்னியோ கடற்கரையின் முக்கிய துறைமுகமாகவும் இரும்பு உருக்கு மையமாகவும் விளங்கியது.`,
+                    ar: `ازدهر مصب سانتوبونغ بين القرنين العاشر والرابع عشر كميناء تجاري ومركز لصهر الحديد على ساحل بورنيو.`,
+                    ja: `サントゥボン山麓の河口地帯で、10〜14世紀にボルネオ沿岸の交易港および製鉄拠点として繁栄しました。`,
+                    ko: `산투봉 산기슭의 하구 지역으로 10~14세기 보르네오 연안의 주요 교역항이자 제철 중심지로 번영했습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, ribuan tan sanga besi (iron slag), seramik dinasti Tang dan Song, serta ukiran batu purba Batu Gambar ditemui di sini, membuktikan hubungan perdagangan luas Sarawak dengan dunia luar.`,
+                    en: `Thousands of tons of iron slag, Tang and Song dynasty ceramics, and the ancient Batu Gambar rock carving attest to Sarawak's far-reaching maritime trade.`,
+                    zh: `这里发现了数千吨古代炼铁炉渣、唐宋时期瓷器及古代岩刻，见证砂拉越与海外广阔的海上贸易往来。`,
+                    ta: `ஆயிரக்கணக்கான டன் இரும்புக் கசடுகள், பண்டைய சீன மட்பாண்டங்கள் மற்றும் பாறைச் சிற்பங்கள் இங்கு கண்டெடுக்கப்பட்டன.`,
+                    ar: `عُثر فيه على آلاف الأطنان من خبث الحديد وخزف سلالتي تانغ وسونغ والنقوش الصخرية القديمة.`,
+                    ja: `数千トンに及ぶ製鉄スラグや唐・宋代の陶磁器、古代岩刻が発見され、広域海洋交易の証となっています。`,
+                    ko: `수천 톤의 제철 슬래그와 당·송 시대 도자기, 고대 암각화가 발견되어 활발한 해상 교역을 입증합니다.`
+                }
+            },
+
+            // SELANGOR
+            {
+                id: "sgr-bukit-malawati",
+                state: "Selangor",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Kubu Pertahanan Kesultanan Selangor",
+                title: {
+                    ms: `Bukit Malawati, Kuala Selangor`,
+                    en: `Bukit Malawati, Kuala Selangor`,
+                    zh: `瓜拉雪兰莪美拉瓦蒂山`,
+                    ta: `புக்கிட் மெலாவதி, கோலா சிலாங்கூர்`,
+                    ar: `بوكيت ميلاواتي، كوالا سيلانغور`,
+                    ja: `ブキット・メラワティ（クアラ・セランゴール）`,
+                    ko: `부킷 믈라와티 (쿠알라슬랑오르)`
+                },
+                locationLabel: "Bukit Malawati, Kuala Selangor, Selangor",
+                mapQuery: "Bukit Malawati Kuala Selangor",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/110203-bukit_melawati_2.jpg?width=900",
+                origin: {
+                    ms: `Bukit Malawati di muara Sungai Selangor dibangunkan sebagai kota pertahanan utama pada zaman Sultan Ibrahim pada abad ke-18 bagi mengawal laluan kapal di Selat Melaka sebelum diperkukuh semasa konflik dengan Belanda pada tahun 1784.`,
+                    en: `Fortified in the 18th century under Sultan Ibrahim at the mouth of the Selangor River to guard Straits shipping, and reinforced during the 1784 conflict with the Dutch.`,
+                    zh: `18世纪雪兰莪苏丹依布拉欣在雪兰莪河口修筑此山顶要塞以控制马六甲海峡航道，1784年抗荷战争期间进一步加固。`,
+                    ta: `18-ஆம் நூற்றாண்டில் சுல்தான் இப்ராஹிம் அவர்களால் சிலாங்கூர் ஆற்று முகத்துவாரத்தைப் பாதுகாக்க அமைக்கப்பட்ட மலைக்கோட்டை.`,
+                    ar: `حُصّن هذا التل في القرن الثامن عشر لحماية مصب نهر سيلانغور ومراقبة الملاحة في مضيق ملقا.`,
+                    ja: `18世紀にセランゴール川河口を防御するため要塞化され、1784年のオランダとの戦いでも重要な拠点となりました。`,
+                    ko: `18세기 슬랑오르강 하구 방어를 위해 요새화되었으며 1784년 네덜란드와의 항쟁에서도 핵심 거점이었습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, di puncak bukit ini masih terdapat tembok batu kubu, meriam lama, Perigi Beracun, Batu Hampar, Makam Diraja, serta Rumah Api Altingsburg yang menghadap Selat Melaka.`,
+                    en: `At its summit remain stone ramparts, antique cannons, the Poisoned Well, royal mausoleums, and the historic Altingsburg Lighthouse overlooking the Straits.`,
+                    zh: `山顶至今保存着古石墙、古炮、毒井、王陵及俯瞰马六甲海峡的百年灯塔，历史遗迹丰富。`,
+                    ta: `கோட்டைச் சுவர்கள், பழைய பீரங்கிகள், அரச கல்லறைகள் மற்றும் பழமையான கலங்கரை விளக்கம் ஆகியவை மலை உச்சியில் உள்ளன.`,
+                    ar: `تضم قمته أسواراً حجرية ومدافع قديمة وأضرحة ملكية ومنارة تاريخية تطل على المضيق.`,
+                    ja: `山頂には石垣や古砲、王陵、マラッカ海峡を見渡す歴史的な灯台が残り、見どころが豊富です。`,
+                    ko: `정상에는 석벽과 옛 대포, 왕릉, 말라카 해협을 내려다보는 역사적인 등대가 잘 보존되어 있습니다.`
+                }
+            },
+            {
+                id: "sgr-kota-raja-mahadi",
+                state: "Selangor",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina Sekitar 1866 di Klang",
+                title: {
+                    ms: `Kota Raja Mahadi, Klang`,
+                    en: `Kota Raja Mahadi, Klang`,
+                    zh: `巴生拉惹马哈迪堡`,
+                    ta: `கோட்டா ராஜா மகாதி, கிள்ளான்`,
+                    ar: `حصن راجا مهادي، كلاغ`,
+                    ja: `ラジャ・マハディ要塞（クラング）`,
+                    ko: `라자 마하디 요새 (클랑)`
+                },
+                locationLabel: "Kota Raja Mahadi, Klang, Selangor",
+                mapQuery: "Kota Raja Mahadi Klang Selangor",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Klang_Selangor.jpg?width=900",
+                origin: {
+                    ms: `Kubu ini dibina sekitar tahun 1866 oleh Raja Mahadi bin Raja Sulaiman di atas bukit menghadap Sungai Klang sebagai benteng pertahanan semasa Perang Saudara Selangor (Perang Klang) yang berkait dengan penguasaan cukai bijih timah.`,
+                    en: `Built around 1866 by Raja Mahadi bin Raja Sulaiman on a hill overlooking the Klang River as a stronghold during the Selangor Civil War over tin trade revenues.`,
+                    zh: `约1866年由拉惹马哈迪兴建于俯瞰巴生河的山丘上，是雪兰莪内战（巴生战争）期间争夺锡矿税收的重要堡垒。`,
+                    ta: `சுமார் 1866-இல் சிலாங்கூர் உள்நாட்டுப் போரின் போது கிள்ளான் ஆற்றை நோக்கிய குன்றில் ராஜா மகாதி கட்டிய கோட்டை.`,
+                    ar: `بُني حوالي عام 1866 على يد راجا مهادي على تلة مطلة على نهر كلاغ كحصن خلال حرب سيلانغور الأهلية.`,
+                    ja: `1866年頃に錫交易権をめぐるセランゴール内戦（クラング戦争）の拠点としてクラング川を見下ろす丘に築かれました。`,
+                    ko: `1866년경 주석 교역권을 둘러싼 슬랑오르 내전(클랑 전쟁) 당시 클랑강을 내려다보는 언덕에 축조된 요새입니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, pintu gerbang dan tembok kubu yang diperbuat daripada susunan batu bata serta mortar kapur masih kelihatan jelas di tengah bandar Klang sebagai saksi sejarah konflik dan perdagangan timah Selangor.`,
+                    en: `Its brick-and-lime-mortar gateway and defensive walls remain standing in central Klang as a tangible reminder of Selangor's 19th-century tin era.`,
+                    zh: `以砖块与石灰砂浆砌筑的城门与残墙至今矗立于巴生市区，见证19世纪雪兰莪锡矿贸易与历史风云。`,
+                    ta: `செங்கல் மற்றும் சுண்ணாம்புச் சாந்தினால் கட்டப்பட்ட நுழைவாயிலும் சுவர்களும் கிள்ளான் நகரின் மையத்தில் இன்றும் உள்ளன.`,
+                    ar: `لا تزال بوابته وأسواره المبنية من الطوب والملاط الجيري قائمة في وسط كلاغ شاهدة على تاريخ الولاية.`,
+                    ja: `煉瓦と漆喰で築かれた城門や城壁がクラング中心部に現存し、19世紀錫時代の歴史を伝えます。`,
+                    ko: `벽돌과 석회 모르타르로 쌓은 성문과 성벽이 클랑 도심에 남아 19세기 주석 시대의 역사를 증언합니다.`
+                }
+            },
+            {
+                id: "sgr-bukit-raja",
+                state: "Selangor",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Tapak Arkeologi Selangor",
+                title: {
+                    ms: `Tapak Arkeologi Bukit Raja (Selangor)`,
+                    en: `Bukit Raja Archaeological Site (Selangor)`,
+                    zh: `武吉拉惹考古遗址（雪兰莪）`,
+                    ta: `புக்கிட் ராஜா தொல்லியல் தளம் (சிலாங்கூர்)`,
+                    ar: `موقع بوكيت راجا الأثري (سيلانغور)`,
+                    ja: `ブキット・ラジャ考古学遺跡（セランゴール）`,
+                    ko: `부킷 라자 고고학 유적 (슬랑오르)`
+                },
+                locationLabel: "Bukit Raja, Klang, Selangor",
+                mapQuery: "Bukit Raja Klang Selangor",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Shah_Alam_Selangor.jpg?width=900",
+                origin: {
+                    ms: `Kawasan Bukit Raja di lembah Sungai Klang merupakan kawasan tanah tinggi berhampiran laluan sungai purba yang menyimpan jejak petempatan awal dan kegiatan perdagangan masyarakat pesisir barat Selangor.`,
+                    en: `Situated in the Klang River valley near ancient waterways, Bukit Raja preserves traces of early settlement and riverine trade in coastal Selangor.`,
+                    zh: `位于巴生河谷古水系附近的高地，保存了雪兰莪西海岸早期聚落与河道贸易的历史痕迹。`,
+                    ta: `கிள்ளான் ஆற்றுப் பள்ளத்தாக்கின் பண்டைய நீர்வழிகளுக்கு அருகில் அமைந்துள்ள ஆரம்பகால மனித வாழ்விடத் தளம்.`,
+                    ar: `يقع في وادي نهر كلاغ قرب الممرات المائية القديمة ويحتفظ بآثار الاستيطان والتجارة المبكرة.`,
+                    ja: `クラン川流域の古代水路近くにあり、セランゴール沿岸部の初期集落と河川交易の痕跡を残しています。`,
+                    ko: `클랑강 유역 고대 수로 인근에 자리하여 슬랑오르 연안의 초기 정착과 하천 교역 흔적을 간직하고 있습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, penemuan artifak tembikar, alat logam, dan struktur tanah lama di sekitar lembah Klang-Bukit Raja membantu ahli sejarah memetakan kesinambungan tamadun awal di negeri Selangor.`,
+                    en: `Recovered pottery, metal implements, and ancient earthworks around the Klang–Bukit Raja corridor help map early civilizational continuity in Selangor.`,
+                    zh: `周边出土的陶器、金属器具及古地层遗存，帮助历史学者还原雪兰莪早期文明的发展脉络。`,
+                    ta: `மட்பாண்டங்கள் மற்றும் உலோகக் கருவிகளின் கண்டுபிடிப்புகள் சிலாங்கூரின் ஆரம்பகால வரலாற்றை அறிய உதவுகின்றன.`,
+                    ar: `تساعد المكتشفات الفخارية والمعدنية في رسم خريطة التواصل الحضاري المبكر في سيلانغور.`,
+                    ja: `土器や金属器、古代遺構の発見により、セランゴール州における初期文明の連続性が解明されています。`,
+                    ko: `출토된 토기와 금속기, 고대 유구는 슬랑오르주 초기 문명의 연속성을 규명하는 중요한 자료입니다.`
+                }
+            },
+
+            // TERENGGANU
+            {
+                id: "trg-muzium-negeri-terengganu",
+                state: "Terengganu",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Kompleks Muzium Terbesar",
+                title: {
+                    ms: `Muzium Negeri Terengganu, Kuala Terengganu`,
+                    en: `Terengganu State Museum, Kuala Terengganu`,
+                    zh: `登嘉楼州立博物馆（瓜拉登嘉楼）`,
+                    ta: `திரெங்கானு மாநில அருங்காட்சியகம், கோலா திரெங்கானு`,
+                    ar: `متحف ولاية ترينغانو، كوالا ترينغانو`,
+                    ja: `トレンガヌ州立博物館（クアラ・トレンガヌ）`,
+                    ko: `트렝가누 주립박물관 (쿠알라트렝가누)`
+                },
+                locationLabel: "Muzium Negeri Terengganu, Kampung Losong, Kuala Terengganu, Terengganu",
+                mapQuery: "Terengganu State Museum Kuala Terengganu",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/The_main_entrance_of_Terengganu_State_Museum.jpg?width=900",
+                origin: {
+                    ms: `Kompleks Muzium Negeri Terengganu di Kampung Losong dibina berasaskan seni bina istana lama Terengganu di atas kawasan seluas 27 hektar dan dirasmikan pada tahun 1996 sebagai pusat pemuliharaan warisan negeri.`,
+                    en: `Built in Kampung Losong on a 27-hectare site inspired by traditional Terengganu palace architecture, the complex opened in 1996 as the state's premier heritage repository.`,
+                    zh: `位于甘榜罗松，占地27公顷，建筑灵感源自登嘉楼传统王宫，于1996年正式落成启用。`,
+                    ta: `பாரம்பரிய திரெங்கானு அரண்மனைக் கட்டடக்கலையை அடிப்படையாகக் கொண்டு 27 ஹெக்டேர் பரப்பளவில் 1996-இல் திறக்கப்பட்டது.`,
+                    ar: `أُنشئ المجمع في كامبونغ لوسونغ على مساحة 27 هكتاراً مستوحىً من عمارة القصور التقليدية وافتُتح عام 1996.`,
+                    ja: `トレンガヌ伝統宮殿の建築様式を取り入れて27ヘクタールの敷地に建設され、1996年に開館しました。`,
+                    ko: `트렝가누 전통 궁전 건축 양식을 바탕으로 27헥타르 부지에 건립되어 1996년 개관했습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, kompleks ini merupakan antara kompleks muzium terbesar di Asia Tenggara dan mempamerkan Batu Bersurat Terengganu yang asli, perahu tradisional, songket, serta seni ukir kayu.`,
+                    en: `One of Southeast Asia's largest museum complexes, it houses the original Terengganu Inscription Stone, traditional boats, songket textiles, and woodcarvings.`,
+                    zh: `作为东南亚最大的博物馆建筑群之一，馆内珍藏登嘉楼铭文石碑原件、传统木船、宋吉锦与木雕艺术。`,
+                    ta: `தென்கிழக்கு ஆசியாவின் மிகப்பெரிய அருங்காட்சியகங்களில் ஒன்றான இங்கு அசல் திரெங்கானு கல்வெட்டு பாதுகாக்கப்படுகிறது.`,
+                    ar: `يُعد من أكبر المجمعات المتحفية في جنوب شرق آسيا ويحتضن حجر ترينغانو المنقوش الأصلي والقوارب التقليدية.`,
+                    ja: `東南アジア最大級の博物館群で、トレンガヌ碑文石の実物や伝統和船、ソンケット織物などを展示しています。`,
+                    ko: `동남아 최대 규모의 박물관 단지 중 하나로 트렝가누 비석 진품과 전통 선박, 송켓 직물 등을 전시합니다.`
+                }
+            },
+            {
+                id: "trg-batu-bersurat-kuala-berang",
+                state: "Terengganu",
+                category: "Manuskrip & Dokumen Lama",
+                status: "VERIFIED",
+                era: "Bertarikh 1303 Masihi (702 Hijrah)",
+                title: {
+                    ms: `Tapak Batu Bersurat Terengganu (Kuala Berang)`,
+                    en: `Terengganu Inscription Stone Site (Kuala Berang)`,
+                    zh: `瓜拉伯浪登嘉楼铭文石碑出土遗址`,
+                    ta: `திரெங்கானு கல்வெட்டுத் தளம் (கோலா பெராங்)`,
+                    ar: `موقع حجر ترينغانو المنقوش (كوالا بيرانغ)`,
+                    ja: `トレンガヌ碑文石発見地（クアラ・ブラン）`,
+                    ko: `트렝가누 비석 발견 유적 (쿠알라브랑)`
+                },
+                locationLabel: "Kuala Berang, Hulu Terengganu, Terengganu",
+                mapQuery: "Kuala Berang Terengganu",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Terengganu_Inscription_Stone.jpg?width=900",
+                origin: {
+                    ms: `Batu bersurat empat segi daripada batu granit ini diukir pada hari Jumaat, 4 Rejab 702 Hijrah (bersamaan 22 Februari 1303 Masihi) dan ditemui semula di tebing Sungai Teresat, Kuala Berang pada tahun 1899 selepas banjir surut.`,
+                    en: `Carved on a four-sided granite stele dated Friday, 4 Rejab 702 AH (22 February 1303 CE), it was rediscovered on the Teresat Riverbank in Kuala Berang in 1899 after a flood.`,
+                    zh: `这块四面花岗岩石碑刻立于回历702年（公元1303年2月22日），1899年洪水退去后在瓜拉伯浪河岸被重新发现。`,
+                    ta: `கி.பி. 1303-ஆம் ஆண்டு பொறிக்கப்பட்ட இக்கருங்கல் கல்வெட்டு, 1899-இல் கோலா பெராங் ஆற்றங்கரையில் கண்டெடுக்கப்பட்டது.`,
+                    ar: `نُقش هذا الحجر الغرانيتي عام 702هـ (1303م) وأُعيد اكتشافه على ضفاف نهر تيريسات في كوالا بيرانغ عام 1899.`,
+                    ja: `1303年（ヒジュラ暦702年）に刻まれた四面花崗岩の石碑で、1899年の洪水後にクアラ・ブラン河岸で再発見されました。`,
+                    ko: `1303년(이슬람력 702년) 새겨진 사면 화강암 비석으로 1899년 홍수 후 쿠알라브랑 강변에서 재발견되었습니다.`
+                },
+                highlight: {
+                    ms: `Keunikannya yang luar biasa ialah ia merupakan bukti bertulis terawal penggunaan tulisan Jawi dalam bahasa Melayu serta pelaksanaan undang-undang Islam di Semenanjung Tanah Melayu, dan diiktiraf dalam Daftar Ingatan Dunia UNESCO.`,
+                    en: `Recognized on UNESCO's Memory of the World Register, it is the earliest surviving written evidence of Jawi script in the Malay language and Islamic law in the Peninsula.`,
+                    zh: `入选联合国教科文组织《世界记忆名录》，是马来半岛最早使用爪夷文书写马来语及推行伊斯兰法制的实物铁证。`,
+                    ta: `யுனெஸ்கோ உலக நினைவகப் பதிவேட்டில் இடம்பெற்றுள்ள இது, மலாய் மொழியில் ஜாவி எழுத்து பயன்பாட்டின் மிகப் பழமையான சான்றாகும்.`,
+                    ar: `مدرج في سجل ذاكرة العالم لليونسكو بوصفه أقدم دليل مكتوب بالخط الجاوي باللغة الملايوية في شبه الجزيرة.`,
+                    ja: `ユネスコ「世界の記憶」に登録されており、マレー語ジャウィ文字使用の現存最古の証拠として極めて貴重です。`,
+                    ko: `유네스코 세계기록유산에 등재된 유물로, 말레이어 자위 문자 사용의 현존 최고(最古) 기록 증거입니다.`
+                }
+            },
+
+            // W.P. KUALA LUMPUR
+            {
+                id: "kl-bangunan-sultan-abdul-samad",
+                state: "W.P. Kuala Lumpur",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibina 1894–1897 Masihi",
+                title: {
+                    ms: `Bangunan Sultan Abdul Samad, Kuala Lumpur`,
+                    en: `Sultan Abdul Samad Building, Kuala Lumpur`,
+                    zh: `吉隆坡苏丹阿都沙末大厦`,
+                    ta: `சுல்தான் அப்துல் சமத் கட்டடம், கோலாலம்பூர்`,
+                    ar: `مبنى السلطان عبد الصمد، كوالالمبور`,
+                    ja: `スルタン・アブドゥル・サマド・ビル（クアラルンプール）`,
+                    ko: `술탄 압둘 사마드 빌딩 (쿠알라룸푸르)`
+                },
+                locationLabel: "Bangunan Sultan Abdul Samad, Jalan Raja, W.P. Kuala Lumpur",
+                mapQuery: "Sultan Abdul Samad Building Kuala Lumpur",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sultan_Abdul_Samad_Building.jpg?width=900",
+                origin: {
+                    ms: `Bangunan Sultan Abdul Samad dibina antara tahun 1894 hingga 1897 berdasarkan reka bentuk arkitek A.C. Norman dan A.B. Hubback menggunakan jutaan batu bata merah buatan tempatan untuk menempatkan pejabat pentadbiran kerajaan di Jalan Raja.`,
+                    en: `Built between 1894 and 1897 to designs by A.C. Norman and A.B. Hubback using millions of locally fired red bricks to house government administrative offices on Jalan Raja.`,
+                    zh: `建于1894年至1897年间，由建筑师诺曼与哈巴克设计，采用数百万块本地烧制红砖砌筑，曾作为政府行政办公大楼。`,
+                    ta: `1894 முதல் 1897 வரை உள்ளூரில் தயாரிக்கப்பட்ட லட்சக்கணக்கான சிவப்பு செங்கற்களால் அரசு நிர்வாக அலுவலகங்களுக்காகக் கட்டப்பட்டது.`,
+                    ar: `بُني بين عامي 1894 و1897 باستخدام ملايين الطوب الأحمر المحلي ليضم المكاتب الإدارية الحكومية.`,
+                    ja: `1894〜1897年に地元製造の赤煉瓦数百万個を用いて建設され、当時の政府行政庁舎として使われました。`,
+                    ko: `1894~1897년 현지에서 구운 수백만 장의 붉은 벽돌로 건립되어 당시 정부 행정 청사로 사용되었습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, bangunan gaya Indo-Saracenic ini mempunyai menara jam setinggi 41 meter dengan kubah tembaga berkilau serta menjadi saksi sejarah penurunan bendera Union Jack dan pengisytiharan kemerdekaan pada tahun 1957.`,
+                    en: `Featuring a 41-meter clock tower and copper domes, it stood directly opposite Dataran Merdeka during the historic 1957 independence proclamation.`,
+                    zh: `这座印度-撒拉逊风格建筑拥有41米高钟楼与铜制圆顶，在1957年独立广场降旗与独立宣言时刻见证了历史。`,
+                    ta: `41 மீட்டர் உயர கடிகார கோபுரமும் செப்புக் குவிமாடங்களும் கொண்ட இக்கட்டடம் 1957 சுதந்திரப் பிரகடனத்தின் வரலாற்றுச் சாட்சியாகும்.`,
+                    ar: `يتميز ببرج ساعة بارتفاع 41 متراً وقباب نحاسية، وشهد لحظة إعلان الاستقلال التاريخية عام 1957.`,
+                    ja: `高さ41mの時計塔と銅製ドームを備え、1957年の独立宣言の舞台となった歴史的建造物です。`,
+                    ko: `높이 41m 시계탑과 구리 돔을 갖추었으며 1957년 독립 선언의 역사적 현장을 지켜본 랜드마크입니다.`
+                }
+            },
+            {
+                id: "kl-masjid-jamek",
+                state: "W.P. Kuala Lumpur",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Dibuka 1909 di Pertemuan Sungai",
+                title: {
+                    ms: `Masjid Jamek Sultan Abdul Samad, Kuala Lumpur`,
+                    en: `Sultan Abdul Samad Jamek Mosque, Kuala Lumpur`,
+                    zh: `吉隆坡苏丹阿都沙末占美清真寺`,
+                    ta: `சுல்தான் அப்துல் சமத் ஜாமெக் மசூதி, கோலாலம்பூர்`,
+                    ar: `مسجد جامع السلطان عبد الصمد، كوالالمبور`,
+                    ja: `スルタン・アブドゥル・サマド・マスジド・ジャメク（クアラルンプール）`,
+                    ko: `술탄 압둘 사마드 자멕 모스크 (쿠알라룸푸르)`
+                },
+                locationLabel: "Masjid Jamek Sultan Abdul Samad, Jalan Tun Perak, W.P. Kuala Lumpur",
+                mapQuery: "Jamek Mosque Kuala Lumpur",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Masjid_Jamek_Kuala_Lumpur.jpg?width=900",
+                origin: {
+                    ms: `Masjid ini mula dibina pada tahun 1907 dan dirasmikan oleh Sultan Alaeddin Sulaiman Shah pada tahun 1909 tepat di titik pertemuan Sungai Klang dan Sungai Gombak, iaitu lokasi asal bermulanya nama Kuala Lumpur.`,
+                    en: `Begun in 1907 and officially opened in 1909 at the confluence of the Klang and Gombak rivers—the very birthplace of Kuala Lumpur.`,
+                    zh: `1907年动工、1909年正式启用，正位于巴生河与鹅唛河交汇处——即吉隆坡城市发源地。`,
+                    ta: `கோலாலம்பூர் உருவான கிள்ளான் மற்றும் கோம்பாக் ஆறுகளின் சங்கமத்தில் 1909-இல் திறக்கப்பட்ட வரலாற்று மசூதி.`,
+                    ar: `افتُتح عام 1909 عند ملتقى نهري كلاغ وغومباك، وهي النقطة التي نشأت منها مدينة كوالالمبور.`,
+                    ja: `クアラルンプール発祥の地であるクラン川とゴンバック川の合流点に1907年着工、1909年に開館しました。`,
+                    ko: `쿠알라룸푸르의 발상지인 클랑강과 곰박강 합류 지점에 1907년 착공하여 1909년 개관했습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, reka bentuknya yang diilhamkan daripada seni bina Mughal di India Utara menampilkan tiga kubah utama, menara bata berjalur merah putih, serta suasana teduh di tengah pusat bandar raya moden.`,
+                    en: `Inspired by North Indian Mughal architecture, it features three domes, red-and-white banded minarets, and a serene courtyard amid the modern city center.`,
+                    zh: `建筑灵感源自北印度莫卧儿风格，拥有三座穹顶与红白相间宣礼塔，在现代都市中心独具宁静古韵。`,
+                    ta: `வட இந்திய முகலாயக் கட்டடக்கலையைத் தழுவிய மூன்று குவிமாடங்களும் சிவப்பு-வெள்ளை கோபுரங்களும் இதன் சிறப்பாகும்.`,
+                    ar: `يستلهم تصميمه العمارة المغولية بثلاث قباب ومآذن مخططة بالأحمر والأبيض في قلب العاصمة.`,
+                    ja: `北インドのムガル建築に着想を得た3つのドームと赤白縞模様のミナレットが都会の中で際立ちます。`,
+                    ko: `북인도 무굴 건축에서 영감을 받은 3개의 돔과 적백 줄무늬 첨탑이 현대 도심 속에서 고풍스러운 아름다움을 전합니다.`
+                }
+            },
+            {
+                id: "kl-kuil-sri-mahamariamman",
+                state: "W.P. Kuala Lumpur",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Diasaskan 1873 Masihi",
+                title: {
+                    ms: `Kuil Sri Mahamariamman, Kuala Lumpur`,
+                    en: `Sri Mahamariamman Temple, Kuala Lumpur`,
+                    zh: `吉隆坡斯里马哈玛丽亚曼兴都庙`,
+                    ta: `ஸ்ரீ மகாமாரியம்மன் கோயில், கோலாலம்பூர்`,
+                    ar: `معبد سري ماهامريامان، كوالالمبور`,
+                    ja: `スリ・マハマリアマン寺院（クアラルンプール）`,
+                    ko: `스리 마하마리아만 사원 (쿠알라룸푸르)`
+                },
+                locationLabel: "Kuil Sri Mahamariamman, Jalan Tun H.S. Lee, W.P. Kuala Lumpur",
+                mapQuery: "Sri Mahamariamman Temple Kuala Lumpur",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Sri_Mahamariamman_Temple_Kuala_Lumpur.jpg?width=900",
+                origin: {
+                    ms: `Kuil ini diasaskan pada tahun 1873 oleh K. Thamboosamy Pillai sebagai tempat ibadat komuniti Tamil awal di Kuala Lumpur sebelum dipindahkan ke tapak sekarang di Jalan Tun H.S. Lee dan diperindah mengikut tradisi seni bina India Selatan.`,
+                    en: `Founded in 1873 by K. Thamboosamy Pillai for Kuala Lumpur's early Tamil community before moving to Jalan Tun H.S. Lee and expanding in South Indian Dravidian style.`,
+                    zh: `1873年由丹布萨米·比莱创立，服务早期吉隆坡泰米尔社群，后迁至敦李孝式路现址并按南印度传统风格扩建。`,
+                    ta: `1873-இல் கே. தம்புசாமி பிள்ளை அவர்களால் நிறுவப்பட்டு, பின்னர் தென்னிந்திய திராவிடக் கட்டடக்கலையில் விரிவுபடுத்தப்பட்ட கோயில்.`,
+                    ar: `تأسس عام 1873 لخدمة المجتمع التاميلي المبكر في كوالالمبور وتوسع وفق الطراز المعماري لجنوب الهند.`,
+                    ja: `1873年にクアラルンプールの初期タミル人コミュニティのために創建され、南インド建築様式で整備されました。`,
+                    ko: `1873년 쿠알라룸푸르 초기 타밀 공동체를 위해 창건되었으며 남인도 드라비다 양식으로 확장되었습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, menara pintu masuknya (Raja Gopuram) setinggi 22.9 meter dihiasi ratusan arca dewa-dewi berwarna-warni hasil pertukangan halus, menjadikannya kuil Hindu tertua di Kuala Lumpur.`,
+                    en: `Its 22.9-meter Raja Gopuram entrance tower is adorned with hundreds of colorful hand-sculpted figures, making it Kuala Lumpur's oldest Hindu temple.`,
+                    zh: `其22.9米高的主塔门（Raja Gopuram）饰有数百尊色彩绚丽的手工雕塑，是吉隆坡最古老的兴都庙。`,
+                    ta: `22.9 மீட்டர் உயர ராஜகோபுரத்தில் நூற்றுக்கணக்கான வண்ணச் சிற்பங்கள் அமைந்துள்ள கோலாலம்பூரின் மிகப் பழமையான இந்துக் கோயில்.`,
+                    ar: `يتميز برجه المدخلي البالغ ارتفاعه 22.9 متراً والمزين بمئات المنحوتات الملونة بوصفه أقدم معبد هندوسي في العاصمة.`,
+                    ja: `高さ22.9mのラージャ・ゴープラム（楼門）には数百体の極彩色彫刻が施された市内最古のヒンドゥー寺院です。`,
+                    ko: `높이 22.9m의 라자 고푸람 정문 탑에 수백 개의 화려한 수공 조각상이 장식된 쿠알라룸푸르 최고(最古) 힌두 사원입니다.`
+                }
+            },
+
+            // W.P. LABUAN
+            {
+                id: "lbn-taman-peringatan-perang",
+                state: "W.P. Labuan",
+                category: "Bangunan Bersejarah",
+                status: "VERIFIED",
+                era: "Sejarah Perang Dunia II di Labuan",
+                title: {
+                    ms: `Taman Peringatan Perang Labuan`,
+                    en: `Labuan War Cemetery & Memorial Park`,
+                    zh: `纳闽战争纪念公墓`,
+                    ta: `லாபுவான் போர் நினைவு இடுகாடு`,
+                    ar: `مقبرة لابوان التذكارية للحرب`,
+                    ja: `ラブアン戦争墓地・記念公園`,
+                    ko: `라부안 전쟁묘지 및 기념공원`
+                },
+                locationLabel: "Taman Peringatan Perang Labuan, Jalan Tanjung Batu, W.P. Labuan",
+                mapQuery: "Labuan War Cemetery Malaysia",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Labuan-war-cemetery.jpg?width=900",
+                origin: {
+                    ms: `Taman peringatan ini dibina selepas tamat Perang Dunia Kedua bagi menghimpunkan dan memperingati ribuan anggota tentera Komanwel serta tempatan yang terkorban dalam kempen Borneo dan sekitar Labuan antara tahun 1941 hingga 1945.`,
+                    en: `Established after World War II to honor thousands of Commonwealth and local personnel who lost their lives during the Borneo campaign around Labuan (1941–1945).`,
+                    zh: `二战结束后兴建，用以安葬与纪念1941至1945年婆罗洲战役及纳闽周边牺牲的数千名官兵与当地人员。`,
+                    ta: `1941–1945 போர்னியோ போரில் உயிரிழந்த வீரர்களை நினைவுகூரும் வகையில் இரண்டாம் உலகப் போருக்குப் பின் அமைக்கப்பட்டது.`,
+                    ar: `أُنشئت بعد الحرب العالمية الثانية لتخليد ذكرى آلاف الجنود والمحليين الذين قضوا في حملة بورنيو حول لابوان.`,
+                    ja: `第二次世界大戦後、1941〜1945年のボルネオ戦役およびラブアン周辺で犠牲となった人々を追悼するため整備されました。`,
+                    ko: `제2차 세계대전 이후 1941~1945년 보르네오 전역과 라부안 일대에서 희생된 이들을 추모하기 위해 조성되었습니다.`
+                },
+                highlight: {
+                    ms: `Menariknya, landskap taman yang tersusun rapi dengan batu peringatan dan tugu penghormatan tahunan ini menjadi simbol sejarah keamanan serta hubungan antarabangsa di Wilayah Persekutuan Labuan.`,
+                    en: `Its manicured grounds, memorial tablets, and annual remembrance ceremonies stand as a solemn symbol of peace and international history in Labuan.`,
+                    zh: `园内草木庄严肃穆，设有纪念碑廊与年度追思仪式，成为纳闽联邦直辖区珍视和平的重要历史地标。`,
+                    ta: `நேர்த்தியாகப் பராமரிக்கப்படும் நினைவுத் தூண்களும் வருடாந்திர நினைவேந்தல் நிகழ்வுகளும் அமைதியின் சின்னமாகத் திகழ்கின்றன.`,
+                    ar: `تُعد حدائقها المنسقة ونصبها التذكاري رمزاً للسلام والتاريخ الدولي في إقليم لابوان الفيدرالي.`,
+                    ja: `整然とした緑地と記念碑が並び、ラブアン連邦直轄領における平和と国際史の象徴となっています。`,
+                    ko: `정돈된 녹지와 추모 비석이 자리하며 라부안 연방직할구의 평화와 국제사를 상징하는 명소입니다.`
+                }
+            },
+            {
+                id: "lbn-arang-batu-tanjung-kubong",
+                state: "W.P. Labuan",
+                category: "Tapak Arkeologi",
+                status: "VERIFIED",
+                era: "Abad ke-19 (1847–1911 Masihi)",
+                title: {
+                    ms: `Tapak Bersejarah Arang Batu Tanjung Kubong (Labuan)`,
+                    en: `Tanjung Kubong Coal Heritage Site (Labuan)`,
+                    zh: `纳闽丹绒古邦煤炭历史遗址`,
+                    ta: `தஞ்சோங் குபோங் நிலக்கரி வரலாற்றுத் தளம் (லாபுவான்)`,
+                    ar: `موقع تانجونغ كوبونغ التاريخي للفحم (لابوان)`,
+                    ja: `タンジュン・クボン炭鉱史跡（ラブアン）`,
+                    ko: `탄중 쿠봉 석탄 역사 유적 (라부안)`
+                },
+                locationLabel: "Tanjung Kubong, W.P. Labuan",
+                mapQuery: "Tanjung Kubong Labuan",
+                image: "https://commons.wikimedia.org/wiki/Special:FilePath/Labuan_Island.jpg?width=900",
+                origin: {
+                    ms: `Perlombongan arang batu di Tanjung Kubong di hujung utara Pulau Labuan bermula pada tahun 1847 bagi membekalkan bahan api kepada kapal-kapal wap yang belayar melalui Laut China Selatan dan Borneo.`,
+                    en: `Coal mining began at Tanjung Kubong on Labuan's northern tip in 1847 to supply fuel for steamships navigating the South China Sea and Borneo.`,
+                    zh: `纳闽岛北端丹绒古邦的煤矿开采始于1847年，旨在为航行于南中国海与婆罗洲海域的蒸汽轮船提供燃料。`,
+                    ta: `1847-இல் தென் சீனக் கடலில் பயணிக்கும் நீராவிக் கப்பல்களுக்கு எரிபொருள் வழங்க லபுவான் வடமுனையில் தொடங்கப்பட்ட நிலக்கரிச் சுரங்கம்.`,
+                    ar: `بدأ تعدين الفحم في تانجونغ كوبونغ شمال لابوان عام 1847 لتزويد البواخر المبحرة في بحر الصين الجنوبي بالوقود.`,
+                    ja: `ラブアン島北端のタンジュン・クボンでは1847年に炭鉱開発が始まり、南シナ海を航行する蒸気船へ燃料を供給しました。`,
+                    ko: `라부안섬 북단 탄중 쿠봉에서는 1847년 탄광 채굴이 시작되어 남중국해를 항해하는 증기선에 연료를 공급했습니다.`
+                },
+                highlight: {
+                    ms: `Apa yang menarik, pengunjung masih dapat melihat menara cerobong batu bata ikonik (The Chimney) setinggi lebih 32 meter, terowong lombong lama, dan bekas landasan kereta api arang batu yang menjadi mercu tanda Labuan.`,
+                    en: `Visitors can still see the iconic 32-meter red-brick Chimney tower, old mine shafts, and former coal railway traces that define Labuan's industrial heritage.`,
+                    zh: `至今仍可看到32米高的红砖烟囱塔（The Chimney）、旧矿井口及运煤铁路遗迹，是纳闽最具代表性的历史地标。`,
+                    ta: `32 மீட்டர் உயர சிவப்பு செங்கல் புகைபோக்கி கோபுரமும் பழைய சுரங்கப் பாதைகளும் லபுவானின் முக்கிய அடையாளமாகும்.`,
+                    ar: `لا يزال برج المدخنة الأحمر البالغ ارتفاعه 32 متراً وأنفاق المنجم القديمة قائمة كمعلم بارز في لابوان.`,
+                    ja: `高さ32mを超える赤煉瓦の煙突塔（ザ・チムニー）や旧坑道跡が残り、ラブアン産業史の象徴となっています。`,
+                    ko: `높이 32m가 넘는 붉은 벽돌 굴뚝 탑(더 침니)과 옛 갱도 흔적이 남아 라부안 산업사의 상징이 되고 있습니다.`
+                }
+            }
+        ];
+
+        let currentLang = "ms";
+        let pendingContributions = [];
+        let activeModalItem = null;
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = UI_TEXT[lang] || UI_TEXT.ms;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+
+            document.getElementById("txt-gov-tag").textContent = t.govTag;
+            document.getElementById("txt-font-label").textContent = t.fontLabel;
+            document.getElementById("txt-contrast-btn").textContent = t.contrastBtn;
+            document.getElementById("txt-badge-top").textContent = t.badgeTop;
+            document.getElementById("txt-auth-tag").textContent = t.authTag;
+            document.getElementById("txt-main-title").textContent = t.mainTitle;
+            document.getElementById("txt-main-subtitle").textContent = t.mainSubtitle;
+            document.getElementById("nav-txt-arkib").textContent = t.navArkib;
+            document.getElementById("nav-txt-sumbangan").textContent = t.navSumbangan;
+            document.getElementById("nav-txt-kpi").textContent = t.navKpi;
+            document.getElementById("txt-hero-badge").textContent = t.heroBadge;
+            document.getElementById("txt-hero-heading").textContent = t.heroHeading;
+            document.getElementById("txt-hero-desc").textContent = t.heroDesc;
+            document.getElementById("stat-lbl-1").textContent = t.stat1;
+            document.getElementById("stat-sub-1").textContent = t.statSub1;
+            document.getElementById("stat-lbl-2").textContent = t.stat2;
+            document.getElementById("stat-sub-2").textContent = t.statSub2;
+            document.getElementById("stat-lbl-3").textContent = t.stat3;
+            document.getElementById("stat-sub-3").textContent = t.statSub3;
+            document.getElementById("stat-lbl-4").textContent = t.stat4;
+            document.getElementById("stat-sub-4").textContent = t.statSub4;
+            document.getElementById("lbl-search").textContent = t.lblSearch;
+            document.getElementById("search-input").placeholder = t.searchPlaceholder;
+            document.getElementById("lbl-state").textContent = t.lblState;
+            document.getElementById("lbl-category").textContent = t.lblCategory;
+            document.getElementById("lbl-status").textContent = t.lblStatus;
+            document.getElementById("txt-showing").textContent = t.showing;
+            document.getElementById("txt-records").textContent = t.records;
+
+            filterArchive();
+            if (activeModalItem) {
+                openRecordModal(activeModalItem.id);
+            }
+        }
+
+        function setFontSize(size) {
+            const html = document.documentElement;
+            html.classList.remove("font-small", "font-normal", "font-large");
+            html.classList.add("font-" + size);
+        }
+
+        function toggleHighContrast() {
+            document.body.classList.toggle("high-contrast");
+        }
+
+        function switchTab(tabName) {
+            ["arkib", "sumbangan", "kpi"].forEach((name) => {
+                document.getElementById("view-" + name).classList.toggle("hidden", name !== tabName);
+                const btn = document.getElementById("tab-" + name);
+                if (name === tabName) {
+                    btn.className = "nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold bg-bronze-700 text-white shadow transition flex items-center gap-1.5 cursor-pointer";
+                } else {
+                    btn.className = "nav-tab px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-bronze-900 hover:bg-archive-200 transition flex items-center gap-1.5 cursor-pointer";
+                }
+            });
+        }
+
+        function quickCategory(cat, btnEl) {
+            document.getElementById("category-filter").value = cat;
+            document.querySelectorAll(".pill-btn").forEach((b) => {
+                b.className = "pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-archive-100 text-bronze-900 hover:bg-archive-200 cursor-pointer";
+            });
+            if (btnEl) {
+                btnEl.className = "pill-btn px-3 py-1 rounded-full text-xs font-bold bg-bronze-700 text-white cursor-pointer";
+            }
+            filterArchive();
+        }
+
+        function clearFilters() {
+            document.getElementById("search-input").value = "";
+            document.getElementById("state-filter").value = "ALL";
+            document.getElementById("category-filter").value = "ALL";
+            document.getElementById("status-filter").value = "ALL";
+            document.querySelectorAll(".pill-btn").forEach((b, idx) => {
+                b.className = idx === 0
+                    ? "pill-btn px-3 py-1 rounded-full text-xs font-bold bg-bronze-700 text-white cursor-pointer"
+                    : "pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-archive-100 text-bronze-900 hover:bg-archive-200 cursor-pointer";
+            });
+            filterArchive();
+        }
+
+        function getLocalized(obj) {
+            if (!obj) return "";
+            if (typeof obj === "string") return obj;
+            return obj[currentLang] || obj.ms || obj.en || "";
+        }
+
+        function getMapUrl(item) {
+            return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(item.mapQuery || item.locationLabel);
+        }
+
+        function filterArchive() {
+            const q = document.getElementById("search-input").value.toLowerCase().trim();
+            const stateVal = document.getElementById("state-filter").value;
+            const catVal = document.getElementById("category-filter").value;
+            const statusVal = document.getElementById("status-filter").value;
+
+            const filtered = ARCHIVE_ITEMS.filter((item) => {
+                const titleStr = getLocalized(item.title).toLowerCase();
+                const originStr = getLocalized(item.origin).toLowerCase();
+                const highStr = getLocalized(item.highlight).toLowerCase();
+                const locStr = (item.locationLabel || "").toLowerCase();
+                const matchQ = !q || titleStr.includes(q) || originStr.includes(q) || highStr.includes(q) || locStr.includes(q) || item.state.toLowerCase().includes(q);
+                const matchState = stateVal === "ALL" || item.state === stateVal;
+                const matchCat = catVal === "ALL" || item.category === catVal;
+                const matchStatus = statusVal === "ALL" || item.status === statusVal;
+                return matchQ && matchState && matchCat && matchStatus;
+            });
+
+            renderArchiveGrid(filtered, stateVal, catVal);
+        }
+
+        function renderArchiveGrid(list, stateVal, catVal) {
+            const grid = document.getElementById("archive-grid");
+            const empty = document.getElementById("empty-state");
+            const t = UI_TEXT[currentLang] || UI_TEXT.ms;
+
+            document.getElementById("result-count").textContent = list.length;
+            document.getElementById("stat-val-items").textContent = ARCHIVE_ITEMS.length;
+            document.getElementById("stat-val-qr").textContent = ARCHIVE_ITEMS.length;
+
+            if (list.length === 0) {
+                grid.innerHTML = "";
+                document.getElementById("empty-filter-detail").textContent =
+                    `Penapis aktif: Negeri = ${stateVal || "ALL"}, Kategori = ${catVal || "ALL"}.`;
+                empty.classList.remove("hidden");
+                return;
+            }
+            empty.classList.add("hidden");
+
+            grid.innerHTML = list.map((item) => {
+                const title = getLocalized(item.title);
+                const summary = getLocalized(item.origin) + " " + getLocalized(item.highlight);
+                const badgeText = item.status === "VERIFIED" ? t.verified : "Sumbangan Komuniti";
+                const fbSrc = fallbackImage(title);
+
+                return `
+                    <article class="card-hover bg-white border-2 border-archive-200 rounded-2xl overflow-hidden flex flex-col shadow-xs">
+                        <div class="relative h-48 overflow-hidden bg-bronze-900">
+                            <img src="${item.image}" alt="${title}" loading="lazy"
+                                onerror="this.onerror=null;this.src='${fbSrc}';"
+                                class="card-img w-full h-full object-cover" />
+                            <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-bronze-900/90 text-gold-300 border border-gold-500/40">
+                                📍 ${item.state}
+                            </span>
+                            <span class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/95 text-bronze-900">
+                                📖 + 🎧 OKU
+                            </span>
+                            <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-700 text-white shadow">
+                                ${badgeText}
+                            </span>
+                        </div>
+
+                        <div class="p-4 flex-1 flex flex-col gap-2">
+                            <div class="text-[11px] font-bold uppercase tracking-wider text-bronze-700">
+                                ${item.category}
+                            </div>
+                            <h3 class="font-serif text-base font-bold text-bronze-900 leading-snug">
+                                ${title}
+                            </h3>
+                            <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                                ${summary}
+                            </p>
+                            <div class="mt-auto pt-3 border-t border-archive-100 flex items-center justify-between text-[11px] text-slate-500">
+                                <span class="truncate max-w-[48%]">🏛️ ${item.era}</span>
+                                <button type="button" onclick="openRecordModal('${item.id}')"
+                                    class="font-bold text-bronze-800 hover:text-gold-700 cursor-pointer shrink-0">
+                                    ${t.seeQr}
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        function openRecordModal(id) {
+            stopModalAudio();
+            const item = ARCHIVE_ITEMS.find((x) => x.id === id);
+            if (!item) return;
+            activeModalItem = item;
+            const t = UI_TEXT[currentLang] || UI_TEXT.ms;
+            const title = getLocalized(item.title);
+            const origin = getLocalized(item.origin);
+            const highlight = getLocalized(item.highlight);
+            const mapUrl = getMapUrl(item);
+
+            document.getElementById("modal-state-badge").textContent = "📍 " + item.state;
+            document.getElementById("modal-title").textContent = title;
+            document.getElementById("modal-subtitle").textContent = item.locationLabel;
+
+            const imgEl = document.getElementById("modal-img");
+            imgEl.classList.remove("zoomed");
+            imgEl.src = item.image;
+            imgEl.alt = title;
+            imgEl.onerror = function () {
+                this.onerror = null;
+                this.src = fallbackImage(title);
+            };
+
+            document.getElementById("lbl-mode-text").textContent = t.modeText;
+            document.getElementById("modal-era-badge").textContent = "⏳ " + item.era;
+            document.getElementById("lbl-how-built").textContent = t.howBuilt;
+            document.getElementById("modal-origin").textContent = origin;
+            document.getElementById("lbl-highlights").textContent = t.highlights;
+            document.getElementById("modal-highlight").textContent = highlight;
+            document.getElementById("modal-loc").textContent = item.locationLabel;
+            document.getElementById("modal-cat").textContent = item.category;
+
+            document.getElementById("lbl-mode-audio").textContent = t.modeAudio;
+            document.getElementById("audio-guide-note").textContent = t.audioNote;
+            document.getElementById("btn-audio-play").textContent = t.playBtn;
+            document.getElementById("btn-audio-pause").textContent = t.pauseBtn;
+            document.getElementById("btn-audio-stop").textContent = t.stopBtn;
+            document.getElementById("lbl-audio-speed").textContent = t.speedLbl;
+            document.getElementById("audio-status-pill").textContent = "Sedia Dibaca";
+
+            document.getElementById("modal-qr-heading").textContent = t.qrHeading;
+            document.getElementById("modal-qr-sub").textContent = t.qrSub;
+            document.getElementById("modal-pin-label").textContent = "Pin: " + item.mapQuery;
+            document.getElementById("modal-map-link").textContent = t.openMap;
+            document.getElementById("modal-map-link").href = mapUrl;
+
+            const qrContainer = document.getElementById("modal-qrcode");
+            qrContainer.innerHTML = "";
+            if (typeof QRCode !== "undefined") {
+                new QRCode(qrContainer, {
+                    text: mapUrl,
+                    width: 140,
+                    height: 140
+                });
+            }
+
+            document.getElementById("detail-modal").classList.remove("hidden");
+        }
+
+        function closeModal() {
+            stopModalAudio();
+            activeModalItem = null;
+            document.getElementById("detail-modal").classList.add("hidden");
+        }
+
+        function closeModalOnBackdrop(e) {
+            if (e.target && e.target.id === "detail-modal") {
+                closeModal();
+            }
+        }
+
+        function playModalAudio() {
+            if (!activeModalItem) return;
+            if (!("speechSynthesis" in window)) {
+                document.getElementById("audio-status-pill").textContent = "Audio Tidak Disokong";
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const title = getLocalized(activeModalItem.title);
+            const origin = getLocalized(activeModalItem.origin);
+            const highlight = getLocalized(activeModalItem.highlight);
+            const fullSpeech = `${title}. ${activeModalItem.state}. ${origin} ${highlight}`;
+
+            const utter = new SpeechSynthesisUtterance(fullSpeech);
+            const langMap = {
+                ms: "ms-MY",
+                en: "en-US",
+                zh: "zh-CN",
+                ta: "ta-IN",
+                ar: "ar-SA",
+                ja: "ja-JP",
+                ko: "ko-KR"
+            };
+            utter.lang = langMap[currentLang] || "ms-MY";
+            utter.rate = parseFloat(document.getElementById("audio-rate").value || "1");
+
+            const storyBox = document.getElementById("text-story-box");
+            const pill = document.getElementById("audio-status-pill");
+
+            utter.onstart = function () {
+                pill.textContent = "🔊 Sedang Membaca...";
+                storyBox.classList.add("speaking-highlight");
+            };
+            utter.onend = function () {
+                pill.textContent = "✓ Selesai Dibaca";
+                storyBox.classList.remove("speaking-highlight");
+            };
+            utter.onerror = function () {
+                pill.textContent = "Sedia Dibaca";
+                storyBox.classList.remove("speaking-highlight");
+            };
+
+            window.speechSynthesis.speak(utter);
+        }
+
+        function pauseResumeAudio() {
+            if (!("speechSynthesis" in window)) return;
+            const pill = document.getElementById("audio-status-pill");
+            if (window.speechSynthesis.paused) {
+                window.speechSynthesis.resume();
+                pill.textContent = "🔊 Disambung...";
+            } else if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.pause();
+                pill.textContent = "⏸️ Dijeda";
+            }
+        }
+
+        function stopModalAudio() {
+            if ("speechSynthesis" in window) {
+                window.speechSynthesis.cancel();
+            }
+            const storyBox = document.getElementById("text-story-box");
+            const pill = document.getElementById("audio-status-pill");
+            if (storyBox) storyBox.classList.remove("speaking-highlight");
+            if (pill) pill.textContent = "Sedia Dibaca";
+        }
+
+        function previewUploadedImage(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("upload-preview-img").src = e.target.result;
+                document.getElementById("upload-preview-box").classList.remove("hidden");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function submitContribution(event) {
+            event.preventDefault();
+            const title = document.getElementById("contrib-title").value.trim();
+            const state = document.getElementById("contrib-state").value;
+            const category = document.getElementById("contrib-cat").value;
+            const loc = document.getElementById("contrib-loc").value.trim();
+            const era = document.getElementById("contrib-era").value.trim();
+            const origin = document.getElementById("contrib-origin").value.trim();
+            const highlight = document.getElementById("contrib-highlight").value.trim();
+            const author = document.getElementById("contrib-author").value.trim();
+            const previewSrc = document.getElementById("upload-preview-img").src;
+            const imgSrc = previewSrc && !document.getElementById("upload-preview-box").classList.contains("hidden")
+                ? previewSrc
+                : fallbackImage(title);
+
+            pendingContributions.unshift({
+                id: "comm-" + Date.now(),
+                state,
+                category,
+                status: "COMMUNITY",
+                era,
+                title: { ms: title, en: title, zh: title, ta: title, ar: title, ja: title, ko: title },
+                locationLabel: `${loc}, ${state} (${author})`,
+                mapQuery: `${loc} ${state} Malaysia`,
+                image: imgSrc,
+                origin: { ms: origin, en: origin, zh: origin, ta: origin, ar: origin, ja: origin, ko: origin },
+                highlight: { ms: highlight, en: highlight, zh: highlight, ta: highlight, ar: highlight, ja: highlight, ko: highlight }
+            });
+
+            renderPendingContributions();
+            event.target.reset();
+            document.getElementById("upload-preview-box").classList.add("hidden");
+        }
+
+        function approveContribution(commId) {
+            const idx = pendingContributions.findIndex((c) => c.id === commId);
+            if (idx === -1) return;
+            const item = pendingContributions[idx];
+            item.status = "VERIFIED";
+            ARCHIVE_ITEMS.unshift(item);
+            pendingContributions.splice(idx, 1);
+            renderPendingContributions();
+            clearFilters();
+            switchTab("arkib");
+        }
+
+        function renderPendingContributions() {
+            const listEl = document.getElementById("pending-list");
+            const badgeEl = document.getElementById("pending-badge");
+            badgeEl.textContent = `${pendingContributions.length} Menunggu Semakan`;
+
+            if (pendingContributions.length === 0) {
+                listEl.innerHTML = `<p class="text-xs text-slate-500">Tiada rekod komuniti baharu menunggu semakan buat masa ini.</p>`;
+                return;
+            }
+
+            listEl.innerHTML = pendingContributions.map((c) => `
+                <div class="p-3.5 rounded-xl bg-archive-50 border border-archive-200 flex items-center justify-between gap-3">
+                    <div class="text-xs">
+                        <div class="font-bold text-bronze-900">${getLocalized(c.title)}</div>
+                        <div class="text-slate-600">${c.state} • ${c.category}</div>
+                    </div>
+                    <button type="button" onclick="approveContribution('${c.id}')"
+                        class="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shrink-0 cursor-pointer">
+                        Sahkan
+                    </button>
+                </div>
+            `).join("");
+        }
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && activeModalItem) {
+                closeModal();
+            }
+        });
+
+        clearFilters();
+        renderPendingContributions();
+    </script>
+</body>
+</html>
