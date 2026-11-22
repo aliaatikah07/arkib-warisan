@@ -1,0 +1,10 @@
+{
+  "name": "Arkib Warisan Tempatan Malaysia (Mesra OKU)",
+  "short_name": "Arkib Warisan",
+  "start_url": "/arkib-digital/",
+  "scope": "/arkib-digital/",
+  "display": "standalone",
+  "background_color": "#f5f0e6",
+  "theme_color": "#1b365d",
+  "description": "Arkib sejarah tempatan mesra OKU dengan sokongan akses luar talian."
+}
