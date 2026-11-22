@@ -1,8 +1,8 @@
 const CACHE_NAME = 'arkib-warisan-v1';
 const URLS_TO_CACHE = [
-  '/arkib-digital/',
-  '/arkib-digital/index.html',
-  '/arkib-digital/manifest.json'
+  '/arkib-warisan/',
+  '/arkib-warisan/index.html',
+  '/arkib-warisan/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
@@ -34,7 +34,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
           return response;
         })
-        .catch(() => caches.match('/arkib-digital/index.html'));
+        .catch(() => caches.match('/arkib-warisan/index.html'));
     })
   );
 });
